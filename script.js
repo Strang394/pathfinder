@@ -140,10 +140,8 @@ window.addEventListener("DOMContentLoaded", async () => {
       tab.classList.add('active');
       document.getElementById(tab.getAttribute('data-tab')).classList.remove('hidden');
     });
-  });
 
   aggiornaTuttiICalcoli();
-});
 
 function aggiornaAnteprime() {
   const ids = [

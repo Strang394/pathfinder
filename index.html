@@ -68,7 +68,8 @@
       <label>Razza: <input type="text" id="razza" /></label>
       <label>Classe/Livello: <input type="text" id="classeLivello" /></label>
       <label>Allineamento: <input type="text" id="allineamento" /></label>
-
+      
+  <!-- Aggiunto qui per le CARATTERISTICHE -->
       <h3>Caratteristiche Dettagliate</h3>
       <div style="overflow-x:auto">
         <table class="caratteristiche-tabella">
@@ -91,6 +92,20 @@
           </tbody>
         </table>
       </div>
+    </div>
+    
+    <!-- Aggiunto qui per la CA e iniziativa -->
+
+    <h3>Punti Ferita</h3>
+      <label>PF Totali: <input type="number" id="pf_totali" /></label>
+      <label>RD (Riduzione del Danno): <input type="text" id="pf_rd" /></label>
+      <label>Ferite/PF Attuali: <textarea id="pf_attuali" rows="2"></textarea></label>
+      <label>Danno Non Letale: <input type="text" id="pf_nonletale" /></label>
+
+      <h3>Iniziativa</h3>
+      <label>Iniziativa Totale: <input type="number" id="init_tot" /></label>
+      <label>Mod. DES: <input type="number" id="init_des" readonly /></label>
+      <label>Mod. Vari: <input type="number" id="init_vari" /></label>
     </div>
 
     <div class="tab-content hidden" id="sezione2">

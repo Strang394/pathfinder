@@ -28,35 +28,40 @@
 <body>
   <nav class="tab-nav">
     <button data-tab="sezione1" class="active">Profilo</button>
-    <button data-tab="sezione2">Abilità e Talenti</button>
-    <button data-tab="sezione3">Equipaggiamento</button>
-    <button data-tab="sezione4">Bg & Note</button>
+    <button data-tab="sezione2">Abilità</button>
+    <button data-tab="sezione3">Equip</button>
+    <button data-tab="sezione4">Note</button>
   </nav>
 
   <main>
     <div class="tab-content" id="sezione1">
       <h2>Profilo & Caratteristiche</h2>
       <label>Nome: <input type="text" id="nome" /></label>
+      <label>Giocatore: <input type="text" id="giocatore" /></label>
       <label>Razza: <input type="text" id="razza" /></label>
       <label>Classe/Livello: <input type="text" id="classeLivello" /></label>
       <label>Allineamento: <input type="text" id="allineamento" /></label>
-      <label>Velocità: <input type="text" id="allineamento" /></label>
-      <h3>Caratteristiche</h3>
-      <div class="caratteristiche">
-        <label>FOR: <input type="number" id="forza" /></label>
-        <label>DES: <input type="number" id="destrezza" /></label>
-        <label>COS: <input type="number" id="costituzione" /></label>
-        <label>INT: <input type="number" id="intelligenza" /></label>
-        <label>SAG: <input type="number" id="saggezza" /></label>
-        <label>CAR: <input type="number" id="carisma" /></label>
-      </div>
-      <h3>Combattimento</h3>
-      <label>CA: <input type="number" id="ca" /></label>
-      <label>Iniziativa: <input type="number" id="iniziativa" /></label>
-      <label>PF Attuali: <input type="number" id="pf" /></label>
-      <label>Bonus Attacco Base: <input type="text" id="bab" /></label>
-      <label>BMC: <input type="text" id="bab" /></label>
-      <label>DMC: <input type="text" id="bab" /></label>
+
+      <h3>Caratteristiche Dettagliate</h3>
+      <table class="caratteristiche-tabella">
+        <thead>
+          <tr>
+            <th>Caratteristica</th>
+            <th>Punteggio</th>
+            <th>Mod.</th>
+            <th>Aggiust. Temp.</th>
+            <th>Mod. Temp.</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>FOR</td><td><input id="for" /></td><td><input id="for_mod" readonly /></td><td><input id="for_adj" /></td><td><input id="for_temp" /></td></tr>
+          <tr><td>DES</td><td><input id="des" /></td><td><input id="des_mod" readonly /></td><td><input id="des_adj" /></td><td><input id="des_temp" /></td></tr>
+          <tr><td>COS</td><td><input id="cos" /></td><td><input id="cos_mod" readonly /></td><td><input id="cos_adj" /></td><td><input id="cos_temp" /></td></tr>
+          <tr><td>INT</td><td><input id="int" /></td><td><input id="int_mod" readonly /></td><td><input id="int_adj" /></td><td><input id="int_temp" /></td></tr>
+          <tr><td>SAG</td><td><input id="sag" /></td><td><input id="sag_mod" readonly /></td><td><input id="sag_adj" /></td><td><input id="sag_temp" /></td></tr>
+          <tr><td>CAR</td><td><input id="car" /></td><td><input id="car_mod" readonly /></td><td><input id="car_adj" /></td><td><input id="car_temp" /></td></tr>
+        </tbody>
+      </table>
     </div>
 
     <div class="tab-content hidden" id="sezione2">
@@ -81,6 +86,5 @@
   </main>
 
   <script type="module" src="script.js"></script>
-
 </body>
 </html>

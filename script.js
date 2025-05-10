@@ -19,22 +19,25 @@ const fields = [
   "abilita", "talenti", "capacita", "equip", "denaro", "note"
 ];
 
+function getVal(id) {
+  const el = document.getElementById(id);
+  return el && el.value.trim() !== "" ? parseInt(el.value) || 0 : null;
+}
+
+
 function calcMod(score) {
   const val = parseInt(score);
   return isNaN(val) ? "" : Math.floor((val - 10) / 2);
 }
 
-function getVal(id) {
-  const el = document.getElementById(id);
-  return el ? parseInt(el.value) || 0 : 0;
-}
 
 function setVal(id, val) {
   const el = document.getElementById(id);
-  if (el) el.value = val;
-  localStorage.setItem(id, val);
-  saveToFirestore(id, val);
+  if (el) el.value = val === null ? "" : val;
+  localStorage.setItem(id, val ?? "");
+  saveToFirestore(id, val ?? "");
 }
+
 
 function updateModificatori() {
   ["for", "des", "cos", "int", "sag", "car"].forEach(stat => {

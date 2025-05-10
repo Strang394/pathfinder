@@ -121,7 +121,8 @@ window.addEventListener("DOMContentLoaded", async () => {
         localStorage.setItem(id, el.value);
         saveToFirestore(id, el.value);
         aggiornaTuttiICalcoli();
-        aggiornaAnteprime();
+setTimeout(aggiornaAnteprime, 0);
+
       });
     }
   });

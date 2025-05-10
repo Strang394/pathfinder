@@ -138,21 +138,22 @@ window.addEventListener("DOMContentLoaded", async () => {
 
   aggiornaTuttiICalcoli();
 });
-function toggleDettagli(button) {
+
+function aggiornaAnteprime() {
+  const ids = ["ca_tot", "ca_contatto", "ca_impreparato"];
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    const preview = document.getElementById(`${id}_preview`);
+    if (el && preview) {
+      preview.textContent = el.value || "—";
+    }
+  });
+}
+
+window.toggleDettagli = function(button) {
   const dettagli = button.parentElement.nextElementSibling;
   const isHidden = dettagli.style.display === 'none';
   dettagli.style.display = isHidden ? 'block' : 'none';
   button.textContent = isHidden ? '− Nascondi' : '+ Dettagli';
   aggiornaAnteprime();
-}
-
-function aggiornaAnteprime() {
-  const ids = ["ca_tot", "ca_contatto", "ca_impreparato"];
-  ids.forEach(id => {
-    const preview = document.getElementById(`${id}_preview`);
-    const field = document.getElementById(id);
-    if (preview && field) {
-      preview.textContent = field.value || "—";
-    }
-  });
-}
+};

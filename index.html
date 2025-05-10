@@ -7,20 +7,22 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <main>
-    <h1>Scheda Personaggio - Ladro</h1>
+  <nav class="tab-nav">
+    <button data-tab="sezione1" class="active">Profilo</button>
+    <button data-tab="sezione2">Abilità</button>
+    <button data-tab="sezione3">Equip</button>
+    <button data-tab="sezione4">Note</button>
+  </nav>
 
-    <section>
-      <h2>Anagrafica</h2>
+  <main>
+    <div class="tab-content" id="sezione1">
+      <h2>Profilo & Caratteristiche</h2>
       <label>Nome: <input type="text" id="nome" /></label>
       <label>Giocatore: <input type="text" id="giocatore" /></label>
       <label>Razza: <input type="text" id="razza" /></label>
       <label>Classe/Livello: <input type="text" id="classeLivello" /></label>
       <label>Allineamento: <input type="text" id="allineamento" /></label>
-    </section>
-
-    <section>
-      <h2>Caratteristiche</h2>
+      <h3>Caratteristiche</h3>
       <div class="caratteristiche">
         <label>FOR: <input type="number" id="forza" /></label>
         <label>DES: <input type="number" id="destrezza" /></label>
@@ -29,33 +31,67 @@
         <label>SAG: <input type="number" id="saggezza" /></label>
         <label>CAR: <input type="number" id="carisma" /></label>
       </div>
-    </section>
-
-    <section>
-      <h2>Abilità</h2>
-      <textarea id="abilita" rows="8" placeholder="Inserisci abilità e modificatori..."></textarea>
-    </section>
-
-    <section>
-      <h2>Combattimento</h2>
+      <h3>Combattimento</h3>
       <label>CA: <input type="number" id="ca" /></label>
       <label>Iniziativa: <input type="number" id="iniziativa" /></label>
       <label>PF Attuali: <input type="number" id="pf" /></label>
       <label>Bonus Attacco Base: <input type="text" id="bab" /></label>
-    </section>
+    </div>
 
-    <section>
+    <div class="tab-content hidden" id="sezione2">
+      <h2>Abilità</h2>
+      <textarea id="abilita" rows="8" placeholder="Inserisci abilità e modificatori..."></textarea>
+      <h3>Talenti e Capacità</h3>
+      <textarea id="talenti" rows="5" placeholder="Talenti..."></textarea>
+      <textarea id="capacita" rows="5" placeholder="Capacità Speciali..."></textarea>
+    </div>
+
+    <div class="tab-content hidden" id="sezione3">
       <h2>Equipaggiamento</h2>
       <textarea id="equip" rows="5" placeholder="Inserisci equipaggiamento..."></textarea>
-    </section>
+      <h3>Denaro</h3>
+      <textarea id="denaro" rows="2" placeholder="MR, MA, MO, MP..."></textarea>
+    </div>
 
-    <section>
-      <h2>Talenti e Incantesimi</h2>
-      <textarea id="talenti" rows="5" placeholder="Talenti..."></textarea>
-      <textarea id="incantesimi" rows="5" placeholder="Incantesimi..."></textarea>
-    </section>
+    <div class="tab-content hidden" id="sezione4">
+      <h2>Background & Note</h2>
+      <textarea id="note" rows="10" placeholder="Scrivi qui il background, PNG, eventi..."></textarea>
+    </div>
   </main>
 
-  <script src="script.js"></script>
+  <script>
+    const fields = [
+      'nome', 'giocatore', 'razza', 'classeLivello', 'allineamento',
+      'forza', 'destrezza', 'costituzione', 'intelligenza', 'saggezza', 'carisma',
+      'abilita', 'ca', 'iniziativa', 'pf', 'bab', 'equip', 'talenti', 'capacita', 'denaro', 'note'
+    ];
+
+    window.addEventListener('DOMContentLoaded', () => {
+      fields.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.value = localStorage.getItem(id) || '';
+          el.addEventListener('input', () => {
+            localStorage.setItem(id, el.value);
+          });
+        }
+      });
+
+      // tab switching
+      const tabs = document.querySelectorAll('.tab-nav button');
+      const contents = document.querySelectorAll('.tab-content');
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          contents.forEach(c => c.classList.add('hidden'));
+
+          tab.classList.add('active');
+          const id = tab.getAttribute('data-tab');
+          document.getElementById(id).classList.remove('hidden');
+        });
+      });
+    });
+  </script>
 </body>
 </html>

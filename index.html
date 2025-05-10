@@ -5,6 +5,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Scheda Personaggio - Pathfinder 3.5</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    .caratteristiche-tabella {
+      width: 100%;
+      overflow-x: auto;
+      border-collapse: collapse;
+    }
+    .caratteristiche-tabella th,
+    .caratteristiche-tabella td {
+      padding: 0.5rem;
+      text-align: center;
+      border-bottom: 1px solid #ccc;
+    }
+    .caratteristiche-tabella input {
+      width: 100%;
+      max-width: 60px;
+      padding: 0.3rem;
+      font-size: 1rem;
+      text-align: center;
+    }
+    @media screen and (max-width: 600px) {
+      .caratteristiche-tabella th,
+      .caratteristiche-tabella td {
+        font-size: 0.8rem;
+        padding: 0.3rem;
+      }
+    }
+  </style>
   <!-- Firebase SDK -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-app.js";
@@ -43,25 +70,27 @@
       <label>Allineamento: <input type="text" id="allineamento" /></label>
 
       <h3>Caratteristiche Dettagliate</h3>
-      <table class="caratteristiche-tabella">
-        <thead>
-          <tr>
-            <th>Caratteristica</th>
-            <th>Punteggio</th>
-            <th>Mod.</th>
-            <th>Aggiust. Temp.</th>
-            <th>Mod. Temp.</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>FOR</td><td><input id="for" /></td><td><input id="for_mod" readonly /></td><td><input id="for_adj" /></td><td><input id="for_temp" /></td></tr>
-          <tr><td>DES</td><td><input id="des" /></td><td><input id="des_mod" readonly /></td><td><input id="des_adj" /></td><td><input id="des_temp" /></td></tr>
-          <tr><td>COS</td><td><input id="cos" /></td><td><input id="cos_mod" readonly /></td><td><input id="cos_adj" /></td><td><input id="cos_temp" /></td></tr>
-          <tr><td>INT</td><td><input id="int" /></td><td><input id="int_mod" readonly /></td><td><input id="int_adj" /></td><td><input id="int_temp" /></td></tr>
-          <tr><td>SAG</td><td><input id="sag" /></td><td><input id="sag_mod" readonly /></td><td><input id="sag_adj" /></td><td><input id="sag_temp" /></td></tr>
-          <tr><td>CAR</td><td><input id="car" /></td><td><input id="car_mod" readonly /></td><td><input id="car_adj" /></td><td><input id="car_temp" /></td></tr>
-        </tbody>
-      </table>
+      <div style="overflow-x:auto">
+        <table class="caratteristiche-tabella">
+          <thead>
+            <tr>
+              <th>Caratteristica</th>
+              <th>Punteggio</th>
+              <th>Mod.</th>
+              <th>Aggiust. Temp.</th>
+              <th>Mod. Temp.</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>FOR</td><td><input id="for" /></td><td><input id="for_mod" readonly /></td><td><input id="for_adj" /></td><td><input id="for_temp" /></td></tr>
+            <tr><td>DES</td><td><input id="des" /></td><td><input id="des_mod" readonly /></td><td><input id="des_adj" /></td><td><input id="des_temp" /></td></tr>
+            <tr><td>COS</td><td><input id="cos" /></td><td><input id="cos_mod" readonly /></td><td><input id="cos_adj" /></td><td><input id="cos_temp" /></td></tr>
+            <tr><td>INT</td><td><input id="int" /></td><td><input id="int_mod" readonly /></td><td><input id="int_adj" /></td><td><input id="int_temp" /></td></tr>
+            <tr><td>SAG</td><td><input id="sag" /></td><td><input id="sag_mod" readonly /></td><td><input id="sag_adj" /></td><td><input id="sag_temp" /></td></tr>
+            <tr><td>CAR</td><td><input id="car" /></td><td><input id="car_mod" readonly /></td><td><input id="car_adj" /></td><td><input id="car_temp" /></td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <div class="tab-content hidden" id="sezione2">

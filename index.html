@@ -5,6 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Scheda Personaggio - Pathfinder 3.5</title>
   <link rel="stylesheet" href="style.css" />
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-app.js";
+    import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAyZyPEqxjq0cn8RawCVndeFVnjgv3Bs4Y",
+      authDomain: "pathfinder2025-ffb2a.firebaseapp.com",
+      projectId: "pathfinder2025-ffb2a",
+      storageBucket: "pathfinder2025-ffb2a.firebasestorage.app",
+      messagingSenderId: "646471152242",
+      appId: "1:646471152242:web:531b4f5ccb6351aab748eb"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    window.db = db;
+  </script>
 </head>
 <body>
   <nav class="tab-nav">
@@ -59,39 +78,6 @@
     </div>
   </main>
 
-  <script>
-    const fields = [
-      'nome', 'giocatore', 'razza', 'classeLivello', 'allineamento',
-      'forza', 'destrezza', 'costituzione', 'intelligenza', 'saggezza', 'carisma',
-      'abilita', 'ca', 'iniziativa', 'pf', 'bab', 'equip', 'talenti', 'capacita', 'denaro', 'note'
-    ];
-
-    window.addEventListener('DOMContentLoaded', () => {
-      fields.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) {
-          el.value = localStorage.getItem(id) || '';
-          el.addEventListener('input', () => {
-            localStorage.setItem(id, el.value);
-          });
-        }
-      });
-
-      // tab switching
-      const tabs = document.querySelectorAll('.tab-nav button');
-      const contents = document.querySelectorAll('.tab-content');
-
-      tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-          tabs.forEach(t => t.classList.remove('active'));
-          contents.forEach(c => c.classList.add('hidden'));
-
-          tab.classList.add('active');
-          const id = tab.getAttribute('data-tab');
-          document.getElementById(id).classList.remove('hidden');
-        });
-      });
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>

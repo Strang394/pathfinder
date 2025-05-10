@@ -85,7 +85,9 @@ function aggiornaTuttiICalcoli() {
   calcolaCA();
   calcolaTiriSalvezza();
   calcolaCombattimento();
+  aggiornaAnteprime(); // <-- qui dentro, così si aggiorna sempre!
 }
+
 
 async function loadFromFirestore() {
   const { getDoc, doc } = await import("https://www.gstatic.com/firebasejs/11.7.1/firebase-firestore.js");

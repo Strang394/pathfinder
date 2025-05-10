@@ -76,17 +76,29 @@
       <label>Iniziativa Totale: <input type="number" id="init_tot" /></label>
       <label>Mod. DES: <input type="number" id="init_des" readonly /></label>
       <label>Mod. Vari: <input type="number" id="init_vari" /></label>
-      <h3>Classe Armatura</h3>
-      <label>CA Totale: <input type="number" id="ca_tot" /></label>
-      <label>Bonus Armatura: <input type="number" id="ca_armatura" /></label>
-      <label>Bonus Scudo: <input type="number" id="ca_scudo" /></label>
-      <label>Mod. DES: <input type="number" id="ca_des" /></label>
-      <label>Mod. Taglia: <input type="number" id="ca_taglia" /></label>
-      <label>Armatura Naturale: <input type="number" id="ca_nat" /></label>
-      <label>Mod. Deviazione: <input type="number" id="ca_dev" /></label>
-      <label>Mod. Vari: <input type="number" id="ca_vari" /></label>
-      <label>CA Contatto: <input type="number" id="ca_contatto" /></label>
-      <label>CA Impreparato: <input type="number" id="ca_impreparato" /></label>
+      
+     <div class="blocco">
+  <div class="header">
+    <strong>Classe Armatura:</strong>
+    Totale: <span id="ca_tot_preview">—</span>,
+    Contatto: <span id="ca_contatto_preview">—</span>,
+    Impreparato: <span id="ca_impreparato_preview">—</span>
+    <button onclick="toggleDettagli(this)">+ Dettagli</button>
+  </div>
+  <div class="dettagli" style="display: none;">
+    <h3>Classe Armatura</h3>
+    <label>CA Totale: <input type="number" id="ca_tot" /></label>
+    <label>Bonus Armatura: <input type="number" id="ca_armatura" /></label>
+    <label>Bonus Scudo: <input type="number" id="ca_scudo" /></label>
+    <label>Mod. DES: <input type="number" id="ca_des" /></label>
+    <label>Mod. Taglia: <input type="number" id="ca_taglia" /></label>
+    <label>Armatura Naturale: <input type="number" id="ca_nat" /></label>
+    <label>Mod. Deviazione: <input type="number" id="ca_dev" /></label>
+    <label>Mod. Vari: <input type="number" id="ca_vari" /></label>
+    <label>CA Contatto: <input type="number" id="ca_contatto" /></label>
+    <label>CA Impreparato: <input type="number" id="ca_impreparato" /></label>
+  </div>
+</div>
 
       <h3>Tiri Salvezza</h3>
       <h4>Tempra (COS)</h4>

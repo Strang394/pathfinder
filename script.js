@@ -141,19 +141,20 @@ window.addEventListener("DOMContentLoaded", async () => {
 
 function aggiornaAnteprime() {
   const ids = [
-  "ca_tot", "ca_contatto", "ca_impreparato",
-  "init_tot",
-  "ts_tempra_tot", "ts_riflessi_tot", "ts_volonta_tot"
-];
+    "ca_tot", "ca_contatto", "ca_impreparato",
+    "init_tot",
+    "ts_tempra_tot", "ts_riflessi_tot", "ts_volonta_tot"
+  ];
 
   ids.forEach(id => {
     const el = document.getElementById(id);
     const preview = document.getElementById(`${id}_preview`);
     if (el && preview) {
-      preview.textContent = el.value || "—";
+      preview.textContent = el.value !== "" ? el.value : "—";
     }
   });
 }
+
 
 window.toggleDettagli = function(button) {
   const dettagli = button.parentElement.nextElementSibling;

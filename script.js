@@ -14,22 +14,20 @@ const fields = [
   "ts_riflessi_tot", "ts_riflessi_base", "ts_riflessi_caratt", "ts_riflessi_mag", "ts_riflessi_vari", "ts_riflessi_temp",
   "ts_volonta_tot", "ts_volonta_base", "ts_volonta_caratt", "ts_volonta_mag", "ts_volonta_vari", "ts_volonta_temp",
   "bab", "res_inc",
-  "bmc_tot", "bmc_bab", "bmc_for", "bmc_taglia",
-  "dmc_tot", "dmc_bab", "dmc_for", "dmc_des", "dmc_taglia",
+  "bmc_tot", "bmc_for", "bmc_taglia",
+  "dmc_tot", "dmc_for", "dmc_des", "dmc_taglia",
   "abilita", "talenti", "capacita", "equip", "denaro", "note"
 ];
-
-function getVal(id) {
-  const el = document.getElementById(id);
-  return el && el.value.trim() !== "" ? parseInt(el.value) || 0 : null;
-}
-
 
 function calcMod(score) {
   const val = parseInt(score);
   return isNaN(val) ? "" : Math.floor((val - 10) / 2);
 }
 
+function getVal(id) {
+  const el = document.getElementById(id);
+  return el && el.value.trim() !== "" ? parseInt(el.value) || 0 : null;
+}
 
 function setVal(id, val) {
   const el = document.getElementById(id);
@@ -37,7 +35,6 @@ function setVal(id, val) {
   localStorage.setItem(id, val ?? "");
   saveToFirestore(id, val ?? "");
 }
-
 
 function updateModificatori() {
   ["for", "des", "cos", "int", "sag", "car"].forEach(stat => {
@@ -48,19 +45,19 @@ function updateModificatori() {
 }
 
 function calcolaIniziativa() {
-  const modDes = getVal("des_mod");
-  const vari = getVal("init_vari");
+  const modDes = getVal("des_mod") ?? 0;
+  const vari = getVal("init_vari") ?? 0;
   setVal("init_des", modDes);
   setVal("init_tot", modDes + vari);
 }
 
 function calcolaCA() {
-  const ca = getVal("ca_armatura") + getVal("ca_scudo") + getVal("des_mod") +
-             getVal("ca_taglia") + getVal("ca_nat") + getVal("ca_dev") + getVal("ca_vari") + 10;
+  const ca = (getVal("ca_armatura") ?? 0) + (getVal("ca_scudo") ?? 0) + (getVal("des_mod") ?? 0) +
+             (getVal("ca_taglia") ?? 0) + (getVal("ca_nat") ?? 0) + (getVal("ca_dev") ?? 0) + (getVal("ca_vari") ?? 0) + 10;
   setVal("ca_des", getVal("des_mod"));
   setVal("ca_tot", ca);
-  setVal("ca_contatto", 10 + getVal("des_mod") + getVal("ca_dev") + getVal("ca_vari"));
-  setVal("ca_impreparato", 10 + getVal("ca_armatura") + getVal("ca_scudo") + getVal("ca_taglia") + getVal("ca_nat") + getVal("ca_dev") + getVal("ca_vari"));
+  setVal("ca_contatto", 10 + (getVal("des_mod") ?? 0) + (getVal("ca_dev") ?? 0) + (getVal("ca_vari") ?? 0));
+  setVal("ca_impreparato", 10 + (getVal("ca_armatura") ?? 0) + (getVal("ca_scudo") ?? 0) + (getVal("ca_taglia") ?? 0) + (getVal("ca_nat") ?? 0) + (getVal("ca_dev") ?? 0) + (getVal("ca_vari") ?? 0));
 }
 
 function calcolaTiriSalvezza() {
@@ -68,20 +65,18 @@ function calcolaTiriSalvezza() {
   setVal("ts_riflessi_caratt", getVal("des_mod"));
   setVal("ts_volonta_caratt", getVal("sag_mod"));
 
-  setVal("ts_tempra_tot", getVal("ts_tempra_base") + getVal("ts_tempra_caratt") + getVal("ts_tempra_mag") + getVal("ts_tempra_vari") + getVal("ts_tempra_temp"));
-  setVal("ts_riflessi_tot", getVal("ts_riflessi_base") + getVal("ts_riflessi_caratt") + getVal("ts_riflessi_mag") + getVal("ts_riflessi_vari") + getVal("ts_riflessi_temp"));
-  setVal("ts_volonta_tot", getVal("ts_volonta_base") + getVal("ts_volonta_caratt") + getVal("ts_volonta_mag") + getVal("ts_volonta_vari") + getVal("ts_volonta_temp"));
+  setVal("ts_tempra_tot", (getVal("ts_tempra_base") ?? 0) + (getVal("ts_tempra_caratt") ?? 0) + (getVal("ts_tempra_mag") ?? 0) + (getVal("ts_tempra_vari") ?? 0) + (getVal("ts_tempra_temp") ?? 0));
+  setVal("ts_riflessi_tot", (getVal("ts_riflessi_base") ?? 0) + (getVal("ts_riflessi_caratt") ?? 0) + (getVal("ts_riflessi_mag") ?? 0) + (getVal("ts_riflessi_vari") ?? 0) + (getVal("ts_riflessi_temp") ?? 0));
+  setVal("ts_volonta_tot", (getVal("ts_volonta_base") ?? 0) + (getVal("ts_volonta_caratt") ?? 0) + (getVal("ts_volonta_mag") ?? 0) + (getVal("ts_volonta_vari") ?? 0) + (getVal("ts_volonta_temp") ?? 0));
 }
 
 function calcolaCombattimento() {
   setVal("bmc_for", getVal("for_mod"));
-  setVal("bmc_bab", getVal("bab"));
-  setVal("bmc_tot", getVal("bab") + getVal("for_mod") + getVal("bmc_taglia"));
+  setVal("bmc_tot", (getVal("bab") ?? 0) + (getVal("for_mod") ?? 0) + (getVal("bmc_taglia") ?? 0));
 
   setVal("dmc_for", getVal("for_mod"));
   setVal("dmc_des", getVal("des_mod"));
-  setVal("dmc_bab", getVal("bab"));
-  setVal("dmc_tot", 10 + getVal("bab") + getVal("for_mod") + getVal("des_mod") + getVal("dmc_taglia"));
+  setVal("dmc_tot", 10 + (getVal("bab") ?? 0) + (getVal("for_mod") ?? 0) + (getVal("des_mod") ?? 0) + (getVal("dmc_taglia") ?? 0));
 }
 
 function aggiornaTuttiICalcoli() {

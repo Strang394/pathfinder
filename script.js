@@ -113,6 +113,7 @@ async function saveToFirestore(id, value) {
 
 window.addEventListener("DOMContentLoaded", async () => {
   await loadFromFirestore();
+
   fields.forEach(id => {
     const el = document.getElementById(id);
     if (el) {
@@ -121,11 +122,14 @@ window.addEventListener("DOMContentLoaded", async () => {
         localStorage.setItem(id, el.value);
         saveToFirestore(id, el.value);
         aggiornaTuttiICalcoli();
-setTimeout(aggiornaAnteprime, 0);
-
       });
     }
   });
+
+  aggiornaTuttiICalcoli();    
+  aggiornaAnteprime();        
+});
+
 
   const tabs = document.querySelectorAll('.tab-nav button');
   const contents = document.querySelectorAll('.tab-content');

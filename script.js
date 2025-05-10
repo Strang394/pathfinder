@@ -143,7 +143,7 @@ window.addEventListener("DOMContentLoaded", async () => {
       document.getElementById(tab.getAttribute('data-tab')).classList.remove('hidden');
        aggiornaTuttiICalcoli();
     });
-
+});
  
 
 function aggiornaAnteprime() {
@@ -161,7 +161,6 @@ function aggiornaAnteprime() {
     }
   });
 }
-
 
 window.toggleDettagli = function(button) {
   const dettagli = button.parentElement.nextElementSibling;

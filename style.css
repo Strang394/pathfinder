@@ -1,32 +1,28 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
-  padding: 1rem;
-  background-color: #f4f4f4;
-  color: #222;
+  background-color: #f3f4f6;
+  color: #1f2937;
 }
 
 main {
   max-width: 600px;
   margin: auto;
-  background: #fff;
   padding: 1rem;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background: #fff;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
 }
 
-h1, h2 {
+h1, h2, h3 {
   text-align: center;
   margin-bottom: 1rem;
-}
-
-section {
-  margin-bottom: 2rem;
 }
 
 label {
   display: block;
   margin-bottom: 0.8rem;
+  font-weight: 500;
 }
 
 input[type="text"],
@@ -35,10 +31,11 @@ textarea {
   width: 100%;
   padding: 0.6rem;
   font-size: 1rem;
-  margin-top: 0.2rem;
-  border: 1px solid #ccc;
+  border: 1px solid #d1d5db;
   border-radius: 6px;
   box-sizing: border-box;
+  margin-top: 0.2rem;
+  margin-bottom: 0.5rem;
 }
 
 textarea {
@@ -49,4 +46,45 @@ textarea {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0.8rem;
+}
+
+.tab-nav {
+  display: flex;
+  justify-content: space-around;
+  background-color: #1f2937;
+  padding: 0.5rem;
+  border-bottom: 2px solid #374151;
+}
+
+.tab-nav button {
+  flex: 1;
+  padding: 0.6rem;
+  font-size: 1rem;
+  background: none;
+  border: none;
+  color: #9ca3af;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 0;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s;
+}
+
+.tab-nav button:hover {
+  color: #fff;
+}
+
+.tab-nav button.active {
+  color: #fff;
+  border-bottom: 3px solid #3b82f6;
+  background-color: #374151;
+}
+
+.tab-content {
+  display: block;
+  padding: 1rem 0;
+}
+
+.hidden {
+  display: none;
 }

@@ -1,18 +1,25 @@
 const fields = [
-  'nome', 'giocatore', 'razza', 'classeLivello', 'allineamento',
-  'forza', 'destrezza', 'costituzione', 'intelligenza', 'saggezza', 'carisma',
-  'ca', 'iniziativa', 'pf', 'bab', 'abilita', 'talenti',
-  'capacita', 'equip', 'denaro', 'note'
+  "nome", "giocatore", "razza", "classeLivello", "allineamento",
+  "for", "for_adj", "for_temp",
+  "des", "des_adj", "des_temp",
+  "cos", "cos_adj", "cos_temp",
+  "int", "int_adj", "int_temp",
+  "sag", "sag_adj", "sag_temp",
+  "car", "car_adj", "car_temp",
+  "abilita", "talenti", "capacita", "equip", "denaro", "note"
 ];
 
-async function loadDataFromFirestore() {
-  if (!window.db) return;
-  const { getDoc, doc } = await import('https://www.gstatic.com/firebasejs/11.7.1/firebase-firestore.js');
-  const docRef = doc(window.db, "schede", "schedaLadro");
-  const docSnap = await getDoc(docRef);
+function calcMod(score) {
+  const parsed = parseInt(score);
+  return isNaN(parsed) ? "" : Math.floor((parsed - 10) / 2);
+}
 
-  if (docSnap.exists()) {
-    const data = docSnap.data();
+async function loadFromFirestore() {
+  const { getDoc, doc } = await import("https://www.gstatic.com/firebasejs/11.7.1/firebase-firestore.js");
+  const docRef = doc(window.db, "schede", "schedaLadro");
+  const snap = await getDoc(docRef);
+  if (snap.exists()) {
+    const data = snap.data();
     fields.forEach(id => {
       const el = document.getElementById(id);
       if (el && data[id] !== undefined) {
@@ -20,34 +27,47 @@ async function loadDataFromFirestore() {
         localStorage.setItem(id, data[id]);
       }
     });
+    updateAllModifiers();
   }
 }
 
-async function saveDataToFirestore(id, value) {
-  if (!window.db) return;
-  const { setDoc, doc, getDoc } = await import('https://www.gstatic.com/firebasejs/11.7.1/firebase-firestore.js');
-  const docRef = doc(window.db, "schede", "schedaLadro");
-  const existing = (await getDoc(docRef)).data() || {};
-  await setDoc(docRef, { ...existing, [id]: value });
+async function saveToFirestore(id, value) {
+  const { setDoc, doc, getDoc } = await import("https://www.gstatic.com/firebasejs/11.7.1/firebase-firestore.js");
+  const ref = doc(window.db, "schede", "schedaLadro");
+  const current = (await getDoc(ref)).data() || {};
+  await setDoc(ref, { ...current, [id]: value });
 }
 
-window.addEventListener('DOMContentLoaded', async () => {
-  await loadDataFromFirestore();
+function updateModifierFor(stat) {
+  const input = document.getElementById(stat);
+  const modField = document.getElementById(`${stat}_mod`);
+  const mod = calcMod(input.value);
+  modField.value = mod;
+  localStorage.setItem(`${stat}_mod`, mod);
+}
+
+function updateAllModifiers() {
+  ["for", "des", "cos", "int", "sag", "car"].forEach(updateModifierFor);
+}
+
+window.addEventListener("DOMContentLoaded", async () => {
+  await loadFromFirestore();
 
   fields.forEach(id => {
     const el = document.getElementById(id);
-    if (el) {
-      el.value = localStorage.getItem(id) || el.value;
-      el.addEventListener('input', () => {
-        localStorage.setItem(id, el.value);
-        saveDataToFirestore(id, el.value);
-      });
-    }
+    if (!el) return;
+    el.value = localStorage.getItem(id) || el.value;
+    el.addEventListener("input", () => {
+      localStorage.setItem(id, el.value);
+      saveToFirestore(id, el.value);
+      if (id.match(/^(for|des|cos|int|sag|car)$/)) {
+        updateModifierFor(id);
+      }
+    });
   });
 
   const tabs = document.querySelectorAll('.tab-nav button');
   const contents = document.querySelectorAll('.tab-content');
-
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
       tabs.forEach(t => t.classList.remove('active'));
@@ -56,4 +76,6 @@ window.addEventListener('DOMContentLoaded', async () => {
       document.getElementById(tab.getAttribute('data-tab')).classList.remove('hidden');
     });
   });
+
+  updateAllModifiers();
 });

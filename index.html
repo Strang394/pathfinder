@@ -72,10 +72,19 @@
       <label>Ferite/PF Attuali: <textarea id="pf_attuali" rows="2"></textarea></label>
       <label>Danno Non Letale: <input type="text" id="pf_nonletale" /></label>
 
-      <h3>Iniziativa</h3>
-      <label>Iniziativa Totale: <input type="number" id="init_tot" /></label>
-      <label>Mod. DES: <input type="number" id="init_des" readonly /></label>
-      <label>Mod. Vari: <input type="number" id="init_vari" /></label>
+      <div class="blocco">
+  <div class="header">
+    <strong>Iniziativa:</strong> Totale: <span id="init_tot_preview">—</span>
+    <button onclick="toggleDettagli(this)">+ Dettagli</button>
+  </div>
+  <div class="dettagli" style="display: none;">
+    <h3>Iniziativa</h3>
+    <label>Iniziativa Totale: <input type="number" id="init_tot" readonly /></label>
+    <label>Mod. DES: <input type="number" id="init_des" readonly /></label>
+    <label>Mod. Vari: <input type="number" id="init_vari" /></label>
+  </div>
+</div>
+
       
      <div class="blocco">
   <div class="header">
@@ -100,30 +109,42 @@
   </div>
 </div>
 
-      <h3>Tiri Salvezza</h3>
-      <h4>Tempra (COS)</h4>
-      <label>Totale: <input type="number" id="ts_tempra_tot" /></label>
-      <label>TS Base: <input type="number" id="ts_tempra_base" /></label>
-      <label>Mod. Caratt.: <input type="number" id="ts_tempra_caratt" readonly /></label>
-      <label>Mod. Magico: <input type="number" id="ts_tempra_mag" /></label>
-      <label>Mod. Vari: <input type="number" id="ts_tempra_vari" /></label>
-      <label>Mod. Temp.: <input type="number" id="ts_tempra_temp" /></label>
+      <div class="blocco">
+  <div class="header">
+    <strong>Tiri Salvezza:</strong>
+    Tempra: <span id="ts_tempra_tot_preview">—</span>,
+    Riflessi: <span id="ts_riflessi_tot_preview">—</span>,
+    Volontà: <span id="ts_volonta_tot_preview">—</span>
+    <button onclick="toggleDettagli(this)">+ Dettagli</button>
+  </div>
+  <div class="dettagli" style="display: none;">
+    <h3>Tiri Salvezza</h3>
+    <h4>Tempra (COS)</h4>
+    <label>Totale: <input type="number" id="ts_tempra_tot" readonly /></label>
+    <label>TS Base: <input type="number" id="ts_tempra_base" /></label>
+    <label>Mod. Caratt.: <input type="number" id="ts_tempra_caratt" readonly /></label>
+    <label>Mod. Magico: <input type="number" id="ts_tempra_mag" /></label>
+    <label>Mod. Vari: <input type="number" id="ts_tempra_vari" /></label>
+    <label>Mod. Temp.: <input type="number" id="ts_tempra_temp" /></label>
 
-      <h4>Riflessi (DES)</h4>
-      <label>Totale: <input type="number" id="ts_riflessi_tot" /></label>
-      <label>TS Base: <input type="number" id="ts_riflessi_base" /></label>
-      <label>Mod. Caratt.: <input type="number" id="ts_riflessi_caratt" readonly /></label>
-      <label>Mod. Magico: <input type="number" id="ts_riflessi_mag" /></label>
-      <label>Mod. Vari: <input type="number" id="ts_riflessi_vari" /></label>
-      <label>Mod. Temp.: <input type="number" id="ts_riflessi_temp" /></label>
+    <h4>Riflessi (DES)</h4>
+    <label>Totale: <input type="number" id="ts_riflessi_tot" readonly /></label>
+    <label>TS Base: <input type="number" id="ts_riflessi_base" /></label>
+    <label>Mod. Caratt.: <input type="number" id="ts_riflessi_caratt" readonly /></label>
+    <label>Mod. Magico: <input type="number" id="ts_riflessi_mag" /></label>
+    <label>Mod. Vari: <input type="number" id="ts_riflessi_vari" /></label>
+    <label>Mod. Temp.: <input type="number" id="ts_riflessi_temp" /></label>
 
-      <h4>Volontà (SAG)</h4>
-      <label>Totale: <input type="number" id="ts_volonta_tot" /></label>
-      <label>TS Base: <input type="number" id="ts_volonta_base" /></label>
-      <label>Mod. Caratt.: <input type="number" id="ts_volonta_caratt" readonly /></label>
-      <label>Mod. Magico: <input type="number" id="ts_volonta_mag" /></label>
-      <label>Mod. Vari: <input type="number" id="ts_volonta_vari" /></label>
-      <label>Mod. Temp.: <input type="number" id="ts_volonta_temp" /></label>
+    <h4>Volontà (SAG)</h4>
+    <label>Totale: <input type="number" id="ts_volonta_tot" readonly /></label>
+    <label>TS Base: <input type="number" id="ts_volonta_base" /></label>
+    <label>Mod. Caratt.: <input type="number" id="ts_volonta_caratt" readonly /></label>
+    <label>Mod. Magico: <input type="number" id="ts_volonta_mag" /></label>
+    <label>Mod. Vari: <input type="number" id="ts_volonta_vari" /></label>
+    <label>Mod. Temp.: <input type="number" id="ts_volonta_temp" /></label>
+  </div>
+</div>
+
 
       <h3>Bonus Attacco Base e Combattimento</h3>
       <label>BAB: <input type="number" id="bab" /></label>

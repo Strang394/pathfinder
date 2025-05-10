@@ -1,4 +1,39 @@
-<!-- ... (tutto il codice precedente rimane invariato) ... -->
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scheda Personaggio - Pathfinder 3.5</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-app.js";
+    import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAyZyPEqxjq0cn8RawCVndeFVnjgv3Bs4Y",
+      authDomain: "pathfinder2025-ffb2a.firebaseapp.com",
+      projectId: "pathfinder2025-ffb2a",
+      storageBucket: "pathfinder2025-ffb2a.firebasestorage.app",
+      messagingSenderId: "646471152242",
+      appId: "1:646471152242:web:531b4f5ccb6351aab748eb"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    window.db = db;
+  </script>
+</head>
+<body>
+  <nav class="tab-nav">
+    <button data-tab="sezione1" class="active">Profilo</button>
+    <button data-tab="sezione2">Abilità</button>
+    <button data-tab="sezione3">Equip</button>
+    <button data-tab="sezione4">Note</button>
+  </nav>
+
+  <main>
+
 
     <div class="tab-content" id="sezione1">
       <h2>Profilo & Caratteristiche</h2>

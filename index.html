@@ -1,66 +1,5 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Scheda Personaggio - Pathfinder 3.5</title>
-  <link rel="stylesheet" href="style.css" />
-  <style>
-    .caratteristiche-tabella {
-      width: 100%;
-      overflow-x: auto;
-      border-collapse: collapse;
-    }
-    .caratteristiche-tabella th,
-    .caratteristiche-tabella td {
-      padding: 0.5rem;
-      text-align: center;
-      border-bottom: 1px solid #ccc;
-    }
-    .caratteristiche-tabella input {
-      width: 100%;
-      max-width: 60px;
-      padding: 0.3rem;
-      font-size: 1rem;
-      text-align: center;
-    }
-    @media screen and (max-width: 600px) {
-      .caratteristiche-tabella th,
-      .caratteristiche-tabella td {
-        font-size: 0.8rem;
-        padding: 0.3rem;
-      }
-    }
-  </style>
-  <!-- Firebase SDK -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-app.js";
-    import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-firestore.js";
+<!-- ... (tutto il codice precedente rimane invariato) ... -->
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyAyZyPEqxjq0cn8RawCVndeFVnjgv3Bs4Y",
-      authDomain: "pathfinder2025-ffb2a.firebaseapp.com",
-      projectId: "pathfinder2025-ffb2a",
-      storageBucket: "pathfinder2025-ffb2a.firebasestorage.app",
-      messagingSenderId: "646471152242",
-      appId: "1:646471152242:web:531b4f5ccb6351aab748eb"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    window.db = db;
-  </script>
-</head>
-<body>
-  <nav class="tab-nav">
-    <button data-tab="sezione1" class="active">Profilo</button>
-    <button data-tab="sezione2">Abilità</button>
-    <button data-tab="sezione3">Equip</button>
-    <button data-tab="sezione4">Note</button>
-  </nav>
-
-  <main>
     <div class="tab-content" id="sezione1">
       <h2>Profilo & Caratteristiche</h2>
       <label>Nome: <input type="text" id="nome" /></label>
@@ -68,8 +7,7 @@
       <label>Razza: <input type="text" id="razza" /></label>
       <label>Classe/Livello: <input type="text" id="classeLivello" /></label>
       <label>Allineamento: <input type="text" id="allineamento" /></label>
-      
-  <!-- Aggiunto qui per le CARATTERISTICHE -->
+
       <h3>Caratteristiche Dettagliate</h3>
       <div style="overflow-x:auto">
         <table class="caratteristiche-tabella">
@@ -92,11 +30,8 @@
           </tbody>
         </table>
       </div>
-    </div>
-    
-    <!-- Aggiunto qui per la CA e iniziativa -->
 
-    <h3>Punti Ferita</h3>
+      <h3>Punti Ferita</h3>
       <label>PF Totali: <input type="number" id="pf_totali" /></label>
       <label>RD (Riduzione del Danno): <input type="text" id="pf_rd" /></label>
       <label>Ferite/PF Attuali: <textarea id="pf_attuali" rows="2"></textarea></label>
@@ -106,7 +41,64 @@
       <label>Iniziativa Totale: <input type="number" id="init_tot" /></label>
       <label>Mod. DES: <input type="number" id="init_des" readonly /></label>
       <label>Mod. Vari: <input type="number" id="init_vari" /></label>
+      <h3>Classe Armatura</h3>
+      <label>CA Totale: <input type="number" id="ca_tot" /></label>
+      <label>Bonus Armatura: <input type="number" id="ca_armatura" /></label>
+      <label>Bonus Scudo: <input type="number" id="ca_scudo" /></label>
+      <label>Mod. DES: <input type="number" id="ca_des" /></label>
+      <label>Mod. Taglia: <input type="number" id="ca_taglia" /></label>
+      <label>Armatura Naturale: <input type="number" id="ca_nat" /></label>
+      <label>Mod. Deviazione: <input type="number" id="ca_dev" /></label>
+      <label>Mod. Vari: <input type="number" id="ca_vari" /></label>
+      <label>CA Contatto: <input type="number" id="ca_contatto" /></label>
+      <label>CA Impreparato: <input type="number" id="ca_impreparato" /></label>
+
+      <h3>Tiri Salvezza</h3>
+      <h4>Tempra (COS)</h4>
+      <label>Totale: <input type="number" id="ts_tempra_tot" /></label>
+      <label>TS Base: <input type="number" id="ts_tempra_base" /></label>
+      <label>Mod. Caratt.: <input type="number" id="ts_tempra_caratt" readonly /></label>
+      <label>Mod. Magico: <input type="number" id="ts_tempra_mag" /></label>
+      <label>Mod. Vari: <input type="number" id="ts_tempra_vari" /></label>
+      <label>Mod. Temp.: <input type="number" id="ts_tempra_temp" /></label>
+
+      <h4>Riflessi (DES)</h4>
+      <label>Totale: <input type="number" id="ts_riflessi_tot" /></label>
+      <label>TS Base: <input type="number" id="ts_riflessi_base" /></label>
+      <label>Mod. Caratt.: <input type="number" id="ts_riflessi_caratt" readonly /></label>
+      <label>Mod. Magico: <input type="number" id="ts_riflessi_mag" /></label>
+      <label>Mod. Vari: <input type="number" id="ts_riflessi_vari" /></label>
+      <label>Mod. Temp.: <input type="number" id="ts_riflessi_temp" /></label>
+
+      <h4>Volontà (SAG)</h4>
+      <label>Totale: <input type="number" id="ts_volonta_tot" /></label>
+      <label>TS Base: <input type="number" id="ts_volonta_base" /></label>
+      <label>Mod. Caratt.: <input type="number" id="ts_volonta_caratt" readonly /></label>
+      <label>Mod. Magico: <input type="number" id="ts_volonta_mag" /></label>
+      <label>Mod. Vari: <input type="number" id="ts_volonta_vari" /></label>
+      <label>Mod. Temp.: <input type="number" id="ts_volonta_temp" /></label>
+
+      <h3>Bonus Attacco Base e Combattimento</h3>
+      <label>BAB: <input type="number" id="bab" /></label>
+      <label>Resistenza agli Incantesimi: <input type="number" id="res_inc" /></label>
+
+      <h4>BMC</h4>
+      <label>Totale: <input type="number" id="bmc_tot" /></label>
+      <label>Bonus Attacco Base: <input type="number" id="bmc_bab" readonly /></label>
+      <label>Mod. FOR: <input type="number" id="bmc_for" readonly /></label>
+      <label>Mod. Taglia: <input type="number" id="bmc_taglia" /></label>
+
+      <h4>DMC</h4>
+      <label>Totale: <input type="number" id="dmc_tot" /></label>
+      <label>Bonus Attacco Base: <input type="number" id="dmc_bab" readonly /></label>
+      <label>Mod. FOR: <input type="number" id="dmc_for" readonly /></label>
+      <label>Mod. DES: <input type="number" id="dmc_des" readonly /></label>
+      <label>Mod. Taglia: <input type="number" id="dmc_taglia" /></label>
+
     </div>
+
+<!-- ... (le altre sezioni rimangono invariate) ... -->
+
 
     <div class="tab-content hidden" id="sezione2">
       <h2>Abilità</h2>

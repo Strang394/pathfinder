@@ -141,9 +141,10 @@ window.addEventListener("DOMContentLoaded", async () => {
       contents.forEach(c => c.classList.add('hidden'));
       tab.classList.add('active');
       document.getElementById(tab.getAttribute('data-tab')).classList.remove('hidden');
+       aggiornaTuttiICalcoli();
     });
 
-  aggiornaTuttiICalcoli();
+ 
 
 function aggiornaAnteprime() {
   const ids = [

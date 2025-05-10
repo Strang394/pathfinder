@@ -138,3 +138,21 @@ window.addEventListener("DOMContentLoaded", async () => {
 
   aggiornaTuttiICalcoli();
 });
+function toggleDettagli(button) {
+  const dettagli = button.parentElement.nextElementSibling;
+  const isHidden = dettagli.style.display === 'none';
+  dettagli.style.display = isHidden ? 'block' : 'none';
+  button.textContent = isHidden ? '− Nascondi' : '+ Dettagli';
+  aggiornaAnteprime();
+}
+
+function aggiornaAnteprime() {
+  const ids = ["ca_tot", "ca_contatto", "ca_impreparato"];
+  ids.forEach(id => {
+    const preview = document.getElementById(`${id}_preview`);
+    const field = document.getElementById(id);
+    if (preview && field) {
+      preview.textContent = field.value || "—";
+    }
+  });
+}

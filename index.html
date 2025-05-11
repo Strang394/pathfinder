@@ -60,7 +60,16 @@
 </div>
     <div><label>Divinità: <input type="text" id="divinita" class="auto-resize" /></label></div>
     <div><label>Origini: <input type="text" id="origini" class="auto-resize" /></label></div>
-    <div><label>Sesso: <input type="text" id="sesso" class="auto-resize" /></label></div>
+    <div>
+  <label>Sesso:
+    <select id="sesso">
+      <option value="">—</option>
+      <option value="M">Maschio (M)</option>
+      <option value="F">Femmina (F)</option>
+      <option value="Altro">Altro</option>
+    </select>
+  </label>
+</div>
     <div><label>Età: <input type="text" id="eta" class="auto-resize"/></label></div>
     <div><label>Altezza: <input type="text" id="altezza" class="auto-resize" /></label></div>
     <div><label>Peso: <input type="text" id="peso" class="auto-resize"/></label></div>
@@ -83,13 +92,21 @@
         </select>
       </label>
     </div>
-    <div><label>Velocità Base: <input type="text" id="vel_terreno" class="auto-resize"/></label></div>
-    <div><label>Velocità con Armatura: <input type="text" id="vel_armatura" class="auto-resize"/></label></div>
-    <div><label>Volare: <input type="text" id="vel_volare" class="auto-resize"/></label></div>
-    <div><label>Nuotare: <input type="text" id="vel_nuotare" class="auto-resize"/></label></div>
-    <div><label>Scalare: <input type="text" id="vel_scalare" class="auto-resize"/></label></div>
-    <div><label>Scavare: <input type="text" id="vel_scavare" class="auto-resize"/></label></div>
+    <div class="blocco">
+  <div class="header">
+    <strong>Velocità Base:</strong> <span id="vel_terreno_preview">—</span>
+    <button onclick="toggleDettagli(this)">+ Dettagli</button>
   </div>
+  <div class="dettagli" style="display: none;">
+    <label>Velocità Base: <input type="text" id="vel_terreno" class="auto-resize" /></label>
+    <label>Velocità con Armatura: <input type="text" id="vel_armatura" class="auto-resize" /></label>
+    <label>Volare: <input type="text" id="vel_volare" class="auto-resize" /></label>
+    <label>Nuotare: <input type="text" id="vel_nuotare" class="auto-resize" /></label>
+    <label>Scalare: <input type="text" id="vel_scalare" class="auto-resize" /></label>
+    <label>Scavare: <input type="text" id="vel_scavare" class="auto-resize" /></label>
+  </div>
+</div>
+
 
   <!-- SEZIONE: CARATTERISTICHE -->
   <h2>Caratteristiche</h2>

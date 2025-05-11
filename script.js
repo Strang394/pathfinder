@@ -146,7 +146,6 @@ window.addEventListener("DOMContentLoaded", async () => {
         aggiornaTuttiICalcoli();
       });
 
-      // 🔄 Questo assicura che anche se l'utente solo clicca fuori, si salva!
       el.addEventListener("blur", () => {
         saveToFirestore(id, el.value);
       });
@@ -155,11 +154,8 @@ window.addEventListener("DOMContentLoaded", async () => {
 
   aggiornaTuttiICalcoli();    
   aggiornaAnteprime();        
-});
+}); // <--- questa parentesi chiude correttamente il blocco
 
-  aggiornaTuttiICalcoli();    
-  aggiornaAnteprime();        
-});
 
 
   const tabs = document.querySelectorAll('.tab-nav button');

@@ -159,6 +159,18 @@ window.addEventListener("DOMContentLoaded", async () => {
   aggiornaAnteprime();        
 });
 
+function autoResizeInput(input) {
+  input.style.width = "1ch"; // reset
+  const length = input.value.length || 1;
+  input.style.width = `${length + 1}ch`;
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll("input.auto-resize").forEach(input => {
+    autoResizeInput(input); // iniziale
+    input.addEventListener("input", () => autoResizeInput(input));
+  });
+});
 
 
   const tabs = document.querySelectorAll('.tab-nav button');

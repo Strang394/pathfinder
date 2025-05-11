@@ -195,11 +195,14 @@ function aggiornaTaglia() {
   ["ca_taglia", "bmc_taglia", "dmc_taglia"].forEach(id => {
     const el = document.getElementById(id);
     if (el) {
+      el.removeAttribute("readonly"); // 👈 Sblocca temporaneamente
       el.value = mod;
+      el.setAttribute("readonly", true); // 👈 Ri-blocca subito dopo
       localStorage.setItem(id, mod);
       saveToFirestore(id, mod);
     }
   });
   aggiornaTuttiICalcoli();
 }
+
 

@@ -159,3 +159,14 @@ button.toggle:hover,
   border-left: 4px solid #3b82f6;
   border-radius: 6px;
 }
+
+input.auto-resize {
+  width: auto;
+  min-width: 60px;
+  max-width: 100%;
+  padding: 0.4rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: content-box;
+}

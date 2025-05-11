@@ -54,13 +54,30 @@ function calcolaIniziativa() {
 }
 
 function calcolaCA() {
-  const ca = (getVal("ca_armatura") ?? 0) + (getVal("ca_scudo") ?? 0) + (getVal("des_mod") ?? 0) +
-             (getVal("ca_taglia") ?? 0) + (getVal("ca_nat") ?? 0) + (getVal("ca_dev") ?? 0) + (getVal("ca_vari") ?? 0) + 10;
-  setVal("ca_des", getVal("des_mod"));
-  setVal("ca_tot", ca);
-  setVal("ca_contatto", 10 + (getVal("des_mod") ?? 0) + (getVal("ca_dev") ?? 0) + (getVal("ca_vari") ?? 0));
-  setVal("ca_impreparato", 10 + (getVal("ca_armatura") ?? 0) + (getVal("ca_scudo") ?? 0) + (getVal("ca_taglia") ?? 0) + (getVal("ca_nat") ?? 0) + (getVal("ca_dev") ?? 0) + (getVal("ca_vari") ?? 0));
+  const armatura = getVal("ca_armatura") ?? 0;
+  const scudo = getVal("ca_scudo") ?? 0;
+  const des = getVal("des_mod") ?? 0;
+  const taglia = getVal("ca_taglia") ?? 0;
+  const naturale = getVal("ca_nat") ?? 0;
+  const dev = getVal("ca_dev") ?? 0;
+  const vari = getVal("ca_vari") ?? 0;
+
+  // CA Totale: tutto
+  const totale = 10 + armatura + scudo + des + taglia + naturale + dev + vari;
+  setVal("ca_tot", totale);
+
+  // CA Contatto: ignora armatura, scudo, taglia, naturale
+  const contatto = 10 + des + dev + vari;
+  setVal("ca_contatto", contatto);
+
+  // CA Impreparato: ignora destrezza
+  const impreparato = 10 + armatura + scudo + taglia + naturale + dev + vari;
+  setVal("ca_impreparato", impreparato);
+
+  // Salva anche mod DES per chiarezza
+  setVal("ca_des", des);
 }
+
 
 function calcolaTiriSalvezza() {
   setVal("ts_tempra_caratt", getVal("cos_mod"));
@@ -185,3 +202,4 @@ function aggiornaTaglia() {
   });
   aggiornaTuttiICalcoli();
 }
+

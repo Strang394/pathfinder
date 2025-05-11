@@ -139,13 +139,23 @@ window.addEventListener("DOMContentLoaded", async () => {
     const el = document.getElementById(id);
     if (el) {
       el.value = localStorage.getItem(id) || el.value;
+
       el.addEventListener("input", () => {
         localStorage.setItem(id, el.value);
         saveToFirestore(id, el.value);
         aggiornaTuttiICalcoli();
       });
+
+      // 🔄 Questo assicura che anche se l'utente solo clicca fuori, si salva!
+      el.addEventListener("blur", () => {
+        saveToFirestore(id, el.value);
+      });
     }
   });
+
+  aggiornaTuttiICalcoli();    
+  aggiornaAnteprime();        
+});
 
   aggiornaTuttiICalcoli();    
   aggiornaAnteprime();        

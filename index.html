@@ -48,14 +48,15 @@
 <label>Origini: <input type="text" id="origini" /></label>
 
 <label>Taglia: 
-  <select id="taglia" onchange="aggiornaTaglia()">
-    <option value="0">Media (0)</option>
-    <option value="-1">Piccola (-1)</option>
-    <option value="-2">Minuscola (-2)</option>
-    <option value="1">Grande (+1)</option>
-    <option value="2">Enorme (+2)</option>
-  </select>
-</label>
+<select id="taglia" onchange="aggiornaTaglia()">
+  <option value="0">Media (0)</option>
+  <option value="-1">Piccola (-1)</option>
+  <option value="-2">Minuscola (-2)</option>
+  <option value="1">Grande (+1)</option>
+  <option value="2">Enorme (+2)</option>
+  <option value="4">Colossale (+4)</option>
+</select>
+
 
 <label>Sesso: <input type="text" id="sesso" /></label>
 <label>Età: <input type="text" id="eta" /></label>
@@ -130,7 +131,7 @@
     <label>Bonus Armatura: <input type="number" id="ca_armatura" /></label>
     <label>Bonus Scudo: <input type="number" id="ca_scudo" /></label>
     <label>Mod. DES: <input type="number" id="ca_des" /></label>
-    <label>Mod. Taglia: <input type="number" id="ca_taglia" /></label>
+    <label>Mod. Taglia: <input type="number" id="ca_taglia" readonly /></label>
     <label>Armatura Naturale: <input type="number" id="ca_nat" /></label>
     <label>Mod. Deviazione: <input type="number" id="ca_dev" /></label>
     <label>Mod. Vari: <input type="number" id="ca_vari" /></label>
@@ -190,7 +191,7 @@
     <label>Totale: <input type="number" id="bmc_tot" readonly /></label>
     <label>Bonus Attacco Base: <input type="number" id="bmc_bab" readonly /></label>
     <label>Mod. FOR: <input type="number" id="bmc_for" readonly /></label>
-    <label>Mod. Taglia: <input type="number" id="bmc_taglia" /></label>
+    <label>Mod. Taglia: <input type="number" id="bmc_taglia" readonly /></label>
   </div>
 </div>
 
@@ -206,7 +207,7 @@
     <label>Bonus Attacco Base: <input type="number" id="dmc_bab" readonly /></label>
     <label>Mod. FOR: <input type="number" id="dmc_for" readonly /></label>
     <label>Mod. DES: <input type="number" id="dmc_des" readonly /></label>
-    <label>Mod. Taglia: <input type="number" id="dmc_taglia" /></label>
+    <label>Mod. Taglia: <input type="number" id="dmc_taglia" readonly /></label>
   </div>
 </div>
 

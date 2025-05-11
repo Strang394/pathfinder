@@ -1,28 +1,34 @@
+/* === FONTS === */
+@import url('https://fonts.googleapis.com/css2?family=Uncial+Antiqua&family=Inter:wght@400;600&display=swap');
+
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Inter', sans-serif;
   margin: 0;
-  background-color: #f3f4f6;
-  color: #1f2937;
+  background-color: #1e1e2f;
+  color: #f3f4f6;
+}
+
+h1, h2, h3 {
+  font-family: 'Uncial Antiqua', cursive;
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #facc15;
+  letter-spacing: 0.5px;
 }
 
 main {
   max-width: 900px;
   margin: auto;
   padding: 2rem;
-  background: #fff;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  background: #2c2f4a;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   border-radius: 12px;
-}
-
-h1, h2, h3 {
-  text-align: center;
-  margin-bottom: 1rem;
 }
 
 label {
   display: block;
   margin-bottom: 0.8rem;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 input[type="text"],
@@ -32,11 +38,22 @@ textarea {
   width: 100%;
   padding: 0.6rem;
   font-size: 1rem;
-  border: 1px solid #d1d5db;
+  border: 1px solid #4b5563;
   border-radius: 6px;
   box-sizing: border-box;
   margin-top: 0.2rem;
   margin-bottom: 0.5rem;
+  background-color: #374151;
+  color: #f9fafb;
+  transition: all 0.3s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #a78bfa;
+  box-shadow: 0 0 5px #a78bfa;
 }
 
 textarea {
@@ -46,9 +63,9 @@ textarea {
 .tab-nav {
   display: flex;
   justify-content: space-around;
-  background-color: #1f2937;
+  background-color: #111827;
   padding: 0.5rem;
-  border-bottom: 2px solid #374151;
+  border-bottom: 2px solid #6d28d9;
 }
 
 .tab-nav button {
@@ -60,7 +77,6 @@ textarea {
   color: #9ca3af;
   cursor: pointer;
   font-weight: bold;
-  border-radius: 0;
   border-bottom: 3px solid transparent;
   transition: all 0.3s;
 }
@@ -71,8 +87,8 @@ textarea {
 
 .tab-nav button.active {
   color: #fff;
-  border-bottom: 3px solid #3b82f6;
-  background-color: #374151;
+  border-bottom: 3px solid #facc15;
+  background-color: #6d28d9;
 }
 
 .tab-content {
@@ -84,17 +100,16 @@ textarea {
   display: none;
 }
 
-/* GRIGLIE */
+/* === FORM GRID === */
 .form-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1rem;
   margin-bottom: 1.5rem;
-}
-
-.form-grid label {
-  display: block;
-  font-weight: 500;
+  background: #1e1e2f;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.05);
 }
 
 .full-width {
@@ -108,55 +123,63 @@ textarea {
   margin-bottom: 1rem;
 }
 
-/* CARATTERISTICHE */
+/* === CARATTERISTICHE TABLE === */
 .caratteristiche-tabella {
   width: 100%;
   border-collapse: collapse;
   margin-top: 1rem;
+  background: #1e1e2f;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: inset 0 0 5px rgba(255,255,255,0.05);
 }
 
 .caratteristiche-tabella th,
 .caratteristiche-tabella td {
   padding: 0.4rem;
   text-align: center;
+  color: #f9fafb;
 }
 
 .caratteristiche-tabella input {
-  width: 100%;
-  text-align: center;
+  background-color: #374151;
+  border: 1px solid #4b5563;
+  color: #f3f4f6;
 }
 
-/* PULSANTI TOGGLE */
+/* === TOGGLE BUTTONS === */
 button.toggle,
 .blocco button {
-  background-color: #f3f4f6;
-  border: 1px solid #ccc;
-  padding: 2px 6px;
+  background-color: #374151;
+  border: 1px solid #4b5563;
+  padding: 4px 8px;
   font-size: 0.85rem;
   border-radius: 4px;
   cursor: pointer;
   margin-left: 8px;
   transition: background 0.2s;
+  color: #f3f4f6;
 }
 
 button.toggle:hover,
 .blocco button:hover {
-  background-color: #e5e7eb;
+  background-color: #4b5563;
 }
 
-/* DETTAGLI ESPANDIBILI */
+/* === BLOCCO DETTAGLI === */
 .blocco .header {
   font-weight: bold;
   margin-top: 1.5rem;
   margin-bottom: 0.3rem;
+  color: #facc15;
 }
 
 .dettagli {
   margin-top: 0.5rem;
   margin-bottom: 1.5rem;
   padding: 0.75rem 1rem;
-  background-color: #f9fafb;
-  border-left: 4px solid #3b82f6;
+  background-color: #111827;
+  border-left: 4px solid #6d28d9;
   border-radius: 6px;
 }
 
@@ -166,15 +189,18 @@ input.auto-resize {
   max-width: 100%;
   padding: 0.4rem;
   font-size: 1rem;
-  border: 1px solid #ccc;
+  border: 1px solid #4b5563;
   border-radius: 6px;
-  box-sizing: content-box;
+  background-color: #374151;
+  color: #f9fafb;
 }
 
+/* === SELECT/INPUT MINI === */
 .select-small,
 .input-small {
   width: auto;
   min-width: 4ch;
   max-width: 10ch;
   display: inline-block;
+  text-align: center;
 }

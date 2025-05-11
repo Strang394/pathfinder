@@ -148,7 +148,11 @@ window.addEventListener("DOMContentLoaded", async () => {
         saveToFirestore(id, el.value);
         aggiornaTuttiICalcoli();
       });
-
+// Forza resize iniziale dei campi auto-resize
+document.querySelectorAll('.auto-resize').forEach(input => {
+  input.style.width = '1ch'; // reset
+  input.style.width = (input.value.length + 1) + 'ch';
+});
       el.addEventListener("blur", () => {
         saveToFirestore(id, el.value);
       });

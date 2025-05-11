@@ -34,99 +34,98 @@
 
   <main>
 
+<div class="tab-content" id="sezione1">
 
-    <div class="tab-content" id="sezione1">
-      <h2>Profilo</h2>
-      <div class="form-grid">
-  <div>
-    <label>Nome: <input type="text" id="nome" /></label>
+  <!-- SEZIONE: PROFILO -->
+  <h2>Profilo</h2>
+  <div class="form-grid">
+    <div><label>Nome: <input type="text" id="nome" /></label></div>
+    <div><label>Razza: <input type="text" id="razza" /></label></div>
+    <div><label>Classe e Livello: <input type="text" id="classeLivello" /></label></div>
+    <div><label>Allineamento: <input type="text" id="allineamento" /></label></div>
+    <div><label>Divinità: <input type="text" id="divinita" /></label></div>
+    <div><label>Origini: <input type="text" id="origini" /></label></div>
+    <div><label>Sesso: <input type="text" id="sesso" /></label></div>
+    <div><label>Età: <input type="text" id="eta" /></label></div>
+    <div><label>Altezza: <input type="text" id="altezza" /></label></div>
+    <div><label>Peso: <input type="text" id="peso" /></label></div>
+    <div><label>Capelli: <input type="text" id="capelli" /></label></div>
+    <div><label>Occhi: <input type="text" id="occhi" /></label></div>
   </div>
-  <div>
-    <label>Razza: <input type="text" id="razza" /></label>
+
+  <!-- SEZIONE: MOVIMENTO -->
+  <h2>Movimento</h2>
+  <div class="form-grid">
+    <div>
+      <label>Taglia:
+        <select id="taglia" onchange="aggiornaTaglia()">
+          <option value="0">Media (0)</option>
+          <option value="-1">Piccola (-1)</option>
+          <option value="-2">Minuscola (-2)</option>
+          <option value="1">Grande (+1)</option>
+          <option value="2">Enorme (+2)</option>
+          <option value="4">Colossale (+4)</option>
+        </select>
+      </label>
+    </div>
+    <div><label>Velocità Base: <input type="text" id="vel_terreno" /></label></div>
+    <div><label>Velocità con Armatura: <input type="text" id="vel_armatura" /></label></div>
+    <div><label>Volare: <input type="text" id="vel_volare" /></label></div>
+    <div><label>Nuotare: <input type="text" id="vel_nuotare" /></label></div>
+    <div><label>Scalare: <input type="text" id="vel_scalare" /></label></div>
+    <div><label>Scavare: <input type="text" id="vel_scavare" /></label></div>
   </div>
-  <div>
-    <label>Classe/Livello: <input type="text" id="classeLivello" /></label>
+
+  <!-- SEZIONE: CARATTERISTICHE -->
+  <h2>Caratteristiche</h2>
+  <div style="overflow-x:auto">
+    <table class="caratteristiche-tabella">
+      <thead>
+        <tr>
+          <th>Caratteristica</th>
+          <th>Punteggio</th>
+          <th>Mod.</th>
+          <th>Aggiust. Temp.</th>
+          <th>Mod. Temp.</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>FOR</td><td><input id="for" /></td><td><input id="for_mod" readonly /></td><td><input id="for_adj" /></td><td><input id="for_temp" /></td></tr>
+        <tr><td>DES</td><td><input id="des" /></td><td><input id="des_mod" readonly /></td><td><input id="des_adj" /></td><td><input id="des_temp" /></td></tr>
+        <tr><td>COS</td><td><input id="cos" /></td><td><input id="cos_mod" readonly /></td><td><input id="cos_adj" /></td><td><input id="cos_temp" /></td></tr>
+        <tr><td>INT</td><td><input id="int" /></td><td><input id="int_mod" readonly /></td><td><input id="int_adj" /></td><td><input id="int_temp" /></td></tr>
+        <tr><td>SAG</td><td><input id="sag" /></td><td><input id="sag_mod" readonly /></td><td><input id="sag_adj" /></td><td><input id="sag_temp" /></td></tr>
+        <tr><td>CAR</td><td><input id="car" /></td><td><input id="car_mod" readonly /></td><td><input id="car_adj" /></td><td><input id="car_temp" /></td></tr>
+      </tbody>
+    </table>
   </div>
-  <div class="full-width">
-    <label>Allineamento: <input type="text" id="allineamento" /></label>
-  </div>
-</div>
 
-      <h3>Dati Fisici & Movimento</h3>
+  <!-- SEZIONE: COMBATTIMENTO -->
+<h2>Combattimento</h2>
 
-<label>Divinità: <input type="text" id="divinita" /></label>
-<label>Origini: <input type="text" id="origini" /></label>
+<!-- Punti Ferita -->
+<h3>Punti Ferita</h3>
+<label>PF Totali: <input type="number" id="pf_totali" /></label>
+<label>RD (Riduzione del Danno): <input type="text" id="pf_rd" /></label>
+<label>PF Attuali: <textarea id="pf_attuali" rows="2"></textarea></label>
+<label>Danno Non Letale: <input type="text" id="pf_nonletale" /></label>
 
-<label>Taglia:
-  <select id="taglia" onchange="aggiornaTaglia()">
-    <option value="0">Media (0)</option>
-    <option value="-1">Piccola (-1)</option>
-    <option value="-2">Minuscola (-2)</option>
-    <option value="1">Grande (+1)</option>
-    <option value="2">Enorme (+2)</option>
-    <option value="4">Colossale (+4)</option>
-  </select>
-</label>
-<label>Sesso: <input type="text" id="sesso" /></label>
-<label>Età: <input type="text" id="eta" /></label>
-<label>Altezza: <input type="text" id="altezza" /></label>
-<label>Peso: <input type="text" id="peso" /></label>
-<label>Capelli: <input type="text" id="capelli" /></label>
-<label>Occhi: <input type="text" id="occhi" /></label>
-
-<h4>Velocità</h4>
-<label>Velocità Base: <input type="text" id="vel_terreno" /></label>
-<label>Con Armatura: <input type="text" id="vel_armatura" /></label>
-<label>Volare: <input type="text" id="vel_volare" /></label>
-<label>Nuotare: <input type="text" id="vel_nuotare" /></label>
-<label>Scalare: <input type="text" id="vel_scalare" /></label>
-<label>Scavare: <input type="text" id="vel_scavare" /></label>
-
-
-      <h3>Caratteristiche</h3>
-      <div style="overflow-x:auto">
-        <table class="caratteristiche-tabella">
-          <thead>
-            <tr>
-              <th>Caratteristica</th>
-              <th>Punteggio</th>
-              <th>Mod.</th>
-              <th>Aggiust. Temp.</th>
-              <th>Mod. Temp.</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>FOR</td><td><input id="for" /></td><td><input id="for_mod" readonly /></td><td><input id="for_adj" /></td><td><input id="for_temp" /></td></tr>
-            <tr><td>DES</td><td><input id="des" /></td><td><input id="des_mod" readonly /></td><td><input id="des_adj" /></td><td><input id="des_temp" /></td></tr>
-            <tr><td>COS</td><td><input id="cos" /></td><td><input id="cos_mod" readonly /></td><td><input id="cos_adj" /></td><td><input id="cos_temp" /></td></tr>
-            <tr><td>INT</td><td><input id="int" /></td><td><input id="int_mod" readonly /></td><td><input id="int_adj" /></td><td><input id="int_temp" /></td></tr>
-            <tr><td>SAG</td><td><input id="sag" /></td><td><input id="sag_mod" readonly /></td><td><input id="sag_adj" /></td><td><input id="sag_temp" /></td></tr>
-            <tr><td>CAR</td><td><input id="car" /></td><td><input id="car_mod" readonly /></td><td><input id="car_adj" /></td><td><input id="car_temp" /></td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h3>Punti Ferita</h3>
-      <label>PF Totali: <input type="number" id="pf_totali" /></label>
-      <label>RD (Riduzione del Danno): <input type="text" id="pf_rd" /></label>
-      <label>PF Attuali: <textarea id="pf_attuali" rows="2"></textarea></label>
-      <label>Danno Non Letale: <input type="text" id="pf_nonletale" /></label>
-
-      <div class="blocco">
+<!-- Iniziativa -->
+<div class="blocco">
   <div class="header">
     <strong>Iniziativa:</strong> Totale: <span id="init_tot_preview">—</span>
     <button onclick="toggleDettagli(this)">+ Mostra</button>
   </div>
   <div class="dettagli" style="display: none;">
-    <h3>Iniziativa</h3>
+    <h4>Iniziativa</h4>
     <label>Totale: <input type="number" id="init_tot" readonly /></label>
     <label>Mod. DES: <input type="number" id="init_des" readonly /></label>
     <label>Mod. Vari: <input type="number" id="init_vari" /></label>
   </div>
 </div>
 
-      
-     <div class="blocco">
+<!-- Classe Armatura -->
+<div class="blocco">
   <div class="header">
     <strong>Classe Armatura:</strong>
     Totale: <span id="ca_tot_preview">—</span>,
@@ -135,7 +134,7 @@
     <button onclick="toggleDettagli(this)">+ Mostra</button>
   </div>
   <div class="dettagli" style="display: none;">
-    <h3>Classe Armatura</h3>
+    <h4>Classe Armatura</h4>
     <label>CA Totale: <input type="number" id="ca_tot" /></label>
     <label>Bonus Armatura: <input type="number" id="ca_armatura" /></label>
     <label>Bonus Scudo: <input type="number" id="ca_scudo" /></label>
@@ -149,7 +148,8 @@
   </div>
 </div>
 
-      <div class="blocco">
+<!-- Tiri Salvezza -->
+<div class="blocco">
   <div class="header">
     <strong>Tiri Salvezza:</strong>
     Tempra: <span id="ts_tempra_tot_preview">—</span>,
@@ -158,7 +158,6 @@
     <button onclick="toggleDettagli(this)">+ Mostra</button>
   </div>
   <div class="dettagli" style="display: none;">
-    <h3>Tiri Salvezza</h3>
     <h4>Tempra (COS)</h4>
     <label>Totale: <input type="number" id="ts_tempra_tot" readonly /></label>
     <label>TS Base: <input type="number" id="ts_tempra_base" /></label>
@@ -185,12 +184,13 @@
   </div>
 </div>
 
+<!-- BAB e Resistenza -->
+<h3>Attacco Base e Resistenza</h3>
+<label>Bonus Attacco Base (BAB): <input type="number" id="bab" /></label>
+<label>Resistenza agli Incantesimi: <input type="number" id="res_inc" /></label>
 
-      <h3>Bonus Attacco Base e Combattimento</h3>
-      <label>BAB: <input type="number" id="bab" /></label>
-      <label>Resistenza agli Incantesimi: <input type="number" id="res_inc" /></label>
-
-      <div class="blocco">
+<!-- BMC -->
+<div class="blocco">
   <div class="header">
     <strong>BMC:</strong> Totale: <span id="bmc_tot_preview">—</span>
     <button onclick="toggleDettagli(this)">+ Mostra</button>
@@ -198,17 +198,17 @@
   <div class="dettagli" style="display: none;">
     <h4>BMC</h4>
     <label>Totale: <input type="number" id="bmc_tot" readonly /></label>
-    <label>AB: <input type="number" id="bmc_bab" readonly /></label>
+    <label>BAB: <input type="number" id="bmc_bab" readonly /></label>
     <label>Mod. FOR: <input type="number" id="bmc_for" readonly /></label>
     <label>Mod. Taglia: <input type="number" id="bmc_taglia" readonly /></label>
   </div>
 </div>
 
-
-      <div class="blocco">
+<!-- DMC -->
+<div class="blocco">
   <div class="header">
     <strong>DMC:</strong> Totale: <span id="dmc_tot_preview">—</span>
-    <button onclick="toggleDettagli(this)">+ Dettagli</button>
+    <button onclick="toggleDettagli(this)">+ Mostra</button>
   </div>
   <div class="dettagli" style="display: none;">
     <h4>DMC</h4>
@@ -219,8 +219,6 @@
     <label>Mod. Taglia: <input type="number" id="dmc_taglia" readonly /></label>
   </div>
 </div>
-
-
 
 
     <div class="tab-content hidden" id="sezione2">

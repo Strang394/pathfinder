@@ -105,10 +105,21 @@
 
 <!-- Punti Ferita -->
 <h3>Punti Ferita</h3>
-<label>PF Totali: <input type="number" id="pf_totali" /></label>
-<label>RD (Riduzione del Danno): <input type="text" id="pf_rd" /></label>
-<label>PF Attuali: <textarea id="pf_attuali" rows="2"></textarea></label>
-<label>Danno Non Letale: <input type="text" id="pf_nonletale" /></label>
+
+<div class="blocco">
+  <div class="header">
+    <strong>PF Totali:</strong>
+    <span id="pf_totali_preview">—</span>
+    <button onclick="toggleDettagli(this)">+ Mostra</button>
+  </div>
+  <div class="dettagli" style="display: none;">
+    <label>PF Totali: <input type="number" id="pf_totali" /></label>
+    <label>PF Attuali: <textarea id="pf_attuali" rows="2"></textarea></label>
+    <label>RD (Riduzione del Danno): <input type="text" id="pf_rd" /></label>
+    <label>Danno Non Letale: <input type="text" id="pf_nonletale" /></label>
+  </div>
+</div>
+
 
 <!-- Iniziativa -->
 <div class="blocco">
@@ -148,10 +159,15 @@
   </div>
 </div>
 
-<!-- BAB e Resistenza -->
 <h3>Attacco Base e Resistenza</h3>
-<label>Bonus Attacco Base (BAB): <input type="number" id="bab" /></label>
-<label>Resistenza agli Incantesimi: <input type="number" id="res_inc" /></label>
+<div class="form-grid">
+  <div>
+    <label>Bonus Attacco Base (BAB): <input type="number" id="bab" /></label>
+  </div>
+  <div>
+    <label>Resistenza agli Incantesimi: <input type="number" id="res_inc" /></label>
+  </div>
+</div>
 
 <!-- BMC -->
 <div class="blocco">

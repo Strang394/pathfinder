@@ -42,6 +42,36 @@
       <label>Razza: <input type="text" id="razza" /></label>
       <label>Classe/Livello: <input type="text" id="classeLivello" /></label>
       <label>Allineamento: <input type="text" id="allineamento" /></label>
+      <h3>Dati Fisici & Movimento</h3>
+
+<label>Divinità: <input type="text" id="divinita" /></label>
+<label>Origini: <input type="text" id="origini" /></label>
+
+<label>Taglia: 
+  <select id="taglia" onchange="aggiornaTaglia()">
+    <option value="0">Media (0)</option>
+    <option value="-1">Piccola (-1)</option>
+    <option value="-2">Minuscola (-2)</option>
+    <option value="1">Grande (+1)</option>
+    <option value="2">Enorme (+2)</option>
+  </select>
+</label>
+
+<label>Sesso: <input type="text" id="sesso" /></label>
+<label>Età: <input type="text" id="eta" /></label>
+<label>Altezza: <input type="text" id="altezza" /></label>
+<label>Peso: <input type="text" id="peso" /></label>
+<label>Capelli: <input type="text" id="capelli" /></label>
+<label>Occhi: <input type="text" id="occhi" /></label>
+
+<h4>Velocità</h4>
+<label>Terreno: <input type="text" id="vel_terreno" /></label>
+<label>Con Armatura: <input type="text" id="vel_armatura" /></label>
+<label>Volare: <input type="text" id="vel_volare" /></label>
+<label>Nuotare: <input type="text" id="vel_nuotare" /></label>
+<label>Scalare: <input type="text" id="vel_scalare" /></label>
+<label>Scavare: <input type="text" id="vel_scavare" /></label>
+
 
       <h3>Caratteristiche Dettagliate</h3>
       <div style="overflow-x:auto">

@@ -194,7 +194,7 @@ function aggiornaAnteprime() {
   const ids = [
     "ca_tot", "ca_contatto", "ca_impreparato",
     "init_tot",
-    "ts_tempra_tot", "ts_riflessi_tot", "ts_volonta_tot", "bmc_tot", "dmc_tot", "pf_totali"
+    "ts_tempra_tot", "ts_riflessi_tot", "ts_volonta_tot", "bmc_tot", "dmc_tot", "pf_totali", "vel_terreno"
 
   ];
 

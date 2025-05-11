@@ -150,20 +150,36 @@
       <label>BAB: <input type="number" id="bab" /></label>
       <label>Resistenza agli Incantesimi: <input type="number" id="res_inc" /></label>
 
-      <h4>BMC</h4>
-      <label>Totale: <input type="number" id="bmc_tot" /></label>
-      <label>Bonus Attacco Base: <input type="number" id="bmc_bab" readonly /></label>
-      <label>Mod. FOR: <input type="number" id="bmc_for" readonly /></label>
-      <label>Mod. Taglia: <input type="number" id="bmc_taglia" /></label>
+      <div class="blocco">
+  <div class="header">
+    <strong>BMC:</strong> Totale: <span id="bmc_tot_preview">—</span>
+    <button onclick="toggleDettagli(this)">+ Dettagli</button>
+  </div>
+  <div class="dettagli" style="display: none;">
+    <h4>BMC</h4>
+    <label>Totale: <input type="number" id="bmc_tot" readonly /></label>
+    <label>Bonus Attacco Base: <input type="number" id="bmc_bab" readonly /></label>
+    <label>Mod. FOR: <input type="number" id="bmc_for" readonly /></label>
+    <label>Mod. Taglia: <input type="number" id="bmc_taglia" /></label>
+  </div>
+</div>
 
-      <h4>DMC</h4>
-      <label>Totale: <input type="number" id="dmc_tot" /></label>
-      <label>Bonus Attacco Base: <input type="number" id="dmc_bab" readonly /></label>
-      <label>Mod. FOR: <input type="number" id="dmc_for" readonly /></label>
-      <label>Mod. DES: <input type="number" id="dmc_des" readonly /></label>
-      <label>Mod. Taglia: <input type="number" id="dmc_taglia" /></label>
 
-    </div>
+      <div class="blocco">
+  <div class="header">
+    <strong>DMC:</strong> Totale: <span id="dmc_tot_preview">—</span>
+    <button onclick="toggleDettagli(this)">+ Dettagli</button>
+  </div>
+  <div class="dettagli" style="display: none;">
+    <h4>DMC</h4>
+    <label>Totale: <input type="number" id="dmc_tot" readonly /></label>
+    <label>Bonus Attacco Base: <input type="number" id="dmc_bab" readonly /></label>
+    <label>Mod. FOR: <input type="number" id="dmc_for" readonly /></label>
+    <label>Mod. DES: <input type="number" id="dmc_des" readonly /></label>
+    <label>Mod. Taglia: <input type="number" id="dmc_taglia" /></label>
+  </div>
+</div>
+
 
 <!-- ... (le altre sezioni rimangono invariate) ... -->
 

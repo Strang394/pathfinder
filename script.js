@@ -192,16 +192,19 @@ window.toggleDettagli = function(button) {
 
 function aggiornaTaglia() {
   const mod = parseInt(document.getElementById("taglia").value);
-  ["ca_taglia", "bmc_taglia", "dmc_taglia"].forEach(id => {
+  const affected = ["ca_taglia", "bmc_taglia", "dmc_taglia"];
+
+  affected.forEach(id => {
     const el = document.getElementById(id);
     if (el) {
-      el.removeAttribute("readonly"); // 👈 Sblocca temporaneamente
-      el.value = mod;
-      el.setAttribute("readonly", true); // 👈 Ri-blocca subito dopo
+      el.readOnly = false;               // Sblocca
+      el.value = mod;                    // Applica
+      el.readOnly = true;                // Riblocca
       localStorage.setItem(id, mod);
       saveToFirestore(id, mod);
     }
   });
+
   aggiornaTuttiICalcoli();
 }
 

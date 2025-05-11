@@ -138,7 +138,10 @@ window.addEventListener("DOMContentLoaded", async () => {
   fields.forEach(id => {
     const el = document.getElementById(id);
     if (el) {
-      el.value = localStorage.getItem(id) || el.value;
+      const local = localStorage.getItem(id);
+      if (local !== null && local !== undefined) {
+        el.value = local;
+      }
 
       el.addEventListener("input", () => {
         localStorage.setItem(id, el.value);
@@ -154,7 +157,7 @@ window.addEventListener("DOMContentLoaded", async () => {
 
   aggiornaTuttiICalcoli();    
   aggiornaAnteprime();        
-}); // <--- questa parentesi chiude correttamente il blocco
+});
 
 
 

@@ -192,16 +192,13 @@ window.toggleDettagli = function(button) {
 
 function aggiornaTaglia() {
   const mod = parseInt(document.getElementById("taglia").value);
-  const affected = ["ca_taglia", "bmc_taglia", "dmc_taglia"];
-
-  affected.forEach(id => {
+  ["ca_taglia", "bmc_taglia", "dmc_taglia"].forEach(id => {
     const el = document.getElementById(id);
     if (el) {
       el.readOnly = false;
       el.value = mod;
       el.readOnly = true;
-      localStorage.setItem(id, mod);
-      saveToFirestore(id, mod);
+      setVal(id, mod); // Usa la tua funzione che salva e aggiorna
     }
   });
 

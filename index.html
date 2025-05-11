@@ -36,13 +36,10 @@
 
 
     <div class="tab-content" id="sezione1">
-      <h2>Profilo & Caratteristiche</h2>
+      <h2>Profilo</h2>
       <div class="form-grid">
   <div>
     <label>Nome: <input type="text" id="nome" /></label>
-  </div>
-  <div>
-    <label>Giocatore: <input type="text" id="giocatore" /></label>
   </div>
   <div>
     <label>Razza: <input type="text" id="razza" /></label>
@@ -70,9 +67,6 @@
     <option value="4">Colossale (+4)</option>
   </select>
 </label>
-
-
-
 <label>Sesso: <input type="text" id="sesso" /></label>
 <label>Età: <input type="text" id="eta" /></label>
 <label>Altezza: <input type="text" id="altezza" /></label>
@@ -89,7 +83,7 @@
 <label>Scavare: <input type="text" id="vel_scavare" /></label>
 
 
-      <h3>Caratteristiche Dettagliate</h3>
+      <h3>Caratteristiche</h3>
       <div style="overflow-x:auto">
         <table class="caratteristiche-tabella">
           <thead>
@@ -115,17 +109,17 @@
       <h3>Punti Ferita</h3>
       <label>PF Totali: <input type="number" id="pf_totali" /></label>
       <label>RD (Riduzione del Danno): <input type="text" id="pf_rd" /></label>
-      <label>Ferite/PF Attuali: <textarea id="pf_attuali" rows="2"></textarea></label>
+      <label>PF Attuali: <textarea id="pf_attuali" rows="2"></textarea></label>
       <label>Danno Non Letale: <input type="text" id="pf_nonletale" /></label>
 
       <div class="blocco">
   <div class="header">
     <strong>Iniziativa:</strong> Totale: <span id="init_tot_preview">—</span>
-    <button onclick="toggleDettagli(this)">+ Dettagli</button>
+    <button onclick="toggleDettagli(this)">+ Mostra</button>
   </div>
   <div class="dettagli" style="display: none;">
     <h3>Iniziativa</h3>
-    <label>Iniziativa Totale: <input type="number" id="init_tot" readonly /></label>
+    <label>Totale: <input type="number" id="init_tot" readonly /></label>
     <label>Mod. DES: <input type="number" id="init_des" readonly /></label>
     <label>Mod. Vari: <input type="number" id="init_vari" /></label>
   </div>
@@ -138,7 +132,7 @@
     Totale: <span id="ca_tot_preview">—</span>,
     Contatto: <span id="ca_contatto_preview">—</span>,
     Impreparato: <span id="ca_impreparato_preview">—</span>
-    <button onclick="toggleDettagli(this)">+ Dettagli</button>
+    <button onclick="toggleDettagli(this)">+ Mostra</button>
   </div>
   <div class="dettagli" style="display: none;">
     <h3>Classe Armatura</h3>
@@ -161,7 +155,7 @@
     Tempra: <span id="ts_tempra_tot_preview">—</span>,
     Riflessi: <span id="ts_riflessi_tot_preview">—</span>,
     Volontà: <span id="ts_volonta_tot_preview">—</span>
-    <button onclick="toggleDettagli(this)">+ Dettagli</button>
+    <button onclick="toggleDettagli(this)">+ Mostra</button>
   </div>
   <div class="dettagli" style="display: none;">
     <h3>Tiri Salvezza</h3>
@@ -199,12 +193,12 @@
       <div class="blocco">
   <div class="header">
     <strong>BMC:</strong> Totale: <span id="bmc_tot_preview">—</span>
-    <button onclick="toggleDettagli(this)">+ Dettagli</button>
+    <button onclick="toggleDettagli(this)">+ Mostra</button>
   </div>
   <div class="dettagli" style="display: none;">
     <h4>BMC</h4>
     <label>Totale: <input type="number" id="bmc_tot" readonly /></label>
-    <label>Bonus Attacco Base: <input type="number" id="bmc_bab" readonly /></label>
+    <label>AB: <input type="number" id="bmc_bab" readonly /></label>
     <label>Mod. FOR: <input type="number" id="bmc_for" readonly /></label>
     <label>Mod. Taglia: <input type="number" id="bmc_taglia" readonly /></label>
   </div>
@@ -219,7 +213,7 @@
   <div class="dettagli" style="display: none;">
     <h4>DMC</h4>
     <label>Totale: <input type="number" id="dmc_tot" readonly /></label>
-    <label>Bonus Attacco Base: <input type="number" id="dmc_bab" readonly /></label>
+    <label>BAB: <input type="number" id="dmc_bab" readonly /></label>
     <label>Mod. FOR: <input type="number" id="dmc_for" readonly /></label>
     <label>Mod. DES: <input type="number" id="dmc_des" readonly /></label>
     <label>Mod. Taglia: <input type="number" id="dmc_taglia" readonly /></label>
@@ -227,7 +221,6 @@
 </div>
 
 
-<!-- ... (le altre sezioni rimangono invariate) ... -->
 
 
     <div class="tab-content hidden" id="sezione2">

@@ -6,9 +6,9 @@ body {
 }
 
 main {
-  max-width: 600px;
+  max-width: 900px;
   margin: auto;
-  padding: 1rem;
+  padding: 2rem;
   background: #fff;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
   border-radius: 12px;
@@ -27,6 +27,7 @@ label {
 
 input[type="text"],
 input[type="number"],
+select,
 textarea {
   width: 100%;
   padding: 0.6rem;
@@ -40,12 +41,6 @@ textarea {
 
 textarea {
   resize: vertical;
-}
-
-.caratteristiche {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.8rem;
 }
 
 .tab-nav {
@@ -89,9 +84,7 @@ textarea {
   display: none;
 }
 
-.hidden {
-  display: none;
-}
+/* GRIGLIE */
 .form-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -108,3 +101,61 @@ textarea {
   grid-column: 1 / -1;
 }
 
+.grid-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* CARATTERISTICHE */
+.caratteristiche-tabella {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.caratteristiche-tabella th,
+.caratteristiche-tabella td {
+  padding: 0.4rem;
+  text-align: center;
+}
+
+.caratteristiche-tabella input {
+  width: 100%;
+  text-align: center;
+}
+
+/* PULSANTI TOGGLE */
+button.toggle,
+.blocco button {
+  background-color: #f3f4f6;
+  border: 1px solid #ccc;
+  padding: 2px 6px;
+  font-size: 0.85rem;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 8px;
+  transition: background 0.2s;
+}
+
+button.toggle:hover,
+.blocco button:hover {
+  background-color: #e5e7eb;
+}
+
+/* DETTAGLI ESPANDIBILI */
+.blocco .header {
+  font-weight: bold;
+  margin-top: 1.5rem;
+  margin-bottom: 0.3rem;
+}
+
+.dettagli {
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
+  padding: 0.75rem 1rem;
+  background-color: #f9fafb;
+  border-left: 4px solid #3b82f6;
+  border-radius: 6px;
+}

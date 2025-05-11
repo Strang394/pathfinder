@@ -148,42 +148,6 @@
   </div>
 </div>
 
-<!-- Tiri Salvezza -->
-<div class="blocco">
-  <div class="header">
-    <strong>Tiri Salvezza:</strong>
-    Tempra: <span id="ts_tempra_tot_preview">—</span>,
-    Riflessi: <span id="ts_riflessi_tot_preview">—</span>,
-    Volontà: <span id="ts_volonta_tot_preview">—</span>
-    <button onclick="toggleDettagli(this)">+ Mostra</button>
-  </div>
-  <div class="dettagli" style="display: none;">
-    <h4>Tempra (COS)</h4>
-    <label>Totale: <input type="number" id="ts_tempra_tot" readonly /></label>
-    <label>TS Base: <input type="number" id="ts_tempra_base" /></label>
-    <label>Mod. Caratt.: <input type="number" id="ts_tempra_caratt" readonly /></label>
-    <label>Mod. Magico: <input type="number" id="ts_tempra_mag" /></label>
-    <label>Mod. Vari: <input type="number" id="ts_tempra_vari" /></label>
-    <label>Mod. Temp.: <input type="number" id="ts_tempra_temp" /></label>
-
-    <h4>Riflessi (DES)</h4>
-    <label>Totale: <input type="number" id="ts_riflessi_tot" readonly /></label>
-    <label>TS Base: <input type="number" id="ts_riflessi_base" /></label>
-    <label>Mod. Caratt.: <input type="number" id="ts_riflessi_caratt" readonly /></label>
-    <label>Mod. Magico: <input type="number" id="ts_riflessi_mag" /></label>
-    <label>Mod. Vari: <input type="number" id="ts_riflessi_vari" /></label>
-    <label>Mod. Temp.: <input type="number" id="ts_riflessi_temp" /></label>
-
-    <h4>Volontà (SAG)</h4>
-    <label>Totale: <input type="number" id="ts_volonta_tot" readonly /></label>
-    <label>TS Base: <input type="number" id="ts_volonta_base" /></label>
-    <label>Mod. Caratt.: <input type="number" id="ts_volonta_caratt" readonly /></label>
-    <label>Mod. Magico: <input type="number" id="ts_volonta_mag" /></label>
-    <label>Mod. Vari: <input type="number" id="ts_volonta_vari" /></label>
-    <label>Mod. Temp.: <input type="number" id="ts_volonta_temp" /></label>
-  </div>
-</div>
-
 <!-- BAB e Resistenza -->
 <h3>Attacco Base e Resistenza</h3>
 <label>Bonus Attacco Base (BAB): <input type="number" id="bab" /></label>
@@ -220,8 +184,45 @@
   </div>
 </div>
 
+<!-- Tiri Salvezza -->
+<div class="blocco">
+  <div class="header">
+    <strong>Tiri Salvezza:</strong>
+    Tempra: <span id="ts_tempra_tot_preview">—</span>,
+    Riflessi: <span id="ts_riflessi_tot_preview">—</span>,
+    Volontà: <span id="ts_volonta_tot_preview">—</span>
+    <button onclick="toggleDettagli(this)">+ Mostra</button>
+  </div>
+  <div class="dettagli" style="display: none;">
+    <h4>Tempra (COS)</h4>
+    <label>Totale: <input type="number" id="ts_tempra_tot" readonly /></label>
+    <label>TS Base: <input type="number" id="ts_tempra_base" /></label>
+    <label>Mod. Caratt.: <input type="number" id="ts_tempra_caratt" readonly /></label>
+    <label>Mod. Magico: <input type="number" id="ts_tempra_mag" /></label>
+    <label>Mod. Vari: <input type="number" id="ts_tempra_vari" /></label>
+    <label>Mod. Temp.: <input type="number" id="ts_tempra_temp" /></label>
 
-    <div class="tab-content hidden" id="sezione2">
+    <h4>Riflessi (DES)</h4>
+    <label>Totale: <input type="number" id="ts_riflessi_tot" readonly /></label>
+    <label>TS Base: <input type="number" id="ts_riflessi_base" /></label>
+    <label>Mod. Caratt.: <input type="number" id="ts_riflessi_caratt" readonly /></label>
+    <label>Mod. Magico: <input type="number" id="ts_riflessi_mag" /></label>
+    <label>Mod. Vari: <input type="number" id="ts_riflessi_vari" /></label>
+    <label>Mod. Temp.: <input type="number" id="ts_riflessi_temp" /></label>
+
+    <h4>Volontà (SAG)</h4>
+    <label>Totale: <input type="number" id="ts_volonta_tot" readonly /></label>
+    <label>TS Base: <input type="number" id="ts_volonta_base" /></label>
+    <label>Mod. Caratt.: <input type="number" id="ts_volonta_caratt" readonly /></label>
+    <label>Mod. Magico: <input type="number" id="ts_volonta_mag" /></label>
+    <label>Mod. Vari: <input type="number" id="ts_volonta_vari" /></label>
+    <label>Mod. Temp.: <input type="number" id="ts_volonta_temp" /></label>
+  </div>
+</div>
+   
+  
+  
+  <div class="tab-content hidden" id="sezione2">
       <h2>Abilità</h2>
       <textarea id="abilita" rows="8" placeholder="Inserisci abilità e modificatori..."></textarea>
       <h3>Talenti e Capacità</h3>

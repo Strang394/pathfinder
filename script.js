@@ -197,9 +197,9 @@ function aggiornaTaglia() {
   affected.forEach(id => {
     const el = document.getElementById(id);
     if (el) {
-      el.readOnly = false;               // Sblocca
-      el.value = mod;                    // Applica
-      el.readOnly = true;                // Riblocca
+      el.readOnly = false;
+      el.value = mod;
+      el.readOnly = true;
       localStorage.setItem(id, mod);
       saveToFirestore(id, mod);
     }
@@ -207,5 +207,8 @@ function aggiornaTaglia() {
 
   aggiornaTuttiICalcoli();
 }
+
+window.aggiornaTaglia = aggiornaTaglia; // ✅ Aggiungi questa riga
+
 
 

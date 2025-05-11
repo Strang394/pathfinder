@@ -1,6 +1,8 @@
 // script.js completo con calcoli automatici
 const fields = [
   "nome", "giocatore", "razza", "classeLivello", "allineamento",
+  "divinita", "origini", "taglia", "sesso", "eta", "altezza", "peso", "capelli", "occhi",
+"vel_terreno", "vel_armatura", "vel_volare", "vel_nuotare", "vel_scalare", "vel_scavare",
   "for", "for_adj", "for_temp", "for_mod",
   "des", "des_adj", "des_temp", "des_mod",
   "cos", "cos_adj", "cos_temp", "cos_mod",
@@ -16,7 +18,7 @@ const fields = [
   "bab", "res_inc",
   "bmc_tot", "bmc_for", "bmc_taglia",
   "dmc_tot", "dmc_for", "dmc_des", "dmc_taglia",
-  "abilita", "talenti", "capacita", "equip", "denaro", "note"
+  "abilita", "talenti", "capacita", "equip", "denaro", "note",
 ];
 
 function calcMod(score) {
@@ -170,3 +172,16 @@ window.toggleDettagli = function(button) {
   button.textContent = isHidden ? '− Nascondi' : '+ Dettagli';
   aggiornaAnteprime();
 };
+
+function aggiornaTaglia() {
+  const mod = parseInt(document.getElementById("taglia").value);
+  ["ca_taglia", "bmc_taglia", "dmc_taglia"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.value = mod;
+      localStorage.setItem(id, mod);
+      saveToFirestore(id, mod);
+    }
+  });
+  aggiornaTuttiICalcoli();
+}

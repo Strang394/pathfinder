@@ -104,8 +104,10 @@ function aggiornaTuttiICalcoli() {
   calcolaCA();
   calcolaTiriSalvezza();
   calcolaCombattimento();
-  aggiornaAnteprime(); // <-- qui dentro, così si aggiorna sempre!
+  aggiornaAnteprime();
+  aggiornaAbilita(); 
 }
+
 
 
 async function loadFromFirestore() {

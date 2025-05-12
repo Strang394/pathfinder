@@ -19,10 +19,16 @@ h1, h2, h3 {
 main {
   max-width: 900px;
   margin: auto;
-  padding: 2rem;
+  padding: 1rem;
   background: #2c2f4a;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   border-radius: 12px;
+}
+
+@media (min-width: 768px) {
+  main {
+    padding: 2rem;
+  }
 }
 
 label {
@@ -62,6 +68,7 @@ textarea {
 
 .tab-nav {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-around;
   background-color: #111827;
   padding: 0.5rem;
@@ -69,7 +76,7 @@ textarea {
 }
 
 .tab-nav button {
-  flex: 1;
+  flex: 1 0 auto;
   padding: 0.6rem;
   font-size: 1rem;
   background: none;
@@ -103,13 +110,19 @@ textarea {
 /* === FORM GRID === */
 .form-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: 1fr;
   gap: 1rem;
   margin-bottom: 1.5rem;
   background: #1e1e2f;
   padding: 1rem;
   border-radius: 8px;
   box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.05);
+}
+
+@media (min-width: 768px) {
+  .form-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
 }
 
 .full-width {
@@ -147,6 +160,14 @@ textarea {
   color: #f3f4f6;
 }
 
+@media (max-width: 600px) {
+  .caratteristiche-tabella th,
+  .caratteristiche-tabella td {
+    font-size: 0.85rem;
+    padding: 0.3rem;
+  }
+}
+
 /* === TOGGLE BUTTONS === */
 button.toggle,
 .blocco button {
@@ -167,6 +188,16 @@ button.toggle:hover,
 }
 
 /* === BLOCCO DETTAGLI === */
+.blocco {
+  width: 100%;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  background-color: #111827;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  box-shadow: inset 0 0 5px rgba(255,255,255,0.05);
+}
+
 .blocco .header {
   font-weight: bold;
   margin-top: 1.5rem;

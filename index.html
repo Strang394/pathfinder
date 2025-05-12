@@ -39,45 +39,47 @@
 
   <!-- SEZIONE: PROFILO -->
 
-  <div class="form-grid"> <h2><i class="fas fa-user"></i> Profilo</h2>
+<div class="blocco">
+  <div class="form-grid">
     <div><label>Nome: <input type="text" id="nome" class="auto-resize" /></label></div>
     <div><label>Razza: <input type="text" id="razza" class="auto-resize"/></label></div>
     <div><label>Classe e Livello: <input type="text" id="classeLivello" class="auto-resize" /></label></div>
-    <div>
-  <label>Allineamento:
-    <select id="allineamento" class="select-small">
-      <option value="">— Seleziona —</option>
-      <option value="LB">LB</option>
-      <option value="NB">NB</option>
-      <option value="CB">CB</option>
-      <option value="LN">LN</option>
-      <option value="NN">NN</option>
-      <option value="CN">CN</option>
-      <option value="LM">LM</option>
-      <option value="NM">NM</option>
-      <option value="CM">CM</option>
-    </select>
-  </label>
-</div>
+    <div><label>Allineamento:
+      <select id="allineamento" class="select-small">
+        <option value="">— Seleziona —</option>
+        <option value="LB">LB</option>
+        <option value="NB">NB</option>
+        <option value="CB">CB</option>
+        <option value="LN">LN</option>
+        <option value="NN">NN</option>
+        <option value="CN">CN</option>
+        <option value="LM">LM</option>
+        <option value="NM">NM</option>
+        <option value="CM">CM</option>
+      </select>
+    </label></div>
+  </div>
+
+  <div class="form-grid">
     <div><label>Divinità: <input type="text" id="divinita" class="auto-resize" /></label></div>
     <div><label>Origini: <input type="text" id="origini" class="auto-resize" /></label></div>
-    <div>
-  <label>Sesso:
-    <select id="sesso" class="select-small">
-      <option value="">—</option>
-      <option value="M">M</option>
-      <option value="F">F</option>
-      <option value="Altro">NA</option>
-    </select>
-  </label>
-</div>
-    <div><label>Età: <input type="text" id="eta" class="auto-resize"/></label></div>
-    <div><label>Altezza: <input type="text" id="altezza" class="auto-resize"/></label></div>
-    <div><label>Peso: <input type="text" id="peso" class="auto-resize"/></label></div>
+    <div><label>Sesso:
+      <select id="sesso" class="select-small">
+        <option value="">—</option>
+        <option value="M">M</option>
+        <option value="F">F</option>
+        <option value="Altro">NA</option>
+      </select>
+    </label></div>
+    <div><label>Età: <input type="text" id="eta" class="auto-resize input-small"/></label></div>
+  </div>
+
+  <div class="form-grid">
+    <div><label>Altezza: <input type="text" id="altezza" class="auto-resize input-small" /></label></div>
+    <div><label>Peso: <input type="text" id="peso" class="auto-resize input-small"/></label></div>
     <div><label>Capelli: <input type="text" id="capelli" class="auto-resize"/></label></div>
-    <div><label>Occhi: <input type="text" id="occhi" class="auto-resize"/></label></div>
-    <div>
-      <label>Taglia:
+    <div><label>Occhi: <input type="text" id="occhi" class="auto-resize"/></label></div> 
+      <div><label>Taglia:
         <select id="taglia" onchange="aggiornaTaglia()">
           <option value="0">Media (0)</option>
           <option value="-1">Piccola (-1)</option>
@@ -88,6 +90,10 @@
         </select>
       </label>
     </div>
+  </div>
+</div>
+
+  
     <div class="blocco">
   <div class="header">
     <strong>Velocità Base:</strong> <span id="vel_terreno_preview">—</span>

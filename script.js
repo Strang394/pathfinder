@@ -154,13 +154,18 @@ async function loadFromFirestore() {
     fields.forEach(id => {
       const el = document.getElementById(id);
       if (el && data[id] !== undefined) {
-        el.value = data[id];
+        if (el.type === "checkbox") {
+          el.checked = data[id];
+        } else {
+          el.value = data[id];
+        }
         localStorage.setItem(id, data[id]);
       }
     });
     aggiornaTuttiICalcoli();
   }
 }
+
 
 async function saveToFirestore(id, value) {
   const { setDoc, doc, getDoc } = await import("https://www.gstatic.com/firebasejs/11.7.1/firebase-firestore.js");
@@ -180,11 +185,21 @@ window.addEventListener("DOMContentLoaded", async () => {
         el.value = local;
       }
 
-      el.addEventListener("input", () => {
-        localStorage.setItem(id, el.value);
-        saveToFirestore(id, el.value);
-        aggiornaTuttiICalcoli();
-      });
+ el.addEventListener("input", () => {
+  const value = el.type === "checkbox" ? el.checked : el.value;
+  localStorage.setItem(id, value);
+  saveToFirestore(id, value);
+  aggiornaTuttiICalcoli();
+});
+
+// Assicura che anche il cambio di focus su textarea o checkbox venga salvato
+el.addEventListener("change", () => {
+  const value = el.type === "checkbox" ? el.checked : el.value;
+  localStorage.setItem(id, value);
+  saveToFirestore(id, value);
+  aggiornaTuttiICalcoli();
+});
+
 // Forza resize iniziale dei campi auto-resize
 document.querySelectorAll('.auto-resize').forEach(input => {
   input.style.width = '1ch'; // reset

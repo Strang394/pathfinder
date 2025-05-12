@@ -261,3 +261,8 @@ input.auto-resize {
 input[type="number"].input-small {
   width: 80px;
 }
+
+.overflow-wrap {
+  overflow-x: auto;
+  width: 100%;
+}

@@ -221,25 +221,57 @@ function autoResizeInput(input) {
   input.style.width = `${length + 1}ch`;
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+  await loadFromFirestore();
+
+  // Auto-resize iniziale
   document.querySelectorAll("input.auto-resize").forEach(input => {
-    autoResizeInput(input); // iniziale
+    autoResizeInput(input);
     input.addEventListener("input", () => autoResizeInput(input));
+  });
+
+  // Gestione salvataggio e ricaricamento per ogni campo definito
+  fields.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      const stored = localStorage.getItem(id);
+      if (stored !== null) {
+        if (el.type === "checkbox") {
+          el.checked = stored === "true"; // localStorage salva stringhe!
+        } else {
+          el.value = stored;
+        }
+      }
+
+      const save = () => {
+        const value = el.type === "checkbox" ? el.checked : el.value;
+        localStorage.setItem(id, value);
+        saveToFirestore(id, value);
+        aggiornaTuttiICalcoli();
+      };
+
+      el.addEventListener("input", save);
+      el.addEventListener("change", save);
+    }
+  });
+
+  aggiornaTuttiICalcoli();
+  aggiornaAnteprime();
+
+  // Tabs switching
+  const tabs = document.querySelectorAll(".tab-nav button");
+  const contents = document.querySelectorAll(".tab-content");
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      tabs.forEach(t => t.classList.remove("active"));
+      contents.forEach(c => c.classList.add("hidden"));
+      tab.classList.add("active");
+      document.getElementById(tab.getAttribute("data-tab")).classList.remove("hidden");
+      aggiornaTuttiICalcoli();
+    });
   });
 });
 
-
-  const tabs = document.querySelectorAll('.tab-nav button');
-  const contents = document.querySelectorAll('.tab-content');
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      tabs.forEach(t => t.classList.remove('active'));
-      contents.forEach(c => c.classList.add('hidden'));
-      tab.classList.add('active');
-      document.getElementById(tab.getAttribute('data-tab')).classList.remove('hidden');
-       aggiornaTuttiICalcoli();
-    });
-});
  
 
 function aggiornaAnteprime() {

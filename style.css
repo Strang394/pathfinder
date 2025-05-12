@@ -266,10 +266,3 @@ input[type="number"].input-small {
   overflow-x: auto;
   width: 100%;
 }
-
-.caratteristiche-tabella input {
-  width: 3.5ch;
-  padding: 0.2rem 0.4rem;
-  text-align: center;
-  font-size: 0.9rem;
-}

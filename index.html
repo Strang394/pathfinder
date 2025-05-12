@@ -57,12 +57,12 @@
         <option value="NM">NM</option>
         <option value="CM">CM</option>
       </select>
-    </label></div>
-  </div>
-
+    </label></div> <!--chiusura allineamento-->
+  </div><!--chiusura grid-->
   <div class="form-grid">
     <div><label>Divinità: <input type="text" id="divinita" class="auto-resize" /></label></div>
     <div><label>Origini: <input type="text" id="origini" class="auto-resize" /></label></div>
+    <div><label>Età: <input type="text" id="eta" class="auto-resize input-small"/></label></div>
     <div><label>Sesso:
       <select id="sesso" class="select-small">
         <option value="">—</option>
@@ -70,10 +70,9 @@
         <option value="F">F</option>
         <option value="Altro">NA</option>
       </select>
-    </label></div>
-    <div><label>Età: <input type="text" id="eta" class="auto-resize input-small"/></label></div>
-  </div>
-
+    </label>
+    </div><!--chiusura sesso-->
+  </div> <!--chiusura grid-->
   <div class="form-grid">
     <div><label>Altezza: <input type="text" id="altezza" class="auto-resize input-small" /></label></div>
     <div><label>Peso: <input type="text" id="peso" class="auto-resize input-small"/></label></div>
@@ -89,14 +88,14 @@
           <option value="4">+4</option>
         </select>
       </label>
-    </div>
-  </div>
+    </div> <!--chiusura taglia-->
+  </div> <!--chiusura grid-->
   
   <div class="header">
     <strong>Velocità Base:</strong> <span id="vel_terreno_preview">—</span>
     <button onclick="toggleDettagli(this)">+ Dettagli</button>
   </div>
-  <div class="dettagli" style="display: none;">
+   <div class="dettagli" style="display: none;">
     <label>Velocità Base: <input type="text" id="vel_terreno" class="auto-resize" /></label>
     <label>Velocità con Armatura: <input type="text" id="vel_armatura" class="auto-resize" /></label>
     <label>Volare: <input type="text" id="vel_volare" class="auto-resize" /></label>
@@ -104,9 +103,7 @@
     <label>Scalare: <input type="text" id="vel_scalare" class="auto-resize" /></label>
     <label>Scavare: <input type="text" id="vel_scavare" class="auto-resize" /></label>
   </div>
- </div>
-</div>
-
+</div> <!--chiusura blocco-->
 
 
 
@@ -148,7 +145,7 @@
     <label>RD (Riduzione del Danno): <input type="text" id="pf_rd" class="auto-resize"/></label>
     <label>Danno Non Letale: <input type="text" id="pf_nonletale" class="auto-resize"/></label>
   </div>
-</div>
+</div> <!--chiusura blocco-->
 
 
 
@@ -164,7 +161,7 @@
     <label>Mod. DES: <input type="number" id="init_des" readonly class="auto-resize"/></label>
     <label>Mod. Vari: <input type="number" id="init_vari" class="auto-resize"/></label>
   </div>
-</div>
+</div> <!--chiusura blocco-->
 
 <!-- Classe Armatura -->
 <div class="blocco">
@@ -188,7 +185,7 @@
     <label>CA Contatto: <input type="number" id="ca_contatto" class="auto-resize"/></label>
     <label>CA Impreparato: <input type="number" id="ca_impreparato" class="auto-resize"/></label>
   </div>
-</div>
+</div> <!--chiusura blocco-->
 
 
 <!-- BMC -->
@@ -204,7 +201,7 @@
     <label>Mod. FOR: <input type="number" id="bmc_for" readonly class="auto-resize"/></label>
     <label>Mod. Taglia: <input type="number" id="bmc_taglia" readonly class="auto-resize"/></label>
   </div>
-</div>
+</div> <!--chiusura blocco-->
 
 <!-- DMC -->
 <div class="blocco">
@@ -268,8 +265,8 @@
       <label>Resistenza agli Incantesimi: <input type="number" id="res_inc" class="auto-resize input-small"/></label>
      </div>
    </div>
- </div>
-</div>
+ </div><!--chiusura blocco-->
+</div> <!--sezione1-->
 
 <!--FINE SEZ 1 -->
   

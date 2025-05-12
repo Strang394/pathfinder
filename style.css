@@ -113,17 +113,14 @@ textarea {
   grid-template-columns: 1fr;
   gap: 1rem;
   margin-bottom: 1.5rem;
-  background: #1e1e2f;
-  padding: 1rem;
-  border-radius: 8px;
-  box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.05);
 }
 
-@media (min-width: 768px) {
+@media (min-width: 960px) {
   .form-grid {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   }
 }
+
 
 .full-width {
   grid-column: 1 / -1;
@@ -235,3 +232,22 @@ input.auto-resize {
   display: inline-block;
   text-align: center;
 }
+
+@media (max-width: 600px) {
+  label {
+    font-size: 0.9rem;
+  }
+
+  input,
+  select {
+    font-size: 0.9rem;
+    padding: 0.4rem;
+  }
+
+  .caratteristiche-tabella th,
+  .caratteristiche-tabella td {
+    font-size: 0.85rem;
+    padding: 0.3rem;
+  }
+}
+

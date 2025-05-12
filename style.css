@@ -8,6 +8,24 @@ body {
   color: #f3f4f6;
 }
 
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+main {
+  overflow-x: hidden;
+}
+
+.caratteristiche-tabella {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.form-grid {
+  min-width: 0;
+}
+
 h1, h2, h3 {
   font-family: 'Uncial Antiqua', cursive;
   text-align: center;
@@ -221,7 +239,9 @@ input.auto-resize {
   border-radius: 6px;
   background-color: #374151;
   color: #f9fafb;
+  overflow: hidden; /* ✅ aggiunta */
 }
+
 
 /* === SELECT/INPUT MINI === */
 .select-small {

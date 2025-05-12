@@ -76,12 +76,12 @@ h1, h2, h3 {
 }
 
 .tab-content {
-  padding: 1rem 0;
+  padding: 2rem 0;
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
+
 
 .hidden {
   display: none;
@@ -208,7 +208,8 @@ button.toggle:hover,
 .blocco {
   margin: 2rem auto;
   padding: 1rem 1.5rem;
-  max-width: 100%;
+  width: 100%;
+  max-width: 800px;
   background-color: #111827;
   border-radius: 8px;
   box-shadow: inset 0 0 5px rgba(255,255,255,0.05);

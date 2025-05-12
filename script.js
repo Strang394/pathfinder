@@ -229,6 +229,82 @@ function aggiornaTaglia() {
 
   aggiornaTuttiICalcoli();
 }
+// Mappa delle abilità con la loro caratteristica base
+const abilitaCaratteristiche = {
+  acro: "des",
+  adda: "car",
+  arti: "int",
+  arte: "des",
+  camu: "car",
+  cava: "des",
+  cona: "int",
+  cond: "int",
+  cong: "int",
+  coni: "int",
+  conl: "int",
+  conn: "int",
+  cono: "int",
+  conp: "int",
+  conr: "int",
+  cons: "int",
+  dipl: "car",
+  disc: "des",
+  furt: "des",
+  guar: "sag",
+  inti: "car",
+  intra: "car",
+  intu: "sag",
+  ling: "int",
+  nuot: "for",
+  perc: "sag",
+  prof: "sag",
+  ragg: "car",
+  rapi: "des",
+  sapi: "int",
+  scal: "for",
+  sopr: "sag",
+  util: "car",
+  valu: "int",
+  vola: "des"
+};
+
+function aggiornaAbilita() {
+  Object.entries(abilitaCaratteristiche).forEach(([prefix, stat]) => {
+    const mod = parseInt(document.getElementById(`${stat}_mod`)?.value || 0);
+    const gradi = parseInt(document.getElementById(`${prefix}_gradi`)?.value || 0);
+    const vari = parseInt(document.getElementById(`${prefix}_vari`)?.value || 0);
+
+    const totale = mod + gradi + vari;
+
+    // Aggiorna i campi
+    const carField = document.getElementById(`${prefix}_car`);
+    const totField = document.getElementById(`${prefix}_tot`);
+
+    if (carField) carField.value = mod;
+    if (totField) totField.value = totale;
+  });
+}
+
+// Esegui al caricamento e ogni input
+window.addEventListener("DOMContentLoaded", () => {
+  aggiornaAbilita();
+
+  // Aggiorna ogni volta che cambia un campo di abilità o caratteristiche
+  const campiDaAscoltare = [
+    ...Object.values(abilitaCaratteristiche).map(stat => `${stat}_mod`),
+    ...Object.keys(abilitaCaratteristiche).flatMap(prefix => [
+      `${prefix}_gradi`,
+      `${prefix}_vari`
+    ])
+  ];
+
+  campiDaAscoltare.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener("input", aggiornaAbilita);
+    }
+  });
+});
 
 window.aggiornaTaglia = aggiornaTaglia; // ✅ Aggiungi questa riga
 

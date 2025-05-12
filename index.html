@@ -80,7 +80,7 @@
     <div><label>Capelli: <input type="text" id="capelli" class="auto-resize"/></label></div>
     <div><label>Occhi: <input type="text" id="occhi" class="auto-resize"/></label></div> 
       <div><label>Taglia:
-        <select id="taglia" onchange="aggiornaTaglia()">
+        <select id="taglia" class="select-small" onchange="aggiornaTaglia()">
           <option value="0">Media (0)</option>
           <option value="-1">Piccola (-1)</option>
           <option value="-2">Minuscola (-2)</option>
@@ -259,14 +259,17 @@
 </div>
   
 <!--BAB-->
-<div class="form-grid">
-  <div>
-    <label>Bonus Attacco Base (BAB): <input type="number" id="bab" class="auto-resize"/></label>
+<div class="blocco">
+  <div class="form-grid">
+    <div>
+      <label>Bonus Attacco Base (BAB): <input type="number" id="bab" class="auto-resize input-small"/></label>
+    </div>
+    <div>
+      <label>Resistenza agli Incantesimi: <input type="number" id="res_inc" class="auto-resize input-small"/></label>
+    </div>
   </div>
-  <div>
-    <label>Resistenza agli Incantesimi: <input type="number" id="res_inc" class="auto-resize"/></label>
-  </div>
-</div>   
+</div>
+
   
   
   <div class="tab-content hidden" id="sezione2">

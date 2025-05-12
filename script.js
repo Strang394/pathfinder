@@ -57,14 +57,14 @@ const fields = [
   "monete_rame", "monete_argento", "monete_oro", "monete_platino"
    "talento_l1", "capacita_l1",
   "talento_l2", "capacita_l2",
-  "talento_l3", "capacita_l3",
-  "talento_l4", "capacita_l4",
-  "talento_l5", "capacita_l5"
-"talento_l6", "capacita_l6"
-"talento_l7", "capacita_l7"
-"talento_l8", "capacita_l8"
-"talento_l9", "capacita_l9"
-"talento_l10", "capacita_l10"
+  //"talento_l3", "capacita_l3",
+  //"talento_l4", "capacita_l4",
+  //"talento_l5", "capacita_l5"
+//"talento_l6", "capacita_l6"
+//"talento_l7", "capacita_l7"
+//"talento_l8", "capacita_l8"
+//"talento_l9", "capacita_l9"
+//"talento_l10", "capacita_l10"
 ];
 
 function calcMod(score) {

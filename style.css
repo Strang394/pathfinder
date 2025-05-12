@@ -6,43 +6,26 @@ body {
   margin: 0;
   background-color: #1e1e2f;
   color: #f3f4f6;
-}
-
-html, body {
+  padding: 0 1rem;
   max-width: 100%;
   overflow-x: hidden;
 }
 
 main {
-  overflow-x: hidden;
-}
-
-.caratteristiche-tabella {
-  max-width: 100%;
-  overflow-x: auto;
-}
-
-.form-grid {
-  min-width: 0;
-}
-
-h1, h2, h3 {
-  font-family: 'Uncial Antiqua', cursive;
-  text-align: center;
-  margin-bottom: 1rem;
-  color: #facc15;
-  letter-spacing: 0.5px;
-}
-
-main {
-  max-width: 900px;
-  margin-left: auto;
-  margin-right: auto;
+  max-width: 960px;
+  margin: 0 auto;
   padding: 1rem 1.5rem;
   background: #2c2f4a;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   border-radius: 12px;
   position: relative;
+  overflow-x: hidden;
+}
+
+@media (min-width: 768px) {
+  main {
+    padding: 2rem;
+  }
 }
 
 @media (min-width: 1200px) {
@@ -52,45 +35,12 @@ main {
   }
 }
 
-@media (min-width: 768px) {
-  main {
-    padding: 2rem;
-  }
-}
-
-label {
-  display: block;
-  margin-bottom: 0.8rem;
-  font-weight: 600;
-}
-
-input[type="text"],
-input[type="number"],
-select,
-textarea {
-  width: 100%;
-  padding: 0.6rem;
-  font-size: 1rem;
-  border: 1px solid #4b5563;
-  border-radius: 6px;
-  box-sizing: border-box;
-  margin-top: 0.2rem;
-  margin-bottom: 0.5rem;
-  background-color: #374151;
-  color: #f9fafb;
-  transition: all 0.3s ease;
-}
-
-input:focus,
-select:focus,
-textarea:focus {
-  outline: none;
-  border-color: #a78bfa;
-  box-shadow: 0 0 5px #a78bfa;
-}
-
-textarea {
-  resize: vertical;
+h1, h2, h3 {
+  font-family: 'Uncial Antiqua', cursive;
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #facc15;
+  letter-spacing: 0.5px;
 }
 
 .tab-nav {
@@ -128,18 +78,54 @@ textarea {
 .tab-content {
   display: block;
   padding: 1rem 0;
+  width: 100%;
 }
 
 .hidden {
   display: none;
 }
 
-/* === FORM GRID === */
+label {
+  display: block;
+  margin-bottom: 0.8rem;
+  font-weight: 600;
+}
+
+input[type="text"],
+input[type="number"],
+select,
+textarea {
+  width: 100%;
+  padding: 0.6rem;
+  font-size: 1rem;
+  border: 1px solid #4b5563;
+  border-radius: 6px;
+  box-sizing: border-box;
+  margin-top: 0.2rem;
+  margin-bottom: 0.5rem;
+  background-color: #374151;
+  color: #f9fafb;
+  transition: all 0.3s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #a78bfa;
+  box-shadow: 0 0 5px #a78bfa;
+}
+
+textarea {
+  resize: vertical;
+}
+
 .form-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
   margin-bottom: 1.5rem;
+  min-width: 0;
 }
 
 @media (min-width: 960px) {
@@ -147,7 +133,6 @@ textarea {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   }
 }
-
 
 .full-width {
   grid-column: 1 / -1;
@@ -160,9 +145,9 @@ textarea {
   margin-bottom: 1rem;
 }
 
-/* === CARATTERISTICHE TABLE === */
 .caratteristiche-tabella {
   width: 100%;
+  max-width: 100%;
   border-collapse: collapse;
   margin-top: 1rem;
   background: #1e1e2f;
@@ -190,9 +175,16 @@ textarea {
     font-size: 0.85rem;
     padding: 0.3rem;
   }
+  label {
+    font-size: 0.9rem;
+  }
+  input,
+  select {
+    font-size: 0.9rem;
+    padding: 0.4rem;
+  }
 }
 
-/* === TOGGLE BUTTONS === */
 button.toggle,
 .blocco button {
   background-color: #374151;
@@ -211,7 +203,6 @@ button.toggle:hover,
   background-color: #4b5563;
 }
 
-/* === BLOCCO DETTAGLI === */
 .blocco {
   width: 100%;
   margin-top: 2rem;
@@ -248,11 +239,9 @@ input.auto-resize {
   border-radius: 6px;
   background-color: #374151;
   color: #f9fafb;
-  overflow: hidden; /* ✅ aggiunta */
+  overflow: hidden;
 }
 
-
-/* === SELECT/INPUT MINI === */
 .select-small {
   width: auto;
   min-width: 6ch;
@@ -261,29 +250,10 @@ input.auto-resize {
   text-align: center;
 }
 
-
-@media (max-width: 600px) {
-  label {
-    font-size: 0.9rem;
-  }
-
-  input,
-  select {
-    font-size: 0.9rem;
-    padding: 0.4rem;
-  }
-
-  .caratteristiche-tabella th,
-  .caratteristiche-tabella td {
-    font-size: 0.85rem;
-    padding: 0.3rem;
-  }
-}
-
 .blocco:last-of-type {
   margin-bottom: 3rem;
 }
 
-input[type=\"number\"].input-small {
+input[type="number"].input-small {
   width: 80px;
 }

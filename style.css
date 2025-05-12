@@ -266,3 +266,17 @@ input[type="number"].input-small {
   overflow-x: auto;
   width: 100%;
 }
+
+.caratteristiche-tabella input[type="number"],
+.caratteristiche-tabella input[type="text"] {
+  width: 4ch;
+  padding: 0.2rem;
+  font-size: 0.85rem;
+  text-align: center;
+}
+.caratteristiche-tabella input:focus {
+  outline: none;
+  border-color: #facc15;
+  box-shadow: 0 0 4px #facc15;
+}
+

@@ -259,8 +259,59 @@
 <!--FINE SEZ 1 -->
   
   <div class="tab-content hidden" id="sezione2">
-      <h2>Abilità</h2>
-      <textarea id="abilita" rows="8" placeholder="Inserisci abilità e modificatori..."></textarea>
+      <div class="blocco">
+  <h2><i class="fas fa-scroll"></i> Abilità</h2>
+  <table class="caratteristiche-tabella">
+    <thead>
+      <tr>
+        <th>✔</th>
+        <th>Nome</th>
+        <th>Totale</th>
+        <th>Mod. Caratt.</th>
+        <th>Gradi</th>
+        <th>Mod. Vari</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Abilità con caratteristica associata -->
+      <tr><td><input type="checkbox" /></td><td>Acrobazia</td><td><input id="acro_tot" /></td><td><input id="acro_car" readonly /></td><td><input id="acro_gradi" /></td><td><input id="acro_vari" /></td></tr>
+      <tr><td><input type="checkbox" /></td><td>Addestrare Animali</td><td><input id="adda_tot" /></td><td><input id="adda_car" readonly /></td><td><input id="adda_gradi" /></td><td><input id="adda_vari" /></td></tr>
+      <tr><td><input type="checkbox" /></td><td>Artigianato</td><td><input id="arti_tot" /></td><td><input id="arti_car" readonly /></td><td><input id="arti_gradi" /></td><td><input id="arti_vari" /></td></tr>
+      <tr><td><input type="checkbox" /></td><td>Artista della Fuga</td><td><input id="arte_tot" /></td><td><input id="arte_car" readonly /></td><td><input id="arte_gradi" /></td><td><input id="arte_vari" /></td></tr>
+      <tr><td><input type="checkbox" /></td><td>Camuffare</td><td><input id="camu_tot" /></td><td><input id="camu_car" readonly /></td><td><input id="camu_gradi" /></td><td><input id="camu_vari" /></td></tr>
+      <tr><td><input type="checkbox" /></td><td>Cavalcare</td><td><input id="cava_tot" /></td><td><input id="cava_car" readonly /></td><td><input id="cava_gradi" /></td><td><input id="cava_vari" /></td></tr>
+      <tr><td><input type="checkbox" /></td><td>Conoscenze (arcane)</td><td><input id="cona_tot" /></td><td><input id="cona_car" readonly /></td><td><input id="cona_gradi" /></td><td><input id="cona_vari" /></td></tr>
+      <tr><td><input type="checkbox" /></td><td>Conoscenze (dungeon)</td><td><input id="cond_tot" /></td><td><input id="cond_car" readonly /></td><td><input id="cond_gradi" /></td><td><input id="cond_vari" /></td></tr>
+      <tr><td><input type="checkbox" /></td><td>Conoscenze (geografia)</td><td><input id="cong_tot" /></td><td><input id="cong_car" readonly /></td><td><input id="cong_gradi" /></td><td><input id="cong_vari" /></td></tr>
+      <tr><td><input type="checkbox" /></td><td>Conoscenze (ingegneria)</td><td><input id="coni_tot" /></td><td><input id="coni_car" readonly /></td><td><input id="coni_gradi" /></td><td><input id="coni_vari" /></td></tr>
+      <tr><td><input type="checkbox" /></td><td>Conoscenze (locali)</td><td><input id="conl_tot" /></td><td><input id="conl_car" readonly /></td><td><input id="conl_gradi" /></td><td><input id="conl_vari" /></td></tr>
+      <tr><td><input type="checkbox" /></td><td>Conoscenze (natura)</td><td><input id="conn_tot" /></td><td><input id="conn_car" readonly /></td><td><input id="conn_gradi" /></td><td><input id="conn_vari" /></td></tr>
+      <tr><td><input type="checkbox" /></td><td>Conoscenze (nobiltà)</td><td><input id="cono_tot" /></td><td><input id="cono_car" readonly /></td><td><input id="cono_gradi" /></td><td><input id="cono_vari" /></td></tr>
+      <tr><td><input type="checkbox" /></td><td>Conoscenze (piani)</td><td><input id="conp_tot" /></td><td><input id="conp_car" readonly /></td><td><input id="conp_gradi" /></td><td><input id="conp_vari" /></td></tr>
+      <tr><td><input type="checkbox" /></td><td>Conoscenze (religioni)</td><td><input id="conr_tot" /></td><td><input id="conr_car" readonly /></td><td><input id="conr_gradi" /></td><td><input id="conr_vari" /></td></tr>
+      <tr><td><input type="checkbox" /></td><td>Conoscenze (storia)</td><td><input id="cons_tot" /></td><td><input id="cons_car" readonly /></td><td><input id="cons_gradi" /></td><td><input id="cons_vari" /></td></tr>
+      <tr><td><input type="checkbox" /></td><td>Diplomazia</td><td><input id="dipl_tot" /></td><td><input id="dipl_car" readonly /></td><td><input id="dipl_gradi" /></td><td><input id="dipl_vari" /></td></tr>
+      <tr><td><input type="checkbox" /></td><td>Disattivare Congegni</td><td><input id="disc_tot" /></td><td><input id="disc_car" readonly /></td><td><input id="disc_gradi" /></td><td><input id="disc_vari" /></td></tr>
+      <tr><td><input type="checkbox" /></td><td>Furtività</td><td><input id="furt_tot" /></td><td><input id="furt_car" readonly /></td><td><input id="furt_gradi" /></td><td><input id="furt_vari" /></td></tr>
+      <tr><td><input type="checkbox" /></td><td>Guarire</td><td><input id="guar_tot" /></td><td><input id="guar_car" readonly /></td><td><input id="guar_gradi" /></td><td><input id="guar_vari" /></td></tr>
+      <tr><td><input type="checkbox" /></td><td>Intimidire</td><td><input id="inti_tot" /></td><td><input id="inti_car" readonly /></td><td><input id="inti_gradi" /></td><td><input id="inti_vari" /></td></tr>
+      <tr><td><input type="checkbox" /></td><td>Intrattenere</td><td><input id="intra_tot" /></td><td><input id="intra_car" readonly /></td><td><input id="intra_gradi" /></td><td><input id="intra_vari" /></td></tr>
+      <tr><td><input type="checkbox" /></td><td>Intuizione</td><td><input id="intu_tot" /></td><td><input id="intu_car" readonly /></td><td><input id="intu_gradi" /></td><td><input id="intu_vari" /></td></tr>
+      <tr><td><input type="checkbox" /></td><td>Linguistica</td><td><input id="ling_tot" /></td><td><input id="ling_car" readonly /></td><td><input id="ling_gradi" /></td><td><input id="ling_vari" /></td></tr>
+      <tr><td><input type="checkbox" /></td><td>Nuotare</td><td><input id="nuot_tot" /></td><td><input id="nuot_car" readonly /></td><td><input id="nuot_gradi" /></td><td><input id="nuot_vari" /></td></tr>
+      <tr><td><input type="checkbox" /></td><td>Percezione</td><td><input id="perc_tot" /></td><td><input id="perc_car" readonly /></td><td><input id="perc_gradi" /></td><td><input id="perc_vari" /></td></tr>
+      <tr><td><input type="checkbox" /></td><td>Professione</td><td><input id="prof_tot" /></td><td><input id="prof_car" readonly /></td><td><input id="prof_gradi" /></td><td><input id="prof_vari" /></td></tr>
+      <tr><td><input type="checkbox" /></td><td>Raggirare</td><td><input id="ragg_tot" /></td><td><input id="ragg_car" readonly /></td><td><input id="ragg_gradi" /></td><td><input id="ragg_vari" /></td></tr>
+      <tr><td><input type="checkbox" /></td><td>Rapidità di Mano</td><td><input id="rapi_tot" /></td><td><input id="rapi_car" readonly /></td><td><input id="rapi_gradi" /></td><td><input id="rapi_vari" /></td></tr>
+      <tr><td><input type="checkbox" /></td><td>Sapienza Magica</td><td><input id="sapi_tot" /></td><td><input id="sapi_car" readonly /></td><td><input id="sapi_gradi" /></td><td><input id="sapi_vari" /></td></tr>
+      <tr><td><input type="checkbox" /></td><td>Scalare</td><td><input id="scal_tot" /></td><td><input id="scal_car" readonly /></td><td><input id="scal_gradi" /></td><td><input id="scal_vari" /></td></tr>
+      <tr><td><input type="checkbox" /></td><td>Sopravvivenza</td><td><input id="sopr_tot" /></td><td><input id="sopr_car" readonly /></td><td><input id="sopr_gradi" /></td><td><input id="sopr_vari" /></td></tr>
+      <tr><td><input type="checkbox" /></td><td>Utilizzare Congegni Magici</td><td><input id="util_tot" /></td><td><input id="util_car" readonly /></td><td><input id="util_gradi" /></td><td><input id="util_vari" /></td></tr>
+      <tr><td><input type="checkbox" /></td><td>Valutare</td><td><input id="valu_tot" /></td><td><input id="valu_car" readonly /></td><td><input id="valu_gradi" /></td><td><input id="valu_vari" /></td></tr>
+      <tr><td><input type="checkbox" /></td><td>Volare</td><td><input id="vola_tot" /></td><td><input id="vola_car" readonly /></td><td><input id="vola_gradi" /></td><td><input id="vola_vari" /></td></tr>
+    </tbody>
+  </table>
+</div>
       <h3>Talenti e Capacità</h3>
       <textarea id="talenti" rows="5" placeholder="Talenti..."></textarea>
       <textarea id="capacita" rows="5" placeholder="Capacità Speciali..."></textarea>

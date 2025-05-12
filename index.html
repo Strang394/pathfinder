@@ -90,11 +90,23 @@
         </select>
       </label>
     </div>
+      <div class="header">
+    <strong>Velocità Base:</strong> <span id="vel_terreno_preview">—</span>
+    <button onclick="toggleDettagli(this)">+ Mostra</button>
+  </div>
+  <div class="dettagli" style="display: none;">
+    <label>Velocità Base: <input type="text" id="vel_terreno" class="auto-resize" /></label>
+    <label>Velocità con Armatura: <input type="text" id="vel_armatura" class="auto-resize" /></label>
+    <label>Volare: <input type="text" id="vel_volare" class="auto-resize" /></label>
+    <label>Nuotare: <input type="text" id="vel_nuotare" class="auto-resize" /></label>
+    <label>Scalare: <input type="text" id="vel_scalare" class="auto-resize" /></label>
+    <label>Scavare: <input type="text" id="vel_scavare" class="auto-resize" /></label>
+  </div>
   </div>
 </div>
 
   
-    <div class="blocco">
+   <!--> <div class="blocco"> <!--->
   <div class="header">
     <strong>Velocità Base:</strong> <span id="vel_terreno_preview">—</span>
     <button onclick="toggleDettagli(this)">+ Dettagli</button>
@@ -107,7 +119,7 @@
     <label>Scalare: <input type="text" id="vel_scalare" class="auto-resize" /></label>
     <label>Scavare: <input type="text" id="vel_scavare" class="auto-resize" /></label>
   </div>
-</div>
+<!--></div><!--->
 
 
   <!-- SEZIONE: CARATTERISTICHE -->

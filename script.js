@@ -395,6 +395,17 @@ function normalizzaDenaro() {
   document.getElementById("monete_argento").value = ma;
   document.getElementById("monete_rame").value = mr;
 
+function autoResizeTextarea(textarea) {
+  textarea.style.height = 'auto'; // Reset height
+  textarea.style.height = (textarea.scrollHeight) + 'px'; // Set new height
+}
+
+// Assicurati che l'auto-resize venga applicata ad ogni input
+document.querySelectorAll('textarea').forEach(textarea => {
+  textarea.addEventListener('input', () => autoResizeTextarea(textarea));
+  autoResizeTextarea(textarea); // Resize all textareas on page load
+});
+  
   // Salvataggio
   ["monete_rame", "monete_argento", "monete_oro", "monete_platino"].forEach(id => {
     const el = document.getElementById(id);

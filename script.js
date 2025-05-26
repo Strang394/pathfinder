@@ -452,6 +452,22 @@ window.addEventListener("DOMContentLoaded", () => {
   normalizzaDenaro();
 });
 
+// Carica i dati da localStorage o Firestore
+document.addEventListener("DOMContentLoaded", async () => {
+  ["talenti", "capacita"].forEach(id => {
+    const stored = localStorage.getItem(id);
+    const el = document.getElementById(id);
+    if (el && stored !== null) {
+      el.value = stored; // Imposta il valore del campo textarea
+      autoResizeTextarea(el); // Assicura che il campo di testo si ridimensioni
+    }
+  });
+
+  // Altri caricamenti Firestore
+  await loadFromFirestore();
+});
+
+
 // Esegui al caricamento e ogni input
 window.addEventListener("DOMContentLoaded", () => {
   aggiornaAbilita();

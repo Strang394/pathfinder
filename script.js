@@ -314,6 +314,130 @@ function aggiornaTaglia() {
 
   aggiornaTuttiICalcoli();
 }
+
+// ───────────────────────────────────────────────────────
+// 1) RENDER INIT: ricostruisci la tabella da storage
+function renderDifensivi() {
+  const raw = localStorage.getItem("difensivi");
+  if (!raw) return;
+  let arr;
+  try { arr = JSON.parse(raw); } catch { return; }
+  arr.forEach(item => aggiungiRigaDifensivo(item));
+  calcolaTotaleArmatura();
+}
+
+// 2) CREA RIGA (se passi un oggetto, la popoli)
+function aggiungiRigaDifensivo(data) {
+  const tbody = document.querySelector("#tabellaDifensivi tbody");
+  const tr = document.createElement("tr");
+  tr.innerHTML = `
+    <td><input type="text"   class="armor-name auto-resize"    placeholder="Es. Cotta di maglia"></td>
+    <td><input type="number" class="armor-bonus"   value="0" min="0"></td>
+    <td><input type="text"   class="armor-props auto-resize"    placeholder="Es. +1 Trucco"></td>
+    <td><input type="number" class="armor-acpen"    value="0"></td>
+    <td><input type="number" class="armor-fail"     value="0" min="0" max="100"></td>
+    <td><input type="number" class="armor-maxdex"   value="" ></td>
+    <td><input type="number" class="armor-weight"   value="0" min="0"></td>
+    <td><button type="button" class="remove-difensivo">🗑️</button></td>`;
+  tbody.appendChild(tr);
+
+  // Se ho dati, popolo i campi
+  if (data) {
+    tr.querySelector(".armor-name").value    = data.nome      || "";
+    tr.querySelector(".armor-bonus").value   = data.bonus     || 0;
+    tr.querySelector(".armor-props").value   = data.props     || "";
+    tr.querySelector(".armor-acpen").value   = data.acpen     || 0;
+    tr.querySelector(".armor-fail").value    = data.fail      || 0;
+    tr.querySelector(".armor-maxdex").value  = data.maxDex    ?? "";
+    tr.querySelector(".armor-weight").value  = data.weight    || 0;
+  }
+
+  // helper: attacco listeners a TUTTI gli input → ricalcola & salva
+  tr.querySelectorAll("input").forEach(inp => {
+    // auto-resize se serve
+    if (inp.classList.contains("auto-resize")) {
+      inp.style.width = (inp.value.length+1)+"ch";
+      inp.addEventListener("input", () => {
+        inp.style.width = (inp.value.length+1)+"ch";
+      });
+    }
+    inp.addEventListener("input", () => {
+      calcolaTotaleArmatura();
+      saveDifensivi();
+    });
+  });
+
+  // delete
+  tr.querySelector(".remove-difensivo")
+    .addEventListener("click", () => {
+      tr.remove();
+      calcolaTotaleArmatura();
+      saveDifensivi();
+    });
+
+  return tr;
+}
+
+// 3) SALVATAGGIO array difensivi
+function saveDifensivi() {
+  const rows = Array.from(document.querySelectorAll("#tabellaDifensivi tbody tr"));
+  const data = rows.map(tr => ({
+    nome:    tr.querySelector(".armor-name").value,
+    bonus:   parseInt(tr.querySelector(".armor-bonus").value)||0,
+    props:   tr.querySelector(".armor-props").value,
+    acpen:   parseInt(tr.querySelector(".armor-acpen").value)||0,
+    fail:    parseInt(tr.querySelector(".armor-fail").value)||0,
+    maxDex:  tr.querySelector(".armor-maxdex").value.trim()===""?null:parseInt(tr.querySelector(".armor-maxdex").value),
+    weight:  parseInt(tr.querySelector(".armor-weight").value)||0
+  }));
+  localStorage.setItem("difensivi", JSON.stringify(data));
+  saveToFirestore("difensivi", data);
+}
+
+// 4) SOVRASCRIVO calcolaCA per applicare Max Dex
+function calcolaCA() {
+  const armBonus = getVal("ca_armatura") ?? 0;
+  const scudo    = getVal("ca_scudo")    ?? 0;
+  const rawDex   = getVal("des_mod")     ?? 0;
+
+  // prendo tutti i Bonus DES Max definiti
+  const maxes = Array.from(document.querySelectorAll(".armor-maxdex"))
+    .map(el=> el.value.trim()===""?null:parseInt(el.value))
+    .filter(v=> v!==null);
+  const maxDex = maxes.length>0 ? Math.min(...maxes) : rawDex;
+  const dex    = Math.min(rawDex, maxDex);
+
+  const taglia  = getVal("ca_taglia") ?? 0;
+  const nat     = getVal("ca_nat")    ?? 0;
+  const dev     = getVal("ca_dev")    ?? 0;
+  const vari    = getVal("ca_vari")   ?? 0;
+
+  // Totale (include Dex limitato)
+  const tot = 10 + armBonus + scudo + dex + taglia + nat + dev + vari;
+  setVal("ca_tot", tot);
+  // Contatto (ignora armatura, scudo, taglia, nat)
+  setVal("ca_contatto", 10 + dex + dev + vari);
+  // Impreparato (ignora Dex)
+  setVal("ca_impreparato", 10 + armBonus + scudo + taglia + nat + dev + vari);
+  // Dex effettivo in dettagli
+  setVal("ca_des", dex);
+}
+
+// 5) Al caricamento, prima di tutto: ricostruisci la tabella
+window.addEventListener("DOMContentLoaded", async () => {
+  await loadFromFirestore();      // popola localStorage + campi base
+  renderDifensivi();              // ricostruisco le armature da JSON
+  calcolaTotaleArmatura();        // aggiorna ca_armatura
+  aggiornaTuttiICalcoli();        // rifà tutti i calcoli standard
+});
+
+// in più, attacco il pulsante “Aggiungi”
+document.getElementById("addDifensivo")
+  .addEventListener("click", () => {
+    aggiungiRigaDifensivo();
+    saveDifensivi();
+  });
+
 // Mappa delle abilità con la loro caratteristica base
 const abilitaCaratteristiche = {
   acro: "des",

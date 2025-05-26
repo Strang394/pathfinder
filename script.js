@@ -395,31 +395,6 @@ function normalizzaDenaro() {
   document.getElementById("monete_argento").value = ma;
   document.getElementById("monete_rame").value = mr;
 
-function autoResizeTextarea(textarea) {
-  textarea.style.height = 'auto'; // Reset height
-  textarea.style.height = (textarea.scrollHeight) + 'px'; // Set new height
-}
-
-// Assicurati che l'auto-resize venga applicata ad ogni input
-document.querySelectorAll('textarea').forEach(textarea => {
-  textarea.addEventListener('input', () => autoResizeTextarea(textarea));
-  autoResizeTextarea(textarea); // Resize all textareas on page load
-});
-
-  // Funzione di salvataggio
-function saveToLocalStorage(id, value) {
-  localStorage.setItem(id, value); // Salva su localStorage
-  saveToFirestore(id, value); // Salva su Firestore
-}
-
-// Aggiungi un evento per i campi di tipo textarea (talenti, capacità, ecc.)
-document.querySelectorAll('textarea').forEach(textarea => {
-  const id = textarea.id;
-  textarea.addEventListener('input', () => {
-    saveToLocalStorage(id, textarea.value); // Salva ogni volta che cambia il contenuto
-  });
-});
-
   // Salvataggio
   ["monete_rame", "monete_argento", "monete_oro", "monete_platino"].forEach(id => {
     const el = document.getElementById(id);
@@ -452,22 +427,6 @@ window.addEventListener("DOMContentLoaded", () => {
   normalizzaDenaro();
 });
 
-// Carica i dati da localStorage o Firestore
-document.addEventListener("DOMContentLoaded", async () => {
-  ["talenti", "capacita"].forEach(id => {
-    const stored = localStorage.getItem(id);
-    const el = document.getElementById(id);
-    if (el && stored !== null) {
-      el.value = stored; // Imposta il valore del campo textarea
-      autoResizeTextarea(el); // Assicura che il campo di testo si ridimensioni
-    }
-  });
-
-  // Altri caricamenti Firestore
-  await loadFromFirestore();
-});
-
-
 // Esegui al caricamento e ogni input
 window.addEventListener("DOMContentLoaded", () => {
   aggiornaAbilita();
@@ -491,5 +450,4 @@ window.addEventListener("DOMContentLoaded", () => {
 
 
 window.aggiornaTaglia = aggiornaTaglia; // ✅ Aggiungi questa riga
-
 

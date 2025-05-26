@@ -370,62 +370,6 @@ function aggiornaAbilita() {
   });
 }
 
-// Funzione che converte tutto in rame e poi redistribuisce
-function normalizzaDenaro() {
-  const rame = parseInt(document.getElementById("monete_rame")?.value || 0);
-  const argento = parseInt(document.getElementById("monete_argento")?.value || 0);
-  const oro = parseInt(document.getElementById("monete_oro")?.value || 0);
-  const platino = parseInt(document.getElementById("monete_platino")?.value || 0);
-
-  // Totale in monete di rame
-  let totaleRame = rame + argento * 10 + oro * 100 + platino * 1000;
-
-  // Redistribuzione
-  const mp = Math.floor(totaleRame / 1000);
-  totaleRame %= 1000;
-  const mo = Math.floor(totaleRame / 100);
-  totaleRame %= 100;
-  const ma = Math.floor(totaleRame / 10);
-  totaleRame %= 10;
-  const mr = totaleRame;
-
-  // Scrive nei campi
-  document.getElementById("monete_platino").value = mp;
-  document.getElementById("monete_oro").value = mo;
-  document.getElementById("monete_argento").value = ma;
-  document.getElementById("monete_rame").value = mr;
-
-  // Salvataggio
-  ["monete_rame", "monete_argento", "monete_oro", "monete_platino"].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) {
-      const val = parseInt(el.value || 0);
-      localStorage.setItem(id, val);
-      saveToFirestore(id, val);
-    }
-  });
-}
-
-// Applica normalizzazione ad ogni input
-["monete_rame", "monete_argento", "monete_oro", "monete_platino"].forEach(id => {
-  const el = document.getElementById(id);
-  if (el) {
-    el.addEventListener("input", normalizzaDenaro);
-    el.addEventListener("change", normalizzaDenaro);
-  }
-});
-
-// Inizializza da localStorage all'avvio
-window.addEventListener("DOMContentLoaded", () => {
-  ["monete_rame", "monete_argento", "monete_oro", "monete_platino"].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) {
-      const stored = localStorage.getItem(id);
-      if (stored !== null) el.value = stored;
-    }
-  });
-  normalizzaDenaro();
-});
 
 // Esegui al caricamento e ogni input
 window.addEventListener("DOMContentLoaded", () => {

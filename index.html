@@ -322,7 +322,70 @@
 
     <div class="tab-content hidden" id="sezione3">
       <h2>Equipaggiamento</h2>
-      <textarea id="equip" rows="5" placeholder="Inserisci equipaggiamento..."></textarea>
+     <!-- ARMATURE DINAMICHE -->
+<div class="blocco">
+  <h2><i class="fas fa-shield-alt"></i> Armature</h2>
+  <table id="tabellaArmature" class="caratteristiche-tabella">
+    <thead>
+      <tr>
+        <th>Equip.</th>
+        <th>Nome</th>
+        <th>Bonus CA</th>
+        <th>Proprietà</th>
+        <th>Pen. Arm.</th>
+        <th>Fall. Inc.</th>
+        <th>Bonus Des. Max</th>
+        <th>Peso</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody id="armatureBody">
+      <!-- Le righe verranno aggiunte dinamicamente -->
+    </tbody>
+  </table>
+  <button onclick="aggiungiArmatura()">+ Aggiungi Armatura</button>
+</div>
+
+<script>
+let idArmatura = 0;
+
+function aggiungiArmatura() {
+  const body = document.getElementById("armatureBody");
+  const riga = document.createElement("tr");
+  const idx = idArmatura++;
+
+  riga.innerHTML = `
+    <td><input type="radio" name="equipaggiata" onchange="equipaggiaArmatura(${idx})"></td>
+    <td><input type="text" id="nome_${idx}" /></td>
+    <td><input type="number" id="bonus_${idx}" onchange="equipaggiataCorrente(${idx})" /></td>
+    <td><input type="text" id="prop_${idx}" /></td>
+    <td><input type="text" id="pen_${idx}" /></td>
+    <td><input type="text" id="fall_${idx}" /></td>
+    <td><input type="number" id="desmax_${idx}" /></td>
+    <td><input type="text" id="peso_${idx}" /></td>
+    <td><button onclick="this.closest('tr').remove(); aggiornaCAArmaturaEquipaggiata();">🗑</button></td>
+  `;
+
+  body.appendChild(riga);
+}
+
+function equipaggiaArmatura(idx) {
+  // Prendi il bonus CA dalla riga selezionata
+  const bonus = parseInt(document.getElementById(`bonus_${idx}`).value) || 0;
+
+  // Scrive il valore direttamente nel campo "ca_armatura"
+  const caArmaturaInput = document.getElementById("ca_armatura");
+  if (caArmaturaInput) {
+    caArmaturaInput.value = bonus;
+    localStorage.setItem("ca_armatura", bonus);
+    saveToFirestore("ca_armatura", bonus);
+  }
+
+  aggiornaTuttiICalcoli();
+}
+</script>
+
+      
       <div class="blocco">
   <h2><i class="fas fa-coins"></i> Denaro</h2>
   <div class="form-grid grid-2col">

@@ -405,7 +405,21 @@ document.querySelectorAll('textarea').forEach(textarea => {
   textarea.addEventListener('input', () => autoResizeTextarea(textarea));
   autoResizeTextarea(textarea); // Resize all textareas on page load
 });
-  
+
+  // Funzione di salvataggio
+function saveToLocalStorage(id, value) {
+  localStorage.setItem(id, value); // Salva su localStorage
+  saveToFirestore(id, value); // Salva su Firestore
+}
+
+// Aggiungi un evento per i campi di tipo textarea (talenti, capacità, ecc.)
+document.querySelectorAll('textarea').forEach(textarea => {
+  const id = textarea.id;
+  textarea.addEventListener('input', () => {
+    saveToLocalStorage(id, textarea.value); // Salva ogni volta che cambia il contenuto
+  });
+});
+
   // Salvataggio
   ["monete_rame", "monete_argento", "monete_oro", "monete_platino"].forEach(id => {
     const el = document.getElementById(id);

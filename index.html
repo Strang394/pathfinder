@@ -322,8 +322,8 @@
 
     <div class="tab-content hidden" id="sezione3">
       <h2>Equipaggiamento</h2>
-     <!-- ARMATURE DINAMICHE -->
-<div class="blocco">
+   <!-- ARMATURE DINAMICHE -->
+<div class="blocco overflow-wrap">
   <h2><i class="fas fa-shield-alt"></i> Armature</h2>
   <table id="tabellaArmature" class="caratteristiche-tabella">
     <thead>
@@ -339,53 +339,103 @@
         <th></th>
       </tr>
     </thead>
-    <tbody id="armatureBody">
-      <!-- Le righe verranno aggiunte dinamicamente -->
-    </tbody>
+    <tbody id="armatureBody"></tbody>
   </table>
   <button onclick="aggiungiArmatura()">+ Aggiungi Armatura</button>
 </div>
 
-<script>
-let idArmatura = 0;
+<script type="module">
+  import { doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-firestore.js";
+  const ref = doc(window.db, "schede", "schedaLadro");
 
-function aggiungiArmatura() {
-  const body = document.getElementById("armatureBody");
-  const riga = document.createElement("tr");
-  const idx = idArmatura++;
+  let idArmatura = 0;
+  let armature = [];
 
-  riga.innerHTML = `
-    <td><input type="radio" name="equipaggiata" onchange="equipaggiaArmatura(${idx})"></td>
-    <td><input type="text" id="nome_${idx}" /></td>
-    <td><input type="number" id="bonus_${idx}" onchange="equipaggiataCorrente(${idx})" /></td>
-    <td><input type="text" id="prop_${idx}" /></td>
-    <td><input type="text" id="pen_${idx}" /></td>
-    <td><input type="text" id="fall_${idx}" /></td>
-    <td><input type="number" id="desmax_${idx}" /></td>
-    <td><input type="text" id="peso_${idx}" /></td>
-    <td><button onclick="this.closest('tr').remove(); aggiornaCAArmaturaEquipaggiata();">🗑</button></td>
-  `;
-
-  body.appendChild(riga);
-}
-
-function equipaggiaArmatura(idx) {
-  // Prendi il bonus CA dalla riga selezionata
-  const bonus = parseInt(document.getElementById(`bonus_${idx}`).value) || 0;
-
-  // Scrive il valore direttamente nel campo "ca_armatura"
-  const caArmaturaInput = document.getElementById("ca_armatura");
-  if (caArmaturaInput) {
-    caArmaturaInput.value = bonus;
-    localStorage.setItem("ca_armatura", bonus);
-    saveToFirestore("ca_armatura", bonus);
+  function salvaArmature() {
+    localStorage.setItem("armature", JSON.stringify(armature));
+    getDoc(ref).then(snap => {
+      const dati = snap.exists() ? snap.data() : {};
+      setDoc(ref, { ...dati, armature });
+    });
   }
 
-  aggiornaTuttiICalcoli();
-}
+  function aggiornaCAArmaturaEquipaggiata() {
+    const attiva = armature.find(a => a.equipaggiata);
+    const bonus = attiva ? parseInt(attiva.bonusCA) || 0 : 0;
+
+    const inputCA = document.getElementById("ca_armatura");
+    if (inputCA) {
+      inputCA.value = bonus;
+      localStorage.setItem("ca_armatura", bonus);
+      saveToFirestore("ca_armatura", bonus);
+    }
+    aggiornaTuttiICalcoli();
+  }
+
+  window.aggiungiArmatura = function () {
+    const body = document.getElementById("armatureBody");
+    const idx = idArmatura++;
+    const dati = { id: idx, nome: "", bonusCA: 0, proprieta: "", penalita: "", fallimento: "", desMax: "", peso: "", equipaggiata: false };
+    armature.push(dati);
+    renderArmature();
+    salvaArmature();
+  };
+
+  window.equipaggiaArmatura = function (idx) {
+    armature.forEach(a => a.equipaggiata = false);
+    const riga = armature.find(a => a.id === idx);
+    if (riga) riga.equipaggiata = true;
+    salvaArmature();
+    aggiornaCAArmaturaEquipaggiata();
+  };
+
+  function aggiornaCampo(idx, campo, valore) {
+    const riga = armature.find(a => a.id === idx);
+    if (riga) {
+      riga[campo] = valore;
+      salvaArmature();
+    }
+  }
+
+  function renderArmature() {
+    const body = document.getElementById("armatureBody");
+    body.innerHTML = "";
+    armature.forEach(({ id, nome, bonusCA, proprieta, penalita, fallimento, desMax, peso, equipaggiata }) => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td><input type="radio" name="equipaggiata" ${equipaggiata ? "checked" : ""} onchange="equipaggiaArmatura(${id})"></td>
+        <td><input type="text" value="${nome}" onchange="aggiornaCampo(${id}, 'nome', this.value)"></td>
+        <td><input type="number" value="${bonusCA}" onchange="aggiornaCampo(${id}, 'bonusCA', this.value)"></td>
+        <td><input type="text" value="${proprieta}" onchange="aggiornaCampo(${id}, 'proprieta', this.value)"></td>
+        <td><input type="text" value="${penalita}" onchange="aggiornaCampo(${id}, 'penalita', this.value)"></td>
+        <td><input type="text" value="${fallimento}" onchange="aggiornaCampo(${id}, 'fallimento', this.value)"></td>
+        <td><input type="text" value="${desMax}" onchange="aggiornaCampo(${id}, 'desMax', this.value)"></td>
+        <td><input type="text" value="${peso}" onchange="aggiornaCampo(${id}, 'peso', this.value)"></td>
+        <td><button onclick="rimuoviArmatura(${id})">🗑</button></td>
+      `;
+      body.appendChild(tr);
+    });
+  }
+
+  window.rimuoviArmatura = function (idx) {
+    armature = armature.filter(a => a.id !== idx);
+    renderArmature();
+    salvaArmature();
+    aggiornaCAArmaturaEquipaggiata();
+  };
+
+  async function caricaArmature() {
+    const snap = await getDoc(ref);
+    armature = snap.exists() && snap.data().armature ? snap.data().armature : JSON.parse(localStorage.getItem("armature") || "[]");
+    idArmatura = armature.reduce((max, a) => Math.max(max, a.id), 0) + 1;
+    renderArmature();
+    aggiornaCAArmaturaEquipaggiata();
+  }
+
+  document.addEventListener("DOMContentLoaded", caricaArmature);
 </script>
 
-      
+
       <div class="blocco">
   <h2><i class="fas fa-coins"></i> Denaro</h2>
   <div class="form-grid grid-2col">

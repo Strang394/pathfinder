@@ -322,7 +322,7 @@
 
     <div class="tab-content hidden" id="sezione3">
       <h2>Equipaggiamento</h2>
-   <!-- ARMATURE DINAMICHE -->
+<!-- ARMATURE DINAMICHE -->
 <div class="blocco overflow-wrap">
   <h2><i class="fas fa-shield-alt"></i> Armature</h2>
   <table id="tabellaArmature" class="caratteristiche-tabella">
@@ -369,7 +369,10 @@
       localStorage.setItem("ca_armatura", bonus);
       saveToFirestore("ca_armatura", bonus);
     }
-    aggiornaTuttiICalcoli();
+
+    // Trigger update
+    const event = new Event("input");
+    inputCA?.dispatchEvent(event);
   }
 
   window.aggiungiArmatura = function () {
@@ -394,6 +397,9 @@
     if (riga) {
       riga[campo] = valore;
       salvaArmature();
+      if (campo === 'bonusCA' && riga.equipaggiata) {
+        aggiornaCAArmaturaEquipaggiata();
+      }
     }
   }
 
@@ -434,6 +440,25 @@
 
   document.addEventListener("DOMContentLoaded", caricaArmature);
 </script>
+
+<style>
+#tabellaArmature input {
+  width: 100%;
+  padding: 0.4rem;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  border: 1px solid #4b5563;
+  background-color: #374151;
+  color: #f9fafb;
+  box-sizing: border-box;
+}
+
+#tabellaArmature {
+  display: block;
+  overflow-x: auto;
+  width: 100%;
+}
+</style>
 
 
       <div class="blocco">

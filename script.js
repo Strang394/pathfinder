@@ -54,7 +54,7 @@ const fields = [
   "util_check", "util_tot", "util_car", "util_gradi", "util_vari",
   "valu_check", "valu_tot", "valu_car", "valu_gradi", "valu_vari",
   "vola_check", "vola_tot", "vola_car", "vola_gradi", "vola_vari",
-  "monete_rame", "monete_argento", "monete_oro", "monete_platino"
+  "monete_rame", "monete_argento", "monete_oro", "monete_platino", "armature"
 ];
 
 function calcMod(score) {
@@ -213,7 +213,18 @@ document.querySelectorAll('.auto-resize').forEach(input => {
   });
 
   aggiornaTuttiICalcoli();    
-  aggiornaAnteprime();        
+  aggiornaAnteprime();     
+  
+  // Inizializza gestione tabella armature 27-05
+  const btnAggiungi = document.getElementById("aggiungiArmatura");
+  if (btnAggiungi) {
+    btnAggiungi.addEventListener("click", () => {
+      aggiungiArmatura();
+      salvaArmature();
+    });
+  }
+  caricaArmature();
+  //fine codice 27-05
 });
 
 function autoResizeInput(input) {
@@ -222,8 +233,8 @@ function autoResizeInput(input) {
   input.style.width = `${length + 1}ch`;
 }
 
-document.addEventListener("DOMContentLoaded", async () => {
-  await loadFromFirestore();
+//document.addEventListener("DOMContentLoaded", async () => {
+  //await loadFromFirestore();
 
   // Auto-resize iniziale
   document.querySelectorAll("input.auto-resize").forEach(input => {
@@ -369,7 +380,68 @@ function aggiornaAbilita() {
     if (totField) totField.value = totale;
   });
 }
+//CODICE NUOVO 27-05
+function aggiornaBonusArmaturaDaTabella() {
+  const rows = document.querySelectorAll("#tbodyArmature tr");
+  let totale = 0;
 
+  rows.forEach(row => {
+    const bonus = parseInt(row.querySelector(".armor-bonus")?.value || 0);
+    totale += bonus;
+  });
+
+  setVal("ca_armatura", totale);
+  calcolaCA();
+}
+
+function salvaArmature() {
+  const rows = document.querySelectorAll("#tbodyArmature tr");
+  const armature = Array.from(rows).map(row => ({
+    nome: row.querySelector(".armor-nome")?.value || "",
+    bonus: parseInt(row.querySelector(".armor-bonus")?.value || 0),
+    maxDes: row.querySelector(".armor-maxdes")?.value || "",
+    penalita: row.querySelector(".armor-pen")?.value || "",
+    note: row.querySelector(".armor-note")?.value || ""
+  }));
+  const json = JSON.stringify(armature);
+  setVal("armature", json);
+}
+
+function caricaArmature() {
+  const json = localStorage.getItem("armature");
+  if (!json) return;
+  const armature = JSON.parse(json);
+  armature.forEach(dati => {
+    aggiungiArmatura(dati);
+  });
+  aggiornaBonusArmaturaDaTabella();
+}
+
+function aggiungiArmatura(dati = {}) {
+  const tr = document.createElement("tr");
+  tr.innerHTML = `
+    <td><input class="armor-nome" value="${dati.nome || ''}" /></td>
+    <td><input type="number" class="armor-bonus" value="${dati.bonus || 0}" /></td>
+    <td><input type="text" class="armor-maxdes" value="${dati.maxDes || ''}" /></td>
+    <td><input type="text" class="armor-pen" value="${dati.penalita || ''}" /></td>
+    <td><input class="armor-note" value="${dati.note || ''}" /></td>
+    <td><button class="remove">🗑️</button></td>
+  `;
+  tr.querySelectorAll("input").forEach(el => {
+    el.addEventListener("input", () => {
+      aggiornaBonusArmaturaDaTabella();
+      salvaArmature();
+    });
+  });
+  tr.querySelector(".remove").addEventListener("click", () => {
+    tr.remove();
+    aggiornaBonusArmaturaDaTabella();
+    salvaArmature();
+  });
+
+  document.getElementById("tbodyArmature").appendChild(tr);
+}
+//CODICE NUOVO 27-05 fine
 
 // Esegui al caricamento e ogni input
 window.addEventListener("DOMContentLoaded", () => {

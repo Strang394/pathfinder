@@ -137,6 +137,11 @@ async function loadFromFirestore() {
       }
     });
     aggiornaTuttiICalcoli();
+       // 🔁 Se c'è il JSON delle abilità, caricalo
+  if (data.abilita) {
+    localStorage.setItem("abilita", data.abilita);
+    caricaAbilita();
+   }
   }
 }
 

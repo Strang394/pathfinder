@@ -225,6 +225,23 @@ document.querySelectorAll('.auto-resize').forEach(input => {
   }
   caricaArmature();
   //fine codice 27-05
+  aggiornaAbilita();
+
+  const campiDaAscoltare = [
+    ...Object.values(abilitaCaratteristiche).map(stat => `${stat}_mod`),
+    ...Object.keys(abilitaCaratteristiche).flatMap(prefix => [
+      `${prefix}_gradi`,
+      `${prefix}_vari`
+    ])
+  ];
+
+  campiDaAscoltare.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener("input", aggiornaAbilita);
+    }
+  });
+});
 });
 
 function autoResizeInput(input) {
@@ -233,8 +250,8 @@ function autoResizeInput(input) {
   input.style.width = `${length + 1}ch`;
 }
 
-//document.addEventListener("DOMContentLoaded", async () => {
-  //await loadFromFirestore();
+document.addEventListener("DOMContentLoaded", async () => {
+await loadFromFirestore();
 
   // Auto-resize iniziale
   document.querySelectorAll("input.auto-resize").forEach(input => {
@@ -442,27 +459,5 @@ function aggiungiArmatura(dati = {}) {
   document.getElementById("tbodyArmature").appendChild(tr);
 }
 //CODICE NUOVO 27-05 fine
-
-// Esegui al caricamento e ogni input
-window.addEventListener("DOMContentLoaded", () => {
-  aggiornaAbilita();
-
-  // Aggiorna ogni volta che cambia un campo di abilità o caratteristiche
-  const campiDaAscoltare = [
-    ...Object.values(abilitaCaratteristiche).map(stat => `${stat}_mod`),
-    ...Object.keys(abilitaCaratteristiche).flatMap(prefix => [
-      `${prefix}_gradi`,
-      `${prefix}_vari`
-    ])
-  ];
-
-  campiDaAscoltare.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.addEventListener("input", aggiornaAbilita);
-    }
-  });
-});
-
 
 window.aggiornaTaglia = aggiornaTaglia; // ✅ Aggiungi questa riga

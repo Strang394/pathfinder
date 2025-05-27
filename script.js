@@ -147,6 +147,7 @@ async function saveToFirestore(id, value) {
   await setDoc(ref, { ...current, [id]: value });
 }
 
+
 // === ABILITÀ ===
 const abilitaCaratteristiche = {
   acro: "des", adda: "car", arti: "int", arte: "des", camu: "car", cava: "des",
@@ -154,6 +155,19 @@ const abilitaCaratteristiche = {
   dipl: "car", disc: "des", furt: "des", guar: "sag", inti: "car", intra: "car", intu: "sag", ling: "int", nuot: "for",
   perc: "sag", prof: "sag", ragg: "car", rapi: "des", sapi: "int", scal: "for", sopr: "sag", util: "car", valu: "int", vola: "des"
 };
+
+
+// === AGGIORNA I TOTALI E I MODIFICATORI DELLE ABILITÀ ===
+function aggiornaAbilita() {
+  Object.entries(abilitaCaratteristiche).forEach(([prefix, stat]) => {
+    const mod   = getVal(`${stat}_mod`);
+    const gradi = getVal(`${prefix}_gradi`);
+    const vari  = getVal(`${prefix}_vari`);
+    setVal(`${prefix}_car`, mod);
+    setVal(`${prefix}_tot`, mod + gradi + vari);
+  });
+}
+
 
 // === SALVATAGGIO E CARICAMENTO ABILITÀ ===
 function salvaAbilita() {

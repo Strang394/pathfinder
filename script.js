@@ -119,6 +119,7 @@ async function loadFromFirestore() {
       const el = document.getElementById(id);
       if (el && data[id] !== undefined) {
         if (el.type === "checkbox") el.checked = data[id];
+          
         else el.value = data[id];
         localStorage.setItem(id, data[id]);
       }
@@ -217,8 +218,12 @@ window.addEventListener("DOMContentLoaded", async () => {
     if (el) {
       const saved = localStorage.getItem(id);
       if (saved !== null) {
-        if (el.type === "checkbox") el.checked = saved === "true";
-        else el.value = saved;
+        if (el.type === "checkbox") {
+  el.checked = saved === "true"; // <-- QUESTO È NECESSARIO
+} else {
+  el.value = saved;
+}
+
       }
 
       const save = () => {

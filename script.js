@@ -1,3 +1,11 @@
+// === ABILITÀ ===
+const abilitaCaratteristiche = {
+  acro: "des", adda: "car", arti: "int", arte: "des", camu: "car", cava: "des",
+  cona: "int", cond: "int", cong: "int", coni: "int", conl: "int", conn: "int", cono: "int", conp: "int", conr: "int", cons: "int",
+  dipl: "car", disc: "des", furt: "des", guar: "sag", inti: "car", intra: "car", intu: "sag", ling: "int", nuot: "for",
+  perc: "sag", prof: "sag", ragg: "car", rapi: "des", sapi: "int", scal: "for", sopr: "sag", util: "car", valu: "int", vola: "des"
+};
+
 // === CAMPI SALVATI IN FIRESTORE E LOCALSTORAGE ===
 const fields = [
   "nome", "giocatore", "razza", "classeLivello", "allineamento",
@@ -135,13 +143,6 @@ async function saveToFirestore(id, value) {
   await setDoc(ref, { ...current, [id]: value });
 }
 
-// === ABILITÀ ===
-const abilitaCaratteristiche = {
-  acro: "des", adda: "car", arti: "int", arte: "des", camu: "car", cava: "des",
-  cona: "int", cond: "int", cong: "int", coni: "int", conl: "int", conn: "int", cono: "int", conp: "int", conr: "int", cons: "int",
-  dipl: "car", disc: "des", furt: "des", guar: "sag", inti: "car", intra: "car", intu: "sag", ling: "int", nuot: "for",
-  perc: "sag", prof: "sag", ragg: "car", rapi: "des", sapi: "int", scal: "for", sopr: "sag", util: "car", valu: "int", vola: "des"
-};
 
 function aggiornaAbilita() {
   Object.entries(abilitaCaratteristiche).forEach(([prefix, stat]) => {

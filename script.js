@@ -17,7 +17,12 @@ const fields = [
   "ts_volonta_tot", "ts_volonta_base", "ts_volonta_caratt", "ts_volonta_mag", "ts_volonta_vari", "ts_volonta_temp",
   "bab", "res_inc", "bmc_tot", "bmc_for", "bmc_taglia", "dmc_tot", "dmc_for", "dmc_des", "dmc_taglia",
   "abilita", "talenti", "capacita", "equip", "denaro", "note",
-  "monete_rame", "monete_argento", "monete_oro", "monete_platino", "armature"
+  "monete_rame", "monete_argento", "monete_oro", "monete_platino", "armature", "acro_check", "adda_check", "arti_check", "arte_check", "camu_check", "cava_check",
+  "cona_check", "cond_check", "cong_check", "coni_check", "conl_check", "conn_check",
+  "cono_check", "conp_check", "conr_check", "cons_check",
+  "dipl_check", "disc_check", "furt_check", "guar_check", "inti_check", "intra_check",
+  "intu_check", "ling_check", "nuot_check", "perc_check", "prof_check", "ragg_check",
+  "rapi_check", "sapi_check", "scal_check", "sopr_check", "util_check", "valu_check", "vola_check"
 ];
 
 // === FUNZIONI DI UTILITÀ ===

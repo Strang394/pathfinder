@@ -1,8 +1,8 @@
-// script.js completo con calcoli automatici
+// === CAMPI SALVATI IN FIRESTORE E LOCALSTORAGE ===
 const fields = [
   "nome", "giocatore", "razza", "classeLivello", "allineamento",
   "divinita", "origini", "taglia", "sesso", "eta", "altezza", "peso", "capelli", "occhi",
-"vel_terreno", "vel_armatura", "vel_volare", "vel_nuotare", "vel_scalare", "vel_scavare",
+  "vel_terreno", "vel_armatura", "vel_volare", "vel_nuotare", "vel_scalare", "vel_scavare",
   "for", "for_adj", "for_temp", "for_mod",
   "des", "des_adj", "des_temp", "des_mod",
   "cos", "cos_adj", "cos_temp", "cos_mod",
@@ -15,48 +15,12 @@ const fields = [
   "ts_tempra_tot", "ts_tempra_base", "ts_tempra_caratt", "ts_tempra_mag", "ts_tempra_vari", "ts_tempra_temp",
   "ts_riflessi_tot", "ts_riflessi_base", "ts_riflessi_caratt", "ts_riflessi_mag", "ts_riflessi_vari", "ts_riflessi_temp",
   "ts_volonta_tot", "ts_volonta_base", "ts_volonta_caratt", "ts_volonta_mag", "ts_volonta_vari", "ts_volonta_temp",
-  "bab", "res_inc",
-  "bmc_tot", "bmc_for", "bmc_taglia",
-  "dmc_tot", "dmc_for", "dmc_des", "dmc_taglia",
+  "bab", "res_inc", "bmc_tot", "bmc_for", "bmc_taglia", "dmc_tot", "dmc_for", "dmc_des", "dmc_taglia",
   "abilita", "talenti", "capacita", "equip", "denaro", "note",
-    "acro_check", "acro_tot", "acro_car", "acro_gradi", "acro_vari",
-  "adda_check", "adda_tot", "adda_car", "adda_gradi", "adda_vari",
-  "arti_check", "arti_tot", "arti_car", "arti_gradi", "arti_vari",
-  "arte_check", "arte_tot", "arte_car", "arte_gradi", "arte_vari",
-  "camu_check", "camu_tot", "camu_car", "camu_gradi", "camu_vari",
-  "cava_check", "cava_tot", "cava_car", "cava_gradi", "cava_vari",
-  "cona_check", "cona_tot", "cona_car", "cona_gradi", "cona_vari",
-  "cond_check", "cond_tot", "cond_car", "cond_gradi", "cond_vari",
-  "cong_check", "cong_tot", "cong_car", "cong_gradi", "cong_vari",
-  "coni_check", "coni_tot", "coni_car", "coni_gradi", "coni_vari",
-  "conl_check", "conl_tot", "conl_car", "conl_gradi", "conl_vari",
-  "conn_check", "conn_tot", "conn_car", "conn_gradi", "conn_vari",
-  "cono_check", "cono_tot", "cono_car", "cono_gradi", "cono_vari",
-  "conp_check", "conp_tot", "conp_car", "conp_gradi", "conp_vari",
-  "conr_check", "conr_tot", "conr_car", "conr_gradi", "conr_vari",
-  "cons_check", "cons_tot", "cons_car", "cons_gradi", "cons_vari",
-  "dipl_check", "dipl_tot", "dipl_car", "dipl_gradi", "dipl_vari",
-  "disc_check", "disc_tot", "disc_car", "disc_gradi", "disc_vari",
-  "furt_check", "furt_tot", "furt_car", "furt_gradi", "furt_vari",
-  "guar_check", "guar_tot", "guar_car", "guar_gradi", "guar_vari",
-  "inti_check", "inti_tot", "inti_car", "inti_gradi", "inti_vari",
-  "intra_check", "intra_tot", "intra_car", "intra_gradi", "intra_vari",
-  "intu_check", "intu_tot", "intu_car", "intu_gradi", "intu_vari",
-  "ling_check", "ling_tot", "ling_car", "ling_gradi", "ling_vari",
-  "nuot_check", "nuot_tot", "nuot_car", "nuot_gradi", "nuot_vari",
-  "perc_check", "perc_tot", "perc_car", "perc_gradi", "perc_vari",
-  "prof_check", "prof_tot", "prof_car", "prof_gradi", "prof_vari",
-  "ragg_check", "ragg_tot", "ragg_car", "ragg_gradi", "ragg_vari",
-  "rapi_check", "rapi_tot", "rapi_car", "rapi_gradi", "rapi_vari",
-  "sapi_check", "sapi_tot", "sapi_car", "sapi_gradi", "sapi_vari",
-  "scal_check", "scal_tot", "scal_car", "scal_gradi", "scal_vari",
-  "sopr_check", "sopr_tot", "sopr_car", "sopr_gradi", "sopr_vari",
-  "util_check", "util_tot", "util_car", "util_gradi", "util_vari",
-  "valu_check", "valu_tot", "valu_car", "valu_gradi", "valu_vari",
-  "vola_check", "vola_tot", "vola_car", "vola_gradi", "vola_vari",
   "monete_rame", "monete_argento", "monete_oro", "monete_platino", "armature"
 ];
 
+// === FUNZIONI DI UTILITÀ ===
 function calcMod(score) {
   const val = parseInt(score);
   return isNaN(val) ? "" : Math.floor((val - 10) / 2);
@@ -64,7 +28,7 @@ function calcMod(score) {
 
 function getVal(id) {
   const el = document.getElementById(id);
-  return el && el.value.trim() !== "" ? parseInt(el.value) || 0 : null;
+  return el && el.value.trim() !== "" ? parseInt(el.value) || 0 : 0;
 }
 
 function setVal(id, val) {
@@ -74,64 +38,59 @@ function setVal(id, val) {
   saveToFirestore(id, val ?? "");
 }
 
+// === CALCOLI BASE ===
 function updateModificatori() {
   ["for", "des", "cos", "int", "sag", "car"].forEach(stat => {
-    const base = getVal(stat);
-    const mod = calcMod(base);
-    setVal(`${stat}_mod`, mod);
+    setVal(`${stat}_mod`, calcMod(getVal(stat)));
   });
 }
 
 function calcolaIniziativa() {
-  const modDes = getVal("des_mod") ?? 0;
-  const vari = getVal("init_vari") ?? 0;
+  const modDes = getVal("des_mod");
+  const vari = getVal("init_vari");
   setVal("init_des", modDes);
   setVal("init_tot", modDes + vari);
 }
 
 function calcolaCA() {
-  const armatura = getVal("ca_armatura") ?? 0;
-  const scudo = getVal("ca_scudo") ?? 0;
-  const des = getVal("des_mod") ?? 0;
-  const taglia = getVal("ca_taglia") ?? 0;
-  const naturale = getVal("ca_nat") ?? 0;
-  const dev = getVal("ca_dev") ?? 0;
-  const vari = getVal("ca_vari") ?? 0;
+  const armatura = getVal("ca_armatura");
+  const scudo = getVal("ca_scudo");
+  const des = getVal("des_mod");
+  const taglia = getVal("ca_taglia");
+  const naturale = getVal("ca_nat");
+  const dev = getVal("ca_dev");
+  const vari = getVal("ca_vari");
 
-  // CA Totale: tutto
-  const totale = 10 + armatura + scudo + des + taglia + naturale + dev + vari;
-  setVal("ca_tot", totale);
-
-  // CA Contatto: ignora armatura, scudo, taglia, naturale
-  const contatto = 10 + des + dev + vari;
-  setVal("ca_contatto", contatto);
-
-  // CA Impreparato: ignora destrezza
-  const impreparato = 10 + armatura + scudo + taglia + naturale + dev + vari;
-  setVal("ca_impreparato", impreparato);
-
-  // Salva anche mod DES per chiarezza
+  setVal("ca_tot", 10 + armatura + scudo + des + taglia + naturale + dev + vari);
+  setVal("ca_contatto", 10 + des + dev + vari);
+  setVal("ca_impreparato", 10 + armatura + scudo + taglia + naturale + dev + vari);
   setVal("ca_des", des);
 }
-
 
 function calcolaTiriSalvezza() {
   setVal("ts_tempra_caratt", getVal("cos_mod"));
   setVal("ts_riflessi_caratt", getVal("des_mod"));
   setVal("ts_volonta_caratt", getVal("sag_mod"));
 
-  setVal("ts_tempra_tot", (getVal("ts_tempra_base") ?? 0) + (getVal("ts_tempra_caratt") ?? 0) + (getVal("ts_tempra_mag") ?? 0) + (getVal("ts_tempra_vari") ?? 0) + (getVal("ts_tempra_temp") ?? 0));
-  setVal("ts_riflessi_tot", (getVal("ts_riflessi_base") ?? 0) + (getVal("ts_riflessi_caratt") ?? 0) + (getVal("ts_riflessi_mag") ?? 0) + (getVal("ts_riflessi_vari") ?? 0) + (getVal("ts_riflessi_temp") ?? 0));
-  setVal("ts_volonta_tot", (getVal("ts_volonta_base") ?? 0) + (getVal("ts_volonta_caratt") ?? 0) + (getVal("ts_volonta_mag") ?? 0) + (getVal("ts_volonta_vari") ?? 0) + (getVal("ts_volonta_temp") ?? 0));
+  setVal("ts_tempra_tot", getVal("ts_tempra_base") + getVal("ts_tempra_caratt") + getVal("ts_tempra_mag") + getVal("ts_tempra_vari") + getVal("ts_tempra_temp"));
+  setVal("ts_riflessi_tot", getVal("ts_riflessi_base") + getVal("ts_riflessi_caratt") + getVal("ts_riflessi_mag") + getVal("ts_riflessi_vari") + getVal("ts_riflessi_temp"));
+  setVal("ts_volonta_tot", getVal("ts_volonta_base") + getVal("ts_volonta_caratt") + getVal("ts_volonta_mag") + getVal("ts_volonta_vari") + getVal("ts_volonta_temp"));
 }
 
 function calcolaCombattimento() {
   setVal("bmc_for", getVal("for_mod"));
-  setVal("bmc_tot", (getVal("bab") ?? 0) + (getVal("for_mod") ?? 0) + (getVal("bmc_taglia") ?? 0));
-
+  setVal("bmc_tot", getVal("bab") + getVal("for_mod") + getVal("bmc_taglia"));
   setVal("dmc_for", getVal("for_mod"));
   setVal("dmc_des", getVal("des_mod"));
-  setVal("dmc_tot", 10 + (getVal("bab") ?? 0) + (getVal("for_mod") ?? 0) + (getVal("des_mod") ?? 0) + (getVal("dmc_taglia") ?? 0));
+  setVal("dmc_tot", 10 + getVal("bab") + getVal("for_mod") + getVal("des_mod") + getVal("dmc_taglia"));
+}
+
+function aggiornaAnteprime() {
+  ["ca_tot", "ca_contatto", "ca_impreparato", "init_tot", "ts_tempra_tot", "ts_riflessi_tot", "ts_volonta_tot", "bmc_tot", "dmc_tot", "pf_totali", "vel_terreno"].forEach(id => {
+    const el = document.getElementById(id);
+    const preview = document.getElementById(`${id}_preview`);
+    if (el && preview) preview.textContent = el.value || "—";
+  });
 }
 
 function aggiornaTuttiICalcoli() {
@@ -141,11 +100,10 @@ function aggiornaTuttiICalcoli() {
   calcolaTiriSalvezza();
   calcolaCombattimento();
   aggiornaAnteprime();
-  aggiornaAbilita(); 
+  aggiornaAbilita();
 }
 
-
-
+// === FIREBASE ===
 async function loadFromFirestore() {
   const { getDoc, doc } = await import("https://www.gstatic.com/firebasejs/11.7.1/firebase-firestore.js");
   const ref = doc(window.db, "schede", "schedaLadro");
@@ -155,18 +113,14 @@ async function loadFromFirestore() {
     fields.forEach(id => {
       const el = document.getElementById(id);
       if (el && data[id] !== undefined) {
-        if (el.type === "checkbox") {
-          el.checked = data[id];
-        } else {
-          el.value = data[id];
-        }
+        if (el.type === "checkbox") el.checked = data[id];
+        else el.value = data[id];
         localStorage.setItem(id, data[id]);
       }
     });
     aggiornaTuttiICalcoli();
   }
 }
-
 
 async function saveToFirestore(id, value) {
   const { setDoc, doc, getDoc } = await import("https://www.gstatic.com/firebasejs/11.7.1/firebase-firestore.js");
@@ -175,238 +129,32 @@ async function saveToFirestore(id, value) {
   await setDoc(ref, { ...current, [id]: value });
 }
 
-window.addEventListener("DOMContentLoaded", async () => {
-  await loadFromFirestore();
-
-  fields.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) {
-      const local = localStorage.getItem(id);
-      if (local !== null && local !== undefined) {
-        el.value = local;
-      }
-
- el.addEventListener("input", () => {
-  const value = el.type === "checkbox" ? el.checked : el.value;
-  localStorage.setItem(id, value);
-  saveToFirestore(id, value);
-  aggiornaTuttiICalcoli();
-});
-
-// Assicura che anche il cambio di focus su textarea o checkbox venga salvato
-el.addEventListener("change", () => {
-  const value = el.type === "checkbox" ? el.checked : el.value;
-  localStorage.setItem(id, value);
-  saveToFirestore(id, value);
-  aggiornaTuttiICalcoli();
-});
-
-// Forza resize iniziale dei campi auto-resize
-document.querySelectorAll('.auto-resize').forEach(input => {
-  input.style.width = '1ch'; // reset
-  input.style.width = (input.value.length + 1) + 'ch';
-});
-      el.addEventListener("blur", () => {
-        saveToFirestore(id, el.value);
-      });
-    }
-  });
-
-  aggiornaTuttiICalcoli();    
-  aggiornaAnteprime();     
-  
-  // Inizializza gestione tabella armature 27-05
-  const btnAggiungi = document.getElementById("aggiungiArmatura");
-  if (btnAggiungi) {
-    btnAggiungi.addEventListener("click", () => {
-      aggiungiArmatura();
-      salvaArmature();
-    });
-  }
-  caricaArmature();
-  //fine codice 27-05
-  aggiornaAbilita();
-
-  const campiDaAscoltare = [
-    ...Object.values(abilitaCaratteristiche).map(stat => `${stat}_mod`),
-    ...Object.keys(abilitaCaratteristiche).flatMap(prefix => [
-      `${prefix}_gradi`,
-      `${prefix}_vari`
-    ])
-  ];
-
-  campiDaAscoltare.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.addEventListener("input", aggiornaAbilita);
-    }
-  });
-});
-});
-
-function autoResizeInput(input) {
-  input.style.width = "1ch"; // reset
-  const length = input.value.length || 1;
-  input.style.width = `${length + 1}ch`;
-}
-
-document.addEventListener("DOMContentLoaded", async () => {
-await loadFromFirestore();
-
-  // Auto-resize iniziale
-  document.querySelectorAll("input.auto-resize").forEach(input => {
-    autoResizeInput(input);
-    input.addEventListener("input", () => autoResizeInput(input));
-  });
-
-  // Gestione salvataggio e ricaricamento per ogni campo definito
-  fields.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) {
-      const stored = localStorage.getItem(id);
-      if (stored !== null) {
-        if (el.type === "checkbox") {
-          el.checked = stored === "true"; // localStorage salva stringhe!
-        } else {
-          el.value = stored;
-        }
-      }
-
-      const save = () => {
-        const value = el.type === "checkbox" ? el.checked : el.value;
-        localStorage.setItem(id, value);
-        saveToFirestore(id, value);
-        aggiornaTuttiICalcoli();
-      };
-
-      el.addEventListener("input", save);
-      el.addEventListener("change", save);
-    }
-  });
-
-  aggiornaTuttiICalcoli();
-  aggiornaAnteprime();
-
-  // Tabs switching
-  const tabs = document.querySelectorAll(".tab-nav button");
-  const contents = document.querySelectorAll(".tab-content");
-  tabs.forEach(tab => {
-    tab.addEventListener("click", () => {
-      tabs.forEach(t => t.classList.remove("active"));
-      contents.forEach(c => c.classList.add("hidden"));
-      tab.classList.add("active");
-      document.getElementById(tab.getAttribute("data-tab")).classList.remove("hidden");
-      aggiornaTuttiICalcoli();
-    });
-  });
-});
-
- 
-
-function aggiornaAnteprime() {
-  const ids = [
-    "ca_tot", "ca_contatto", "ca_impreparato",
-    "init_tot",
-    "ts_tempra_tot", "ts_riflessi_tot", "ts_volonta_tot", "bmc_tot", "dmc_tot", "pf_totali", "vel_terreno"
-
-  ];
-
-  ids.forEach(id => {
-    const el = document.getElementById(id);
-    const preview = document.getElementById(`${id}_preview`);
-    if (el && preview) {
-      preview.textContent = el.value !== "" ? el.value : "—";
-    }
-  });
-}
-
-window.toggleDettagli = function(button) {
-  const dettagli = button.parentElement.nextElementSibling;
-  const isHidden = dettagli.style.display === 'none';
-  dettagli.style.display = isHidden ? 'block' : 'none';
-  button.textContent = isHidden ? '− Nascondi' : '+ Dettagli';
-  aggiornaAnteprime();
-};
-
-function aggiornaTaglia() {
-  const mod = parseInt(document.getElementById("taglia").value);
-  ["ca_taglia", "bmc_taglia", "dmc_taglia"].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.readOnly = false;
-      el.value = mod;
-      el.readOnly = true;
-      setVal(id, mod); // Usa la tua funzione che salva e aggiorna
-    }
-  });
-
-  aggiornaTuttiICalcoli();
-}
-// Mappa delle abilità con la loro caratteristica base
+// === ABILITÀ ===
 const abilitaCaratteristiche = {
-  acro: "des",
-  adda: "car",
-  arti: "int",
-  arte: "des",
-  camu: "car",
-  cava: "des",
-  cona: "int",
-  cond: "int",
-  cong: "int",
-  coni: "int",
-  conl: "int",
-  conn: "int",
-  cono: "int",
-  conp: "int",
-  conr: "int",
-  cons: "int",
-  dipl: "car",
-  disc: "des",
-  furt: "des",
-  guar: "sag",
-  inti: "car",
-  intra: "car",
-  intu: "sag",
-  ling: "int",
-  nuot: "for",
-  perc: "sag",
-  prof: "sag",
-  ragg: "car",
-  rapi: "des",
-  sapi: "int",
-  scal: "for",
-  sopr: "sag",
-  util: "car",
-  valu: "int",
-  vola: "des"
+  acro: "des", adda: "car", arti: "int", arte: "des", camu: "car", cava: "des",
+  cona: "int", cond: "int", cong: "int", coni: "int", conl: "int", conn: "int", cono: "int", conp: "int", conr: "int", cons: "int",
+  dipl: "car", disc: "des", furt: "des", guar: "sag", inti: "car", intra: "car", intu: "sag", ling: "int", nuot: "for",
+  perc: "sag", prof: "sag", ragg: "car", rapi: "des", sapi: "int", scal: "for", sopr: "sag", util: "car", valu: "int", vola: "des"
 };
 
 function aggiornaAbilita() {
   Object.entries(abilitaCaratteristiche).forEach(([prefix, stat]) => {
-    const mod = parseInt(document.getElementById(`${stat}_mod`)?.value || 0);
-    const gradi = parseInt(document.getElementById(`${prefix}_gradi`)?.value || 0);
-    const vari = parseInt(document.getElementById(`${prefix}_vari`)?.value || 0);
-
-    const totale = mod + gradi + vari;
-
-    // Aggiorna i campi
-    const carField = document.getElementById(`${prefix}_car`);
-    const totField = document.getElementById(`${prefix}_tot`);
-
-    if (carField) carField.value = mod;
-    if (totField) totField.value = totale;
+    const mod = getVal(`${stat}_mod`);
+    const gradi = getVal(`${prefix}_gradi`);
+    const vari = getVal(`${prefix}_vari`);
+    setVal(`${prefix}_car`, mod);
+    setVal(`${prefix}_tot`, mod + gradi + vari);
   });
 }
-//CODICE NUOVO 27-05
+
+// === ARMATURE ===
 function aggiornaBonusArmaturaDaTabella() {
   const rows = document.querySelectorAll("#tbodyArmature tr");
   let totale = 0;
-
   rows.forEach(row => {
     const bonus = parseInt(row.querySelector(".armor-bonus")?.value || 0);
     totale += bonus;
   });
-
   setVal("ca_armatura", totale);
   calcolaCA();
 }
@@ -420,17 +168,14 @@ function salvaArmature() {
     penalita: row.querySelector(".armor-pen")?.value || "",
     note: row.querySelector(".armor-note")?.value || ""
   }));
-  const json = JSON.stringify(armature);
-  setVal("armature", json);
+  setVal("armature", JSON.stringify(armature));
 }
 
 function caricaArmature() {
   const json = localStorage.getItem("armature");
   if (!json) return;
   const armature = JSON.parse(json);
-  armature.forEach(dati => {
-    aggiungiArmatura(dati);
-  });
+  armature.forEach(dati => aggiungiArmatura(dati));
   aggiornaBonusArmaturaDaTabella();
 }
 
@@ -439,8 +184,8 @@ function aggiungiArmatura(dati = {}) {
   tr.innerHTML = `
     <td><input class="armor-nome" value="${dati.nome || ''}" /></td>
     <td><input type="number" class="armor-bonus" value="${dati.bonus || 0}" /></td>
-    <td><input type="text" class="armor-maxdes" value="${dati.maxDes || ''}" /></td>
-    <td><input type="text" class="armor-pen" value="${dati.penalita || ''}" /></td>
+    <td><input class="armor-maxdes" value="${dati.maxDes || ''}" /></td>
+    <td><input class="armor-pen" value="${dati.penalita || ''}" /></td>
     <td><input class="armor-note" value="${dati.note || ''}" /></td>
     <td><button class="remove">🗑️</button></td>
   `;
@@ -455,9 +200,95 @@ function aggiungiArmatura(dati = {}) {
     aggiornaBonusArmaturaDaTabella();
     salvaArmature();
   });
-
   document.getElementById("tbodyArmature").appendChild(tr);
 }
-//CODICE NUOVO 27-05 fine
 
-window.aggiornaTaglia = aggiornaTaglia; // ✅ Aggiungi questa riga
+// === AVVIO PAGINA ===
+window.addEventListener("DOMContentLoaded", async () => {
+  await loadFromFirestore();
+
+  fields.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      const saved = localStorage.getItem(id);
+      if (saved !== null) {
+        if (el.type === "checkbox") el.checked = saved === "true";
+        else el.value = saved;
+      }
+
+      const save = () => {
+        const value = el.type === "checkbox" ? el.checked : el.value;
+        localStorage.setItem(id, value);
+        saveToFirestore(id, value);
+        aggiornaTuttiICalcoli();
+      };
+
+      el.addEventListener("input", save);
+      el.addEventListener("change", save);
+      el.addEventListener("blur", () => saveToFirestore(id, el.value));
+    }
+  });
+
+  aggiornaTuttiICalcoli();
+  aggiornaAnteprime();
+  caricaArmature();
+
+  const btn = document.getElementById("aggiungiArmatura");
+  if (btn) {
+    btn.addEventListener("click", () => {
+      aggiungiArmatura();
+      salvaArmature();
+    });
+  }
+
+  // Tab switching
+  const tabs = document.querySelectorAll(".tab-nav button");
+  const contents = document.querySelectorAll(".tab-content");
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      tabs.forEach(t => t.classList.remove("active"));
+      contents.forEach(c => c.classList.add("hidden"));
+      tab.classList.add("active");
+      document.getElementById(tab.getAttribute("data-tab")).classList.remove("hidden");
+      aggiornaTuttiICalcoli();
+    });
+  });
+
+  // Abilità dinamiche
+  const campiDaAscoltare = [
+    ...Object.values(abilitaCaratteristiche).map(stat => `${stat}_mod`),
+    ...Object.keys(abilitaCaratteristiche).flatMap(prefix => [
+      `${prefix}_gradi`,
+      `${prefix}_vari`
+    ])
+  ];
+  campiDaAscoltare.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener("input", aggiornaAbilita);
+    }
+  });
+});
+
+// Espone funzione per HTML
+window.toggleDettagli = function (btn) {
+  const dett = btn.parentElement.nextElementSibling;
+  const isHidden = dett.style.display === "none";
+  dett.style.display = isHidden ? "block" : "none";
+  btn.textContent = isHidden ? "− Nascondi" : "+ Mostra";
+  aggiornaAnteprime();
+};
+
+window.aggiornaTaglia = function () {
+  const mod = parseInt(document.getElementById("taglia").value);
+  ["ca_taglia", "bmc_taglia", "dmc_taglia"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.readOnly = false;
+      el.value = mod;
+      el.readOnly = true;
+      setVal(id, mod);
+    }
+  });
+  aggiornaTuttiICalcoli();
+};

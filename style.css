@@ -296,3 +296,8 @@ input[type="number"].input-small {
   overflow-x: auto;
   width: 100%;
 }
+
+/* Evidenzia abilità attive */
+.caratteristiche-tabella tr.attiva {
+  background-color: #4c1d95;
+}

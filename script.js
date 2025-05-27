@@ -184,6 +184,7 @@ async function saveToFirestore(id, value) {
 window.addEventListener("DOMContentLoaded", async () => {
   await loadFromFirestore();
   caricaAbilita();
+  caricaArmature();
 
   document
     .querySelectorAll('#sezione2 input[id$="_check"], #sezione2 input[id$="_gradi"], #sezione2 input[id$="_vari"]')
@@ -220,6 +221,14 @@ window.addEventListener("DOMContentLoaded", async () => {
 
   aggiornaTuttiICalcoli();
   aggiornaAnteprime();
+
+    const btn = document.getElementById("aggiungiArmatura");
+  if (btn) {
+    btn.addEventListener("click", () => {
+      aggiungiArmatura();
+      salvaArmature();
+    });
+  }
 
   // Tab switching (ripristinato!)
 const tabs = document.querySelectorAll(".tab-nav button");

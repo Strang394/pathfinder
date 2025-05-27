@@ -220,10 +220,25 @@ window.addEventListener("DOMContentLoaded", async () => {
       if (saved !== null) {
         if (el.type === "checkbox") {
   el.checked = saved === "true"; // <-- QUESTO È NECESSARIO
+  el.dispatchEvent(new Event("change"));
+
 } else {
   el.value = saved;
 }
 
+    // === EVIDENZIA RIGA ABILITÀ SE CHECKBOX SELEZIONATA ===
+    if (id.endsWith("_check")) {
+      const row = el.closest("tr");
+      const toggleRowClass = () => {
+        if (el.checked) {
+          row.classList.add("attiva");
+        } else {
+          row.classList.remove("attiva");
+        }
+      };
+      el.addEventListener("change", toggleRowClass); // reagisce al click
+      toggleRowClass(); // applica stato iniziale
+    }
       }
 
       const save = () => {

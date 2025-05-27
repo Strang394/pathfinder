@@ -1,6 +1,4 @@
-final_script_path = Path("/mnt/data/script-finalissimo-completo.js")
 
-final_script = """
 // === CAMPI SALVATI IN FIRESTORE E LOCALSTORAGE ===
 const fields = [
   "nome", "giocatore", "razza", "classeLivello", "allineamento",
@@ -237,7 +235,6 @@ tabs.forEach(tab => {
   });
 });
 });
-"""
 
 final_script_path.write_text(final_script)
 final_script_path.name

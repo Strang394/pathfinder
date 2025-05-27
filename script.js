@@ -1,10 +1,3 @@
-// === ABILITÀ ===
-const abilitaCaratteristiche = {
-  acro: "des", adda: "car", arti: "int", arte: "des", camu: "car", cava: "des",
-  cona: "int", cond: "int", cong: "int", coni: "int", conl: "int", conn: "int", cono: "int", conp: "int", conr: "int", cons: "int",
-  dipl: "car", disc: "des", furt: "des", guar: "sag", inti: "car", intra: "car", intu: "sag", ling: "int", nuot: "for",
-  perc: "sag", prof: "sag", ragg: "car", rapi: "des", sapi: "int", scal: "for", sopr: "sag", util: "car", valu: "int", vola: "des"
-};
 
 // === CAMPI SALVATI IN FIRESTORE E LOCALSTORAGE ===
 const fields = [
@@ -25,13 +18,7 @@ const fields = [
   "ts_volonta_tot", "ts_volonta_base", "ts_volonta_caratt", "ts_volonta_mag", "ts_volonta_vari", "ts_volonta_temp",
   "bab", "res_inc", "bmc_tot", "bmc_for", "bmc_taglia", "dmc_tot", "dmc_for", "dmc_des", "dmc_taglia",
   "abilita", "talenti", "capacita", "equip", "denaro", "note",
-  "monete_rame", "monete_argento", "monete_oro", "monete_platino", "armature",
-  ...Object.keys(abilitaCaratteristiche).flatMap(prefix => [
-    `${prefix}_check`,
-    `${prefix}_gradi`,
-    `${prefix}_vari`
-  ])
-];
+  "monete_rame", "monete_argento", "monete_oro", "monete_platino", "armature"];
 
 // === FUNZIONI DI UTILITÀ ===
 function calcMod(score) {
@@ -105,6 +92,7 @@ function aggiornaAnteprime() {
     if (el && preview) preview.textContent = el.value || "—";
   });
 }
+
 
 function aggiornaTuttiICalcoli() {
   updateModificatori();
@@ -209,6 +197,14 @@ function aggiungiArmatura(dati = {}) {
   });
   document.getElementById("tbodyArmature").appendChild(tr);
 }
+
+// === ABILITÀ ===
+const abilitaCaratteristiche = {
+  acro: "des", adda: "car", arti: "int", arte: "des", camu: "car", cava: "des",
+  cona: "int", cond: "int", cong: "int", coni: "int", conl: "int", conn: "int", cono: "int", conp: "int", conr: "int", cons: "int",
+  dipl: "car", disc: "des", furt: "des", guar: "sag", inti: "car", intra: "car", intu: "sag", ling: "int", nuot: "for",
+  perc: "sag", prof: "sag", ragg: "car", rapi: "des", sapi: "int", scal: "for", sopr: "sag", util: "car", valu: "int", vola: "des"
+};
 
 // === AVVIO PAGINA ===
 window.addEventListener("DOMContentLoaded", async () => {

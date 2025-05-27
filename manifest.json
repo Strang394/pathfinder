@@ -3,7 +3,7 @@
   "short_name": "SchedaPG",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#1e1e2f",
+  "background_color": "#000000",
   "theme_color": "#6c4ccf",
   "icons": [
     {

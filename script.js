@@ -1,3 +1,6 @@
+final_script_path = Path("/mnt/data/script-finalissimo-completo.js")
+
+final_script = """
 // === CAMPI SALVATI IN FIRESTORE E LOCALSTORAGE ===
 const fields = [
   "nome", "giocatore", "razza", "classeLivello", "allineamento",
@@ -20,7 +23,13 @@ const fields = [
   "monete_rame", "monete_argento", "monete_oro", "monete_platino", "armature"
 ];
 
-// === FUNZIONI DI UTILITÀ ===
+const abilitaCaratteristiche = {
+  acro: "des", adda: "car", arti: "int", arte: "des", camu: "car", cava: "des",
+  cona: "int", cond: "int", cong: "int", coni: "int", conl: "int", conn: "int", cono: "int", conp: "int", conr: "int", cons: "int",
+  dipl: "car", disc: "des", furt: "des", guar: "sag", inti: "car", intra: "car", intu: "sag", ling: "int", nuot: "for",
+  perc: "sag", prof: "sag", ragg: "car", rapi: "des", sapi: "int", scal: "for", sopr: "sag", util: "car", valu: "int", vola: "des"
+};
+
 function calcMod(score) {
   const val = parseInt(score);
   return isNaN(val) ? "" : Math.floor((val - 10) / 2);
@@ -38,7 +47,6 @@ function setVal(id, val) {
   saveToFirestore(id, val ?? "");
 }
 
-// === CALCOLI BASE ===
 function updateModificatori() {
   ["for","des","cos","int","sag","car"].forEach(stat => {
     setVal(`${stat}_mod`, calcMod(getVal(stat)));
@@ -71,26 +79,9 @@ function calcolaTiriSalvezza() {
   setVal("ts_riflessi_caratt", getVal("des_mod"));
   setVal("ts_volonta_caratt",  getVal("sag_mod"));
 
-  setVal("ts_tempra_tot",
-    getVal("ts_tempra_base")
-  + getVal("ts_tempra_caratt")
-  + getVal("ts_tempra_mag")
-  + getVal("ts_tempra_vari")
-  + getVal("ts_tempra_temp"));
-
-  setVal("ts_riflessi_tot",
-    getVal("ts_riflessi_base")
-  + getVal("ts_riflessi_caratt")
-  + getVal("ts_riflessi_mag")
-  + getVal("ts_riflessi_vari")
-  + getVal("ts_riflessi_temp"));
-
-  setVal("ts_volonta_tot",
-    getVal("ts_volonta_base")
-  + getVal("ts_volonta_caratt")
-  + getVal("ts_volonta_mag")
-  + getVal("ts_volonta_vari")
-  + getVal("ts_volonta_temp"));
+  setVal("ts_tempra_tot", getVal("ts_tempra_base") + getVal("ts_tempra_caratt") + getVal("ts_tempra_mag") + getVal("ts_tempra_vari") + getVal("ts_tempra_temp"));
+  setVal("ts_riflessi_tot", getVal("ts_riflessi_base") + getVal("ts_riflessi_caratt") + getVal("ts_riflessi_mag") + getVal("ts_riflessi_vari") + getVal("ts_riflessi_temp"));
+  setVal("ts_volonta_tot", getVal("ts_volonta_base") + getVal("ts_volonta_caratt") + getVal("ts_volonta_mag") + getVal("ts_volonta_vari") + getVal("ts_volonta_temp"));
 }
 
 function calcolaCombattimento() {
@@ -121,48 +112,6 @@ function aggiornaTuttiICalcoli() {
   aggiornaAbilita();
 }
 
-// === FIREBASE ===
-async function loadFromFirestore() {
-  const { getDoc, doc } = await import("https://www.gstatic.com/firebasejs/11.7.1/firebase-firestore.js");
-  const ref = doc(window.db, "schede", "schedaLadro");
-  const snap = await getDoc(ref);
-  if (snap.exists()) {
-    const data = snap.data();
-    fields.forEach(id => {
-      const el = document.getElementById(id);
-      if (el && data[id] !== undefined) {
-        if (el.type === "checkbox") el.checked = data[id];
-        else el.value = data[id];
-        localStorage.setItem(id, data[id]);
-      }
-    });
-    aggiornaTuttiICalcoli();
-       // 🔁 Se c'è il JSON delle abilità, caricalo
-  if (data.abilita) {
-    localStorage.setItem("abilita", data.abilita);
-    caricaAbilita();
-   }
-  }
-}
-
-async function saveToFirestore(id, value) {
-  const { setDoc, doc, getDoc } = await import("https://www.gstatic.com/firebasejs/11.7.1/firebase-firestore.js");
-  const ref = doc(window.db, "schede", "schedaLadro");
-  const current = (await getDoc(ref)).data() || {};
-  await setDoc(ref, { ...current, [id]: value });
-}
-
-
-// === ABILITÀ ===
-const abilitaCaratteristiche = {
-  acro: "des", adda: "car", arti: "int", arte: "des", camu: "car", cava: "des",
-  cona: "int", cond: "int", cong: "int", coni: "int", conl: "int", conn: "int", cono: "int", conp: "int", conr: "int", cons: "int",
-  dipl: "car", disc: "des", furt: "des", guar: "sag", inti: "car", intra: "car", intu: "sag", ling: "int", nuot: "for",
-  perc: "sag", prof: "sag", ragg: "car", rapi: "des", sapi: "int", scal: "for", sopr: "sag", util: "car", valu: "int", vola: "des"
-};
-
-
-// === AGGIORNA I TOTALI E I MODIFICATORI DELLE ABILITÀ ===
 function aggiornaAbilita() {
   Object.entries(abilitaCaratteristiche).forEach(([prefix, stat]) => {
     const mod   = getVal(`${stat}_mod`);
@@ -173,8 +122,6 @@ function aggiornaAbilita() {
   });
 }
 
-
-// === SALVATAGGIO E CARICAMENTO ABILITÀ ===
 function salvaAbilita() {
   const data = {};
   Object.keys(abilitaCaratteristiche).forEach(pref => {
@@ -207,70 +154,39 @@ function caricaAbilita() {
   aggiornaAnteprime();
 }
 
-// === ARMATURE ===
-function aggiornaBonusArmaturaDaTabella() {
-  const rows = document.querySelectorAll("#tbodyArmature tr");
-  let totale = 0;
-  rows.forEach(row => {
-    const bonus = parseInt(row.querySelector(".armor-bonus")?.value || 0);
-    totale += bonus;
-  });
-  setVal("ca_armatura", totale);
-  calcolaCA();
-}
-
-function salvaArmature() {
-  const rows = document.querySelectorAll("#tbodyArmature tr");
-  const armature = Array.from(rows).map(row => ({
-    nome:     row.querySelector(".armor-nome")?.value || "",
-    bonus:    parseInt(row.querySelector(".armor-bonus")?.value || 0),
-    maxDes:   row.querySelector(".armor-maxdes")?.value || "",
-    penalita: row.querySelector(".armor-pen")?.value || "",
-    note:     row.querySelector(".armor-note")?.value || ""
-  }));
-  setVal("armature", JSON.stringify(armature));
-}
-
-function caricaArmature() {
-  const json = localStorage.getItem("armature");
-  if (!json) return;
-  const armature = JSON.parse(json);
-  armature.forEach(dati => aggiungiArmatura(dati));
-  aggiornaBonusArmaturaDaTabella();
-}
-
-function aggiungiArmatura(dati = {}) {
-  const tr = document.createElement("tr");
-  tr.innerHTML = `
-    <td><input class="armor-nome"    value="${dati.nome || ""}" /></td>
-    <td><input type="number" class="armor-bonus"  value="${dati.bonus || 0}" /></td>
-    <td><input class="armor-maxdes"  value="${dati.maxDes || ""}" /></td>
-    <td><input class="armor-pen"     value="${dati.penalita || ""}" /></td>
-    <td><input class="armor-note"    value="${dati.note || ""}" /></td>
-    <td><button class="remove">🗑️</button></td>
-  `;
-  tr.querySelectorAll("input").forEach(el => {
-    el.addEventListener("input", () => {
-      aggiornaBonusArmaturaDaTabella();
-      salvaArmature();
+async function loadFromFirestore() {
+  const { getDoc, doc } = await import("https://www.gstatic.com/firebasejs/11.7.1/firebase-firestore.js");
+  const ref = doc(window.db, "schede", "schedaLadro");
+  const snap = await getDoc(ref);
+  if (snap.exists()) {
+    const data = snap.data();
+    fields.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && data[id] !== undefined) {
+        if (el.type === "checkbox") el.checked = data[id];
+        else el.value = data[id];
+        localStorage.setItem(id, data[id]);
+      }
     });
-  });
-  tr.querySelector(".remove").addEventListener("click", () => {
-    tr.remove();
-    aggiornaBonusArmaturaDaTabella();
-    salvaArmature();
-  });
-  document.getElementById("tbodyArmature").appendChild(tr);
+    if (data.abilita) {
+      localStorage.setItem("abilita", data.abilita);
+      caricaAbilita();
+    }
+    aggiornaTuttiICalcoli();
+  }
 }
 
-// === AVVIO PAGINA ===
+async function saveToFirestore(id, value) {
+  const { setDoc, doc, getDoc } = await import("https://www.gstatic.com/firebasejs/11.7.1/firebase-firestore.js");
+  const ref = doc(window.db, "schede", "schedaLadro");
+  const current = (await getDoc(ref)).data() || {};
+  await setDoc(ref, { ...current, [id]: value });
+}
+
 window.addEventListener("DOMContentLoaded", async () => {
   await loadFromFirestore();
-
-  // Carico le abilità da JSON
   caricaAbilita();
 
-  // Salvo le abilità al cambiamento
   document
     .querySelectorAll('#sezione2 input[id$="_check"], #sezione2 input[id$="_gradi"], #sezione2 input[id$="_vari"]')
     .forEach(el => {
@@ -278,21 +194,10 @@ window.addEventListener("DOMContentLoaded", async () => {
       el.addEventListener("input",  salvaAbilita);
     });
 
-  // Inizializzazione dei singoli campi (inclusi gli altri)
   fields.forEach(id => {
     const el = document.getElementById(id);
     if (!el) return;
-    const saved = localStorage.getItem(id);
-    if (saved !== null) {
-      if (el.type === "checkbox") {
-        el.checked = saved === "true";
-        el.dispatchEvent(new Event("change"));
-      } else {
-        el.value = saved;
-      }
-    }
 
-    // Evidenzia riga abilità se checkbox selezionata
     if (id.endsWith("_check")) {
       const row = el.closest("tr");
       const toggleRowClass = () => {
@@ -312,54 +217,13 @@ window.addEventListener("DOMContentLoaded", async () => {
 
     el.addEventListener("input", save);
     el.addEventListener("change", save);
-    el.addEventListener("blur",  () => saveToFirestore(id, el.value));
+    el.addEventListener("blur", () => saveToFirestore(id, el.value));
   });
 
   aggiornaTuttiICalcoli();
   aggiornaAnteprime();
-  caricaArmature();
-
-  const btn = document.getElementById("aggiungiArmatura");
-  if (btn) {
-    btn.addEventListener("click", () => {
-      aggiungiArmatura();
-      salvaArmature();
-    });
-  }
-
-  // Tab switching
-  const tabs     = document.querySelectorAll(".tab-nav button");
-  const contents = document.querySelectorAll(".tab-content");
-  tabs.forEach(tab => {
-    tab.addEventListener("click", () => {
-      tabs.forEach(t => t.classList.remove("active"));
-      contents.forEach(c => c.classList.add("hidden"));
-      tab.classList.add("active");
-      document.getElementById(tab.getAttribute("data-tab"))
-              .classList.remove("hidden");
-      aggiornaTuttiICalcoli();
-    });
-  });
 });
+"""
 
-// Espone funzione per HTML
-window.toggleDettagli = function(btn) {
-  const dett     = btn.parentElement.nextElementSibling;
-  const isHidden = dett.style.display === "none";
-  dett.style.display = isHidden ? "block" : "none";
-  btn.textContent    = isHidden ? "− Nascondi" : "+ Mostra";
-  aggiornaAnteprime();
-};
-
-window.aggiornaTaglia = function() {
-  const mod = parseInt(document.getElementById("taglia").value);
-  ["ca_taglia","bmc_taglia","dmc_taglia"].forEach(id => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    el.readOnly = false;
-    el.value    = mod;
-    el.readOnly = true;
-    setVal(id, mod);
-  });
-  aggiornaTuttiICalcoli();
-};
+final_script_path.write_text(final_script)
+final_script_path.name

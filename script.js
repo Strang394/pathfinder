@@ -181,6 +181,62 @@ async function saveToFirestore(id, value) {
   await setDoc(ref, { ...current, [id]: value });
 }
 
+function aggiungiArmatura(dati = {}) {
+  const tr = document.createElement("tr");
+  tr.innerHTML = `
+    <td><input class="armor-nome" value="${dati.nome || ""}" /></td>
+    <td><input type="number" class="armor-bonus" value="${dati.bonus || 0}" /></td>
+    <td><input class="armor-maxdes" value="${dati.maxDes || ""}" /></td>
+    <td><input class="armor-pen" value="${dati.penalita || ""}" /></td>
+    <td><input class="armor-note" value="${dati.note || ""}" /></td>
+    <td><button class="remove">🗑️</button></td>
+  `;
+  tr.querySelectorAll("input").forEach(el => {
+    el.addEventListener("input", () => {
+      aggiornaBonusArmaturaDaTabella();
+      salvaArmature();
+    });
+  });
+  tr.querySelector(".remove").addEventListener("click", () => {
+    tr.remove();
+    aggiornaBonusArmaturaDaTabella();
+    salvaArmature();
+  });
+  document.getElementById("tbodyArmature").appendChild(tr);
+}
+
+function salvaArmature() {
+  const rows = document.querySelectorAll("#tbodyArmature tr");
+  const armature = Array.from(rows).map(row => ({
+    nome: row.querySelector(".armor-nome")?.value || "",
+    bonus: parseInt(row.querySelector(".armor-bonus")?.value || 0),
+    maxDes: row.querySelector(".armor-maxdes")?.value || "",
+    penalita: row.querySelector(".armor-pen")?.value || "",
+    note: row.querySelector(".armor-note")?.value || ""
+  }));
+  setVal("armature", JSON.stringify(armature));
+}
+
+function aggiornaBonusArmaturaDaTabella() {
+  const rows = document.querySelectorAll("#tbodyArmature tr");
+  let totale = 0;
+  rows.forEach(row => {
+    const bonus = parseInt(row.querySelector(".armor-bonus")?.value || 0);
+    totale += bonus;
+  });
+  setVal("ca_armatura", totale);
+  calcolaCA();
+}
+
+function caricaArmature() {
+  const json = localStorage.getItem("armature");
+  if (!json) return;
+  const armature = JSON.parse(json);
+  armature.forEach(dati => aggiungiArmatura(dati));
+  aggiornaBonusArmaturaDaTabella();
+}
+
+
 window.addEventListener("DOMContentLoaded", async () => {
   await loadFromFirestore();
   caricaAbilita();

@@ -1,0 +1,15 @@
+{
+  "name": "Scheda Personaggio",
+  "short_name": "SchedaPG",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#1e1e2f",
+  "theme_color": "#6c4ccf",
+  "icons": [
+    {
+      "src": "icon512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

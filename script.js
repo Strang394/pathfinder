@@ -21,6 +21,22 @@ const fields = [
   "monete_rame", "monete_argento", "monete_oro", "monete_platino", "armature"
 ];
 
+document.addEventListener("DOMContentLoaded", () => {
+  const tabs = document.querySelectorAll(".tab-nav button");
+  const contents = document.querySelectorAll(".tab-content");
+
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      tabs.forEach(t => t.classList.remove("active"));
+      contents.forEach(c => c.classList.add("hidden"));
+      tab.classList.add("active");
+      const selected = document.getElementById(tab.getAttribute("data-tab"));
+      if (selected) selected.classList.remove("hidden");
+      aggiornaTuttiICalcoli();
+    });
+  });
+});
+
 // Mappa delle abilità e della caratteristica associata
 const abilitaCaratteristiche = {
   acro: "des", adda: "car", arti: "int", arte: "des", camu: "car", cava: "des",
@@ -285,18 +301,4 @@ window.addEventListener("DOMContentLoaded", async () => {
       salvaArmature();
     });
   }
-
-  // Comportamento dei tab (navigazione a sezioni)
-  const tabs = document.querySelectorAll(".tab-nav button");
-  const contents = document.querySelectorAll(".tab-content");
-  tabs.forEach(tab => {
-    tab.addEventListener("click", () => {
-      tabs.forEach(t => t.classList.remove("active"));
-      contents.forEach(c => c.classList.add("hidden"));
-      tab.classList.add("active");
-      document.getElementById(tab.getAttribute("data-tab"))
-              .classList.remove("hidden");
-      aggiornaTuttiICalcoli();
-    });
-  });
 });

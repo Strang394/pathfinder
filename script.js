@@ -1,5 +1,5 @@
-
-// === CAMPI SALVATI IN FIRESTORE E LOCALSTORAGE ===
+// === INIZIALIZZAZIONE DEI CAMPI PRINCIPALI ===
+// Questi sono tutti i campi salvati nel localStorage e su Firestore.
 const fields = [
   "nome", "giocatore", "razza", "classeLivello", "allineamento",
   "divinita", "origini", "taglia", "sesso", "eta", "altezza", "peso", "capelli", "occhi",
@@ -21,6 +21,7 @@ const fields = [
   "monete_rame", "monete_argento", "monete_oro", "monete_platino", "armature"
 ];
 
+// Mappa delle abilità e della caratteristica associata
 const abilitaCaratteristiche = {
   acro: "des", adda: "car", arti: "int", arte: "des", camu: "car", cava: "des",
   cona: "int", cond: "int", cong: "int", coni: "int", conl: "int", conn: "int", cono: "int", conp: "int", conr: "int", cons: "int",
@@ -28,16 +29,19 @@ const abilitaCaratteristiche = {
   perc: "sag", prof: "sag", ragg: "car", rapi: "des", sapi: "int", scal: "for", sopr: "sag", util: "car", valu: "int", vola: "des"
 };
 
+// Calcola il modificatore a partire dal punteggio (es: 10 -> 0, 14 -> +2, etc.)
 function calcMod(score) {
   const val = parseInt(score);
   return isNaN(val) ? "" : Math.floor((val - 10) / 2);
 }
 
+// Recupera un valore dal campo con ID specificato
 function getVal(id) {
   const el = document.getElementById(id);
   return el && el.value.trim() !== "" ? parseInt(el.value) || 0 : 0;
 }
 
+// Imposta un valore nel campo, nel localStorage e su Firestore
 function setVal(id, val) {
   const el = document.getElementById(id);
   if (el) el.value = val === null ? "" : val;
@@ -45,6 +49,7 @@ function setVal(id, val) {
   saveToFirestore(id, val ?? "");
 }
 
+// Funzioni di calcolo automatico delle caratteristiche del personaggio
 function updateModificatori() {
   ["for","des","cos","int","sag","car"].forEach(stat => {
     setVal(`${stat}_mod`, calcMod(getVal(stat)));
@@ -90,6 +95,7 @@ function calcolaCombattimento() {
   setVal("dmc_tot", 10 + getVal("bab") + getVal("for_mod") + getVal("des_mod") + getVal("dmc_taglia"));
 }
 
+// Mostra le anteprime dei valori chiave accanto ai titoli
 function aggiornaAnteprime() {
   ["ca_tot","ca_contatto","ca_impreparato","init_tot","ts_tempra_tot",
    "ts_riflessi_tot","ts_volonta_tot","bmc_tot","dmc_tot","pf_totali","vel_terreno"]
@@ -100,6 +106,7 @@ function aggiornaAnteprime() {
   });
 }
 
+// Funzione centrale che ricalcola tutto il foglio
 function aggiornaTuttiICalcoli() {
   updateModificatori();
   calcolaIniziativa();
@@ -110,6 +117,7 @@ function aggiornaTuttiICalcoli() {
   aggiornaAbilita();
 }
 
+// Calcola le abilità partendo dalle caratteristiche
 function aggiornaAbilita() {
   Object.entries(abilitaCaratteristiche).forEach(([prefix, stat]) => {
     const mod   = getVal(`${stat}_mod`);
@@ -120,6 +128,7 @@ function aggiornaAbilita() {
   });
 }
 
+// Salva lo stato delle abilità su localStorage e Firestore
 function salvaAbilita() {
   const data = {};
   Object.keys(abilitaCaratteristiche).forEach(pref => {
@@ -136,6 +145,7 @@ function salvaAbilita() {
   aggiornaAnteprime();
 }
 
+// Carica i dati delle abilità da localStorage
 function caricaAbilita() {
   const raw = localStorage.getItem("abilita");
   if (!raw) return;
@@ -152,6 +162,7 @@ function caricaAbilita() {
   aggiornaAnteprime();
 }
 
+// Funzione per caricare tutti i dati dal documento Firestore all'avvio
 async function loadFromFirestore() {
   const { getDoc, doc } = await import("https://www.gstatic.com/firebasejs/11.7.1/firebase-firestore.js");
   const ref = doc(window.db, "schede", "schedaLadro");
@@ -174,6 +185,7 @@ async function loadFromFirestore() {
   }
 }
 
+// Salva un singolo campo su Firestore
 async function saveToFirestore(id, value) {
   const { setDoc, doc, getDoc } = await import("https://www.gstatic.com/firebasejs/11.7.1/firebase-firestore.js");
   const ref = doc(window.db, "schede", "schedaLadro");
@@ -181,67 +193,62 @@ async function saveToFirestore(id, value) {
   await setDoc(ref, { ...current, [id]: value });
 }
 
-function aggiungiArmatura(dati = {}) {
-  const tr = document.createElement("tr");
-  tr.innerHTML = `
-    <td><input class="armor-nome" value="${dati.nome || ""}" /></td>
-    <td><input type="number" class="armor-bonus" value="${dati.bonus || 0}" /></td>
-    <td><input class="armor-maxdes" value="${dati.maxDes || ""}" /></td>
-    <td><input class="armor-pen" value="${dati.penalita || ""}" /></td>
-    <td><input class="armor-note" value="${dati.note || ""}" /></td>
-    <td><button class="remove">🗑️</button></td>
-  `;
-  tr.querySelectorAll("input").forEach(el => {
-    el.addEventListener("input", () => {
-      aggiornaBonusArmaturaDaTabella();
-      salvaArmature();
-    });
+// Attiva la sincronizzazione in tempo reale con Firestore
+async function avviaSincronizzazioneLive() {
+  const { onSnapshot, doc } = await import("https://www.gstatic.com/firebasejs/11.7.1/firebase-firestore.js");
+  const ref = doc(window.db, "schede", "schedaLadro");
+
+  onSnapshot(ref, (snap) => {
+    if (snap.exists()) {
+      const data = snap.data();
+      fields.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && data[id] !== undefined) {
+          if (el.type === "checkbox") el.checked = data[id];
+          else el.value = data[id];
+          localStorage.setItem(id, data[id]);
+        }
+      });
+      if (data.abilita) {
+        localStorage.setItem("abilita", data.abilita);
+        caricaAbilita();
+      }
+      aggiornaTuttiICalcoli();
+    }
   });
-  tr.querySelector(".remove").addEventListener("click", () => {
-    tr.remove();
-    aggiornaBonusArmaturaDaTabella();
-    salvaArmature();
+}
+
+// Debounce = evita chiamate eccessive a Firestore mentre si digita
+function debounce(fn, delay = 500) {
+  let timeout;
+  return (...args) => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => fn(...args), delay);
+  };
+}
+
+// Applica debounce ai salvataggi dei campi
+function aggiungiListenerSalvataggioConDebounce(id, el) {
+  const save = debounce(() => {
+    const value = el.type === "checkbox" ? el.checked : el.value;
+    localStorage.setItem(id, value);
+    saveToFirestore(id, value);
+    aggiornaTuttiICalcoli();
   });
-  document.getElementById("tbodyArmature").appendChild(tr);
+
+  el.addEventListener("input", save);
+  el.addEventListener("change", save);
+  el.addEventListener("blur", () => saveToFirestore(id, el.value));
 }
 
-function salvaArmature() {
-  const rows = document.querySelectorAll("#tbodyArmature tr");
-  const armature = Array.from(rows).map(row => ({
-    nome: row.querySelector(".armor-nome")?.value || "",
-    bonus: parseInt(row.querySelector(".armor-bonus")?.value || 0),
-    maxDes: row.querySelector(".armor-maxdes")?.value || "",
-    penalita: row.querySelector(".armor-pen")?.value || "",
-    note: row.querySelector(".armor-note")?.value || ""
-  }));
-  setVal("armature", JSON.stringify(armature));
-}
-
-function aggiornaBonusArmaturaDaTabella() {
-  const rows = document.querySelectorAll("#tbodyArmature tr");
-  let totale = 0;
-  rows.forEach(row => {
-    const bonus = parseInt(row.querySelector(".armor-bonus")?.value || 0);
-    totale += bonus;
-  });
-  setVal("ca_armatura", totale);
-  calcolaCA();
-}
-
-function caricaArmature() {
-  const json = localStorage.getItem("armature");
-  if (!json) return;
-  const armature = JSON.parse(json);
-  armature.forEach(dati => aggiungiArmatura(dati));
-  aggiornaBonusArmaturaDaTabella();
-}
-
-
+// Avvio dell'app quando la pagina è pronta
 window.addEventListener("DOMContentLoaded", async () => {
-  await loadFromFirestore();
+  await loadFromFirestore(); // carica dati iniziali
+  avviaSincronizzazioneLive(); // attiva sync live
   caricaAbilita();
   caricaArmature();
 
+  // Abilità: aggiorna su modifiche
   document
     .querySelectorAll('#sezione2 input[id$="_check"], #sezione2 input[id$="_gradi"], #sezione2 input[id$="_vari"]')
     .forEach(el => {
@@ -249,6 +256,7 @@ window.addEventListener("DOMContentLoaded", async () => {
       el.addEventListener("input",  salvaAbilita);
     });
 
+  // Assegna listener a tutti i campi definiti in "fields"
   fields.forEach(id => {
     const el = document.getElementById(id);
     if (!el) return;
@@ -263,22 +271,14 @@ window.addEventListener("DOMContentLoaded", async () => {
       toggleRowClass();
     }
 
-    const save = () => {
-      const value = el.type === "checkbox" ? el.checked : el.value;
-      localStorage.setItem(id, value);
-      saveToFirestore(id, value);
-      aggiornaTuttiICalcoli();
-    };
-
-    el.addEventListener("input", save);
-    el.addEventListener("change", save);
-    el.addEventListener("blur", () => saveToFirestore(id, el.value));
+    aggiungiListenerSalvataggioConDebounce(id, el);
   });
 
   aggiornaTuttiICalcoli();
   aggiornaAnteprime();
 
-    const btn = document.getElementById("aggiungiArmatura");
+  // Pulsante per aggiungere nuove armature
+  const btn = document.getElementById("aggiungiArmatura");
   if (btn) {
     btn.addEventListener("click", () => {
       aggiungiArmatura();
@@ -286,20 +286,17 @@ window.addEventListener("DOMContentLoaded", async () => {
     });
   }
 
-  // Tab switching (ripristinato!)
-const tabs = document.querySelectorAll(".tab-nav button");
-const contents = document.querySelectorAll(".tab-content");
-tabs.forEach(tab => {
-  tab.addEventListener("click", () => {
-    tabs.forEach(t => t.classList.remove("active"));
-    contents.forEach(c => c.classList.add("hidden"));
-    tab.classList.add("active");
-    document.getElementById(tab.getAttribute("data-tab"))
-            .classList.remove("hidden");
-    aggiornaTuttiICalcoli();
+  // Comportamento dei tab (navigazione a sezioni)
+  const tabs = document.querySelectorAll(".tab-nav button");
+  const contents = document.querySelectorAll(".tab-content");
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      tabs.forEach(t => t.classList.remove("active"));
+      contents.forEach(c => c.classList.add("hidden"));
+      tab.classList.add("active");
+      document.getElementById(tab.getAttribute("data-tab"))
+              .classList.remove("hidden");
+      aggiornaTuttiICalcoli();
+    });
   });
 });
-});
-
-final_script_path.write_text(final_script)
-final_script_path.name
